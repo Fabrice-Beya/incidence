@@ -5,11 +5,12 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {updateEmail, updatePassword, updateUsername, updateLocation, signup} from '../actions/user';
 
+
 class Signup extends React.Component {
-    // signup = () => {
-    //     this.props.signup();
-    //     this.props.navigation.navigate('Home');
-    // }
+    signup = () => {
+        this.props.signup();
+        this.props.navigation.navigate('Home');
+    }
   
   render() {
     return (

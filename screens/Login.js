@@ -1,11 +1,26 @@
 import React from 'react';
-import {Text, ScrollView, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import {Text, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import styles from '../styles';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {updateEmail, updatePassword} from '../actions/user';
+import {updateEmail, updatePassword, login, getUser, facebookLogin, signout} from '../actions/user';
+import firebase from 'firebase';
 
 class Login extends React.Component {
+
+  componentDidMount = () => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if(user){
+        this.props.getUser(user.uid)
+        if(this.props.user != null){
+          this.props.navigation.navigate('Home')
+        } 
+      } else {
+        // this.props.signout;
+      }
+    })
+  }
+
   render() {
     return (
           <KeyboardAvoidingView style={styles.container}>
@@ -45,7 +60,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({updateEmail, updatePassword},dispatch)
+  return bindActionCreators({updateEmail, updatePassword, login, getUser, facebookLogin, signout},dispatch)
 } 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

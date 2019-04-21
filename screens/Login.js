@@ -1,13 +1,15 @@
 import React from 'react';
-import { Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import {Text, ScrollView, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import styles from '../styles';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {updateEmail, updatePassword} from '../actions/user';
 
 class Login extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <ScrollView>
-          <KeyboardAvoidingView>
+          <KeyboardAvoidingView style={styles.container}>
+          
           <Text>Login</Text>
             <TextInput 
                 style = {styles.border}
@@ -32,10 +34,18 @@ class Login extends React.Component {
               <Text style={styles.buttonText}>Login with Facebook</Text>
             </TouchableOpacity>
           </KeyboardAvoidingView>
-        </ScrollView>
-      </View>
     );
   }
 }
 
-export default Login;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({updateEmail, updatePassword},dispatch)
+} 
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

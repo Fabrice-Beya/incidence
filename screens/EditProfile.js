@@ -9,15 +9,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { uploadPhoto } from '../actions/index'
 import { updateEmail, updatePhoto, updateUser, updatePassword, updateFullname, updateResidence, updateUnit, signup } from '../actions/user';
 
+class EditProfile extends React.Component {
 
-class Signup extends React.Component {
-
-    signup = () => {
-        this.props.signup();
-        if (this.props.user.uid) {
-            this.props.navigation.navigate('Home');
-        }
-
+    updateUser = () => {
+        this.props.updateUser();
+        this.props.navigation.goBack();
     }
 
     openPhotoLib = async () => {
@@ -25,7 +21,7 @@ class Signup extends React.Component {
         if (status === 'granted') {
             const image = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true })
             if (!image.cancelled) {
-                const url = await this.props.dispatch(uploadPhoto(image));
+                const url = await this.props.uploadPhoto(image);
                 this.props.updatePhoto(url);
             }
         }
@@ -43,17 +39,6 @@ class Signup extends React.Component {
                     value={this.props.user.fullname}
                     placeholder='Full Names'
                     onChangeText={input => this.props.updateFullname(input)} />
-                <TextInput
-                    style={styles.border}
-                    value={this.props.user.email}
-                    placeholder='Email'
-                    onChangeText={input => this.props.updateEmail(input)} />
-                <TextInput
-                    style={styles.border}
-                    value={this.props.user.password}
-                    placeholder='Password'
-                    secureTextEntry={true}
-                    onChangeText={input => this.props.updatePassword(input)} />
                 <Picker
                     selectedValue={this.props.user.residence}
                     onValueChange={(itemValue, itemIndex) =>
@@ -80,8 +65,8 @@ class Signup extends React.Component {
                     <Picker.Item label="005" value="005" />
                     <Picker.Item label="006" value="006" />
                 </Picker>
-                <TouchableOpacity style={styles.button} onPress={() => this.signup()}>
-                    <Text style={styles.buttonText}>Sign Up</Text>
+                <TouchableOpacity style={styles.button} onPress={() => this.updateUser()}>
+                    <Text style={styles.buttonText}>Update</Text>
                 </TouchableOpacity>
             </KeyboardAvoidingView>
         );
@@ -95,9 +80,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ updateEmail, updatePhoto, uploadPhoto, updatePassword, updateFullname, updateResidence, updateUnit, signup }, dispatch)
+    return bindActionCreators({ updateEmail, updateUser, updatePhoto, uploadPhoto, updatePassword, updateFullname, updateResidence, updateUnit, signup }, dispatch)
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(Signup)
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile)
 
 

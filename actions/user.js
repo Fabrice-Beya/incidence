@@ -9,12 +9,24 @@ export const updatePassword = (password) => {
     return {type: 'UPDATE_PASSWORD', payload: password}
 }
 
-export const updateUsername = (username) => {
-    return {type: 'UPDATE_USERNAME', payload: username}
+export const updateFullname = (fullname) => {
+    return {type: 'UPDATE_fullname', payload: fullname}
 }
 
-export const updateLocation = (bio) => {
-    return {type: 'UPDATE_LOCATION', payload: bio}
+// export const updateLocation = (location) => {
+//     return {type: 'UPDATE_LOCATION', payload: location}
+// }
+
+export const updateResidence = (residence) => {
+    return {type: 'UPDATE_RESIDENCE', payload: residence}
+}
+
+export const updateUnit = (unit) => {
+    return {type: 'UPDATE_UNIT', payload: unit}
+}
+
+export const updatePhoto = (photo) => {
+    return {type: 'UPDATE_PHOTO', payload: photo}
 }
 
 export const signout = () => {
@@ -50,8 +62,10 @@ export const facebookLogin = () => {
                     const newUser = {
                         uid: response.uid,
                         email: response.email,
-                        username: response.displayName,
+                        fullname: response.displayName,
                         location: '',
+                        residence:' ',
+                        unit: '',
                         photo: response.photoURL,
                         token: null
                     }   
@@ -70,13 +84,26 @@ export const facebookLogin = () => {
     }
 }
 
-
-export const getUser = (uid) => {
-    return async (dispatch) => {
+export const signup = () => {
+    return async (dispatch, getState) => {
         try {
-            const user = await db.collection('users').doc(uid).get();
-            if(user.exists){
-                dispatch({type: 'LOGIN', payload: user.data()})
+            const {email, password, fullname, residence, unit, photo} = getState().user
+            const response = await firebase.auth().createUserWithEmailAndPassword(email, password)
+            
+            if(response.user.uid){
+                const user = {
+                uid: response.user.uid,
+                email: email,
+                fullname: fullname,
+                residence: residence || ' ',
+                unit: unit || ' ',
+                photo: photo || ' ',
+                role: 'tenant',
+                token: null
+                }   
+
+                await db.collection('users').doc(response.user.uid).set(user)
+                dispatch({type: 'SIGNUP', payload: user})
             }
         } catch (e) {
             alert(e)
@@ -85,24 +112,29 @@ export const getUser = (uid) => {
     }
 }
 
-export const signup = () => {
+export const updateUser = () => {
     return async (dispatch, getState) => {
         try {
-            const {email, password, username, location} = getState().user
-            const response = await firebase.auth().createUserWithEmailAndPassword(email, password)
-            
-            if(response.user.uid){
-                const user = {
-                uid: response.user.uid,
-                email: email,
-                username: username,
-                lcoation: location,
-                photo: '',
-                token: null
-                }   
+            const {user} = getState();
+        
+            const updatedUser = await db.collection('users').doc(user.uid).set(user);
+            console.log(user)
+            if(user.exists){
+                dispatch({type: 'UPDATE_USER', payload: updatedUser.data()})
+            }
+        } catch (e) {
+            alert(e)
+        }
+       
+    }
+}
 
-                await db.collection('users').doc(response.user.uid).set(user)
-                dispatch({type: 'SIGNUP', payload: user})
+export const getUser = (uid) => {
+    return async (dispatch) => {
+        try {
+            const user = await db.collection('users').doc(uid).get();
+            if(user.exists){
+                dispatch({type: 'LOGIN', payload: user.data()})
             }
         } catch (e) {
             alert(e)

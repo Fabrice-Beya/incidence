@@ -1,15 +1,21 @@
-import {combineReducers} from 'redux'
+import { combineReducers } from 'redux'
 
 const user = (state = {}, action) => {
     switch (action.type) {
         case 'UPDATE_EMAIL':
-            return {...state, email: action.payload}
+            return { ...state, email: action.payload }
         case 'UPDATE_PASSWORD':
-            return {...state, password: action.payload}
-        case 'UPDATE_USERNAME':
-            return {...state, username: action.payload}
-        case 'UPDATE_LOCATION':
-            return {...state, location: action.payload}
+            return { ...state, password: action.payload }
+        case 'UPDATE_fullname':
+            return { ...state, fullname: action.payload }
+        // case 'UPDATE_LOCATION':
+        //     return {...state, location: action.payload}
+        case 'UPDATE_RESIDENCE':
+            return { ...state, residence: action.payload }
+        case 'UPDATE_UNIT':
+            return { ...state, unit: action.payload }
+        case 'UPDATE_PHOTO':
+            return { ...state, photo: action.payload }
         case 'LOGIN':
             return action.payload
         case 'SIGNUP':
@@ -19,7 +25,7 @@ const user = (state = {}, action) => {
         default:
             return state
     }
-} 
+}
 
 // const post = (state = null, action) => {
 //     switch (action.type) {

@@ -5,6 +5,7 @@ import SearchScreen from '../screens/Search';
 import PostScreen from '../screens/Post';
 import NotificationsScreen from '../screens/Notifications';
 import ProfileScreen from '../screens/Profile';
+import CameraScreen from '../screens/Camera';
 import { Image, TouchableOpacity} from 'react-native';
 import EditProfileScreen from '../screens/EditProfile';
 import { Ionicons } from '@expo/vector-icons';
@@ -57,6 +58,12 @@ export const PostNavigator = createAppContainer(createStackNavigator({
       screen: PostScreen,
       navigationOptions: {
         title: "Post"
+      }
+    },
+    Camera: {
+      screen: CameraScreen,
+      navigationOptions: {
+        header: null
       }
     }
 }))

@@ -63,6 +63,24 @@ export default styles = StyleSheet.create({
       borderBottomWidth: 1,
       textAlign: 'center'
     },
+    noBorder: {
+      width: '85%',
+      margin: 10,
+      padding: 5,
+      fontSize: 16,
+      borderColor: '#333333',
+      borderBottomWidth: 1,
+      textAlign: 'center'
+    },
+    textArea: {
+      width: '85%',
+      fontSize: 14,
+      margin: 10,
+      padding: 5,
+      // borderColor: '#333333',
+      // borderWidth: 1,
+      textAlign: 'left'
+    },
     pickerBorder: {
       width: '85%',
     },
@@ -81,6 +99,10 @@ export default styles = StyleSheet.create({
       height: 40,
       width:40,
       backgroundColor: '#adadad'
+    },
+    incidencePicture: {
+      width: width,
+      height:200,
     },
     postPhoto: {
       height: 250,
@@ -106,6 +128,9 @@ export default styles = StyleSheet.create({
     },
     gray: {
       color: 'gray'
+    },
+    bold: {
+      fontWeight: 'bold'
     }
   });
 

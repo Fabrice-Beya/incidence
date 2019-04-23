@@ -1,0 +1,319 @@
+
+{
+  "header": {
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "FatalError",
+    "filename": "report.20190423.193256.19600.001.json",
+    "dumpEventTime": "2019-04-23T19:32:56Z",
+    "processId": 19600,
+    "commandLine": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\BYXFA\\AppData\\Roaming\\npm\\\\node_modules\\expo-cli\\bin\\expo.js",
+      "start"
+    ],
+    "nodejsVersion": "v11.11.0",
+    "wordSize": 64,
+    "arch": "x64",
+    "platform": "win32",
+    "componentVersions": {
+      "node": "11.11.0",
+      "v8": "7.0.276.38-node.18",
+      "uv": "1.26.0",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "67",
+      "nghttp2": "1.34.0",
+      "napi": "4",
+      "llhttp": "1.1.1",
+      "http_parser": "2.8.0",
+      "openssl": "1.1.1a",
+      "cldr": "34.0",
+      "icu": "63.1",
+      "tz": "2018e",
+      "unicode": "11.0"
+    },
+    "release": {
+      "name": "node",
+      "headersUrl": "https://nodejs.org/download/release/v11.11.0/node-v11.11.0-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v11.11.0/node-v11.11.0.tar.gz",
+      "libUrl": "https://nodejs.org/download/release/v11.11.0/win-x64/node.lib"
+    },
+    "osName": "Windows_NT",
+    "osRelease": "10.0.17763",
+    "osVersion": "Windows 10 Pro",
+    "osMachine": "x86_64",
+    "host": "DESKTOP-IJUMJLQ"
+  },
+  "javascriptStack": {
+    "message": "No stack.",
+    "stack": [
+      "Unavailable."
+    ]
+  },
+  "nativeStack": [
+    {
+      "pc": "0x00007ff7b1c5bc4e",
+      "symbol": "SSL_SESSION_get0_peer+15022"
+    },
+    {
+      "pc": "0x00007ff7b1c5ab04",
+      "symbol": "SSL_SESSION_get0_peer+10596"
+    },
+    {
+      "pc": "0x00007ff7b1c5a336",
+      "symbol": "SSL_SESSION_get0_peer+8598"
+    },
+    {
+      "pc": "0x00007ff7b1d4703a",
+      "symbol": "uv_loop_fork+86202"
+    },
+    {
+      "pc": "0x00007ff7b212e49e",
+      "symbol": "v8::internal::FatalProcessOutOfMemory+798"
+    },
+    {
+      "pc": "0x00007ff7b212e3d7",
+      "symbol": "v8::internal::FatalProcessOutOfMemory+599"
+    },
+    {
+      "pc": "0x00007ff7b21d91a4",
+      "symbol": "v8::internal::Heap::RootIsImmortalImmovable+14068"
+    },
+    {
+      "pc": "0x00007ff7b21cefb2",
+      "symbol": "v8::internal::Heap::CollectGarbage+7234"
+    },
+    {
+      "pc": "0x00007ff7b21cd7c8",
+      "symbol": "v8::internal::Heap::CollectGarbage+1112"
+    },
+    {
+      "pc": "0x00007ff7b21d70f7",
+      "symbol": "v8::internal::Heap::RootIsImmortalImmovable+5703"
+    },
+    {
+      "pc": "0x00007ff7b21d7176",
+      "symbol": "v8::internal::Heap::RootIsImmortalImmovable+5830"
+    },
+    {
+      "pc": "0x00007ff7b2358481",
+      "symbol": "v8::internal::Factory::NewFillerObject+49"
+    },
+    {
+      "pc": "0x00007ff7b240dbb6",
+      "symbol": "v8::internal::StoreBuffer::StoreBufferOverflow+27190"
+    },
+    {
+      "pc": "0x000003092ead0481",
+      "symbol": ""
+    }
+  ],
+  "javascriptHeap": {
+    "totalMemory": 1518350336,
+    "totalCommittedMemory": 1518350336,
+    "usedMemory": 1414222504,
+    "availableMemory": 24351856,
+    "memoryLimit": 1526909922,
+    "heapSpaces": {
+      "read_only_space": {
+        "memorySize": 524288,
+        "committedMemory": 524288,
+        "capacity": 515584,
+        "used": 33520,
+        "available": 482064
+      },
+      "new_space": {
+        "memorySize": 33554432,
+        "committedMemory": 33554432,
+        "capacity": 16498688,
+        "used": 962160,
+        "available": 15536528
+      },
+      "old_space": {
+        "memorySize": 1456672768,
+        "committedMemory": 1456672768,
+        "capacity": 1397830168,
+        "used": 1397729352,
+        "available": 100816
+      },
+      "code_space": {
+        "memorySize": 2621440,
+        "committedMemory": 2621440,
+        "capacity": 1953248,
+        "used": 1953248,
+        "available": 0
+      },
+      "map_space": {
+        "memorySize": 18886656,
+        "committedMemory": 18886656,
+        "capacity": 8809920,
+        "used": 8809920,
+        "available": 0
+      },
+      "large_object_space": {
+        "memorySize": 6090752,
+        "committedMemory": 6090752,
+        "capacity": 12966752,
+        "used": 4734304,
+        "available": 8232448
+      },
+      "new_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 0,
+        "used": 0,
+        "available": 0
+      }
+    }
+  },
+  "libuv": [
+  ],
+  "environmentVariables": {
+    "=C:": "c:\\Users\\BYXFA\\Documents\\alert",
+    "ALLUSERSPROFILE": "C:\\ProgramData",
+    "ANDROID_HOME": "C:\\Users\\BYXFA\\AppData\\Local\\Android\\Sdk",
+    "APPDATA": "C:\\Users\\BYXFA\\AppData\\Roaming",
+    "CDS_LIC_FILE": "C:\\Cadence\\SPB_17.2\\License.dat",
+    "CDS_LIC_ONLY": "1",
+    "CDS_LISTENER_MODE": "LOCAL",
+    "ChocolateyInstall": "C:\\ProgramData\\chocolatey",
+    "ChocolateyLastPathUpdate": "Fri Mar  8 14:48:49 2019",
+    "CLASSPATH": ".;",
+    "CommonProgramFiles": "C:\\Program Files\\Common Files",
+    "CommonProgramFiles(x86)": "C:\\Program Files (x86)\\Common Files",
+    "CommonProgramW6432": "C:\\Program Files\\Common Files",
+    "COMPUTERNAME": "DESKTOP-IJUMJLQ",
+    "ComSpec": "C:\\WINDOWS\\system32\\cmd.exe",
+    "DriverData": "C:\\Windows\\System32\\Drivers\\DriverData",
+    "FPS_BROWSER_APP_PROFILE_STRING": "Internet Explorer",
+    "FPS_BROWSER_USER_PROFILE_STRING": "Default",
+    "HOME": "C:\\SPB_DATA",
+    "HOMEDRIVE": "C:",
+    "HOMEPATH": "\\Users\\BYXFA",
+    "INIT_CWD": "c:\\Users\\BYXFA\\Documents\\alert",
+    "JAVA_HOME": "C:\\Program Files\\Java\\jdk1.8.0_201",
+    "LANG": "en_US.UTF-8",
+    "LOCALAPPDATA": "C:\\Users\\BYXFA\\AppData\\Local",
+    "LOGONSERVER": "\\\\DESKTOP-IJUMJLQ",
+    "MOZ_PLUGIN_PATH": "C:\\Program Files (x86)\\Foxit Software\\Foxit Reader\\plugins\\",
+    "NODE": "C:\\Program Files\\nodejs\\node.exe",
+    "npm_config_argv": "{\"remain\":[],\"cooked\":[\"run\",\"start\"],\"original\":[\"start\"]}",
+    "npm_config_bin_links": "true",
+    "npm_config_ignore_optional": "",
+    "npm_config_ignore_scripts": "",
+    "npm_config_init_license": "MIT",
+    "npm_config_init_version": "1.0.0",
+    "npm_config_registry": "https://registry.yarnpkg.com",
+    "npm_config_save_prefix": "^",
+    "npm_config_strict_ssl": "true",
+    "npm_config_user_agent": "yarn/1.13.0 npm/? node/v11.11.0 win32 x64",
+    "npm_config_version_commit_hooks": "true",
+    "npm_config_version_git_message": "v%s",
+    "npm_config_version_git_sign": "",
+    "npm_config_version_git_tag": "true",
+    "npm_config_version_tag_prefix": "v",
+    "npm_execpath": "C:\\Program Files (x86)\\Yarn\\bin\\yarn.js",
+    "npm_lifecycle_event": "start",
+    "npm_lifecycle_script": "expo start",
+    "npm_node_execpath": "C:\\Program Files\\nodejs\\node.exe",
+    "npm_package_dependencies_expo": "^31.0.2",
+    "npm_package_dependencies_firebase": "^5.10.0",
+    "npm_package_dependencies_lodash": "^4.17.11",
+    "npm_package_dependencies_react": "16.5.0",
+    "npm_package_dependencies_react_native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
+    "npm_package_dependencies_react_native_dialog": "^5.6.0",
+    "npm_package_dependencies_react_native_keyboard_aware_scroll_view": "^0.8.0",
+    "npm_package_dependencies_react_native_modal_datetime_picker": "^7.4.0",
+    "npm_package_dependencies_react_navigation": "^3.8.1",
+    "npm_package_dependencies_react_redux": "6.0.0",
+    "npm_package_dependencies_redux": "^4.0.1",
+    "npm_package_dependencies_redux_logger": "^3.0.6",
+    "npm_package_dependencies_redux_thunk": "^2.3.0",
+    "npm_package_dependencies_uuid": "^3.3.2",
+    "npm_package_devDependencies_babel_preset_expo": "^5.0.0",
+    "npm_package_main": "node_modules/expo/AppEntry.js",
+    "npm_package_name": "empty-project-template",
+    "npm_package_private": "true",
+    "npm_package_scripts_android": "expo start --android",
+    "npm_package_scripts_eject": "expo eject",
+    "npm_package_scripts_ios": "expo start --ios",
+    "npm_package_scripts_start": "expo start",
+    "npm_package_version": "",
+    "NUMBER_OF_PROCESSORS": "8",
+    "OneDrive": "C:\\Users\\BYXFA\\OneDrive",
+    "OS": "Windows_NT",
+    "Path": "C:\\Users\\BYXFA\\AppData\\Local\\Temp\\yarn--1556037079105-0.8805397549030252;c:\\Users\\BYXFA\\Documents\\alert\\node_modules\\.bin;C:\\Users\\BYXFA\\AppData\\Local\\Yarn\\Data\\link\\node_modules\\.bin;c:\\Users\\BYXFA\\Documents\\alert\\node_modules\\.bin;C:\\Users\\BYXFA\\AppData\\Local\\Yarn\\Data\\link\\node_modules\\.bin;C:\\Program Files\\libexec\\lib\\node_modules\\npm\\bin\\node-gyp-bin;C:\\Program Files\\lib\\node_modules\\npm\\bin\\node-gyp-bin;C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\node-gyp-bin;C:\\Program Files\\nodejs;C:\\Python27\\;C:\\Python27\\Scripts;C:\\Program Files (x86)\\Common Files\\Oracle\\Java\\javapath;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C:\\Program Files\\NVIDIA Corporation\\NVIDIA NvDLISR;C:\\Program Files\\Git\\cmd;C:\\Program Files\\PuTTY\\;C:\\ProgramData\\chocolatey\\bin;C:\\Program Files\\nodejs\\;C:\\Program Files\\Java\\jdk1.8.0_201\\bin;C:\\Program Files (x86)\\Yarn\\bin\\;C:\\Users\\BYXFA\\AppData\\Local\\Android\\Sdk\\platform-tools;%SystemRoot%\\system32;%SystemRoot%;%SystemRoot%\\System32\\Wbem;%SYSTEMROOT%\\System32\\WindowsPowerShell\\v1.0\\;%SYSTEMROOT%\\System32\\OpenSSH\\;C:\\Program Files\\MATLAB\\R2018b\\runtime\\win64;C:\\Program Files\\MATLAB\\R2018b\\bin;C:\\Users\\BYXFA\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\BYXFA\\AppData\\Local\\GitHubDesktop\\bin;C:\\Program Files\\heroku\\bin;C:\\Users\\BYXFA\\AppData\\Roaming\\npm;C:\\Users\\BYXFA\\AppData\\Local\\Yarn\\bin;C:\\Users\\BYXFA\\AppData\\Local\\Microsoft\\WindowsApps;C:\\ProgramData\\Anaconda3\\Scripts",
+    "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JSE;.WSF;.WSH;.MSC",
+    "PROCESSOR_ARCHITECTURE": "AMD64",
+    "PROCESSOR_IDENTIFIER": "Intel64 Family 6 Model 60 Stepping 3, GenuineIntel",
+    "PROCESSOR_LEVEL": "6",
+    "PROCESSOR_REVISION": "3c03",
+    "ProgramData": "C:\\ProgramData",
+    "ProgramFiles": "C:\\Program Files",
+    "ProgramFiles(x86)": "C:\\Program Files (x86)",
+    "ProgramW6432": "C:\\Program Files",
+    "PROMPT": "$P$G",
+    "PSModulePath": "%ProgramFiles%\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules",
+    "PUBLIC": "C:\\Users\\Public",
+    "SIGRITY_EDA_DIR": "C:\\Cadence\\SPB_17.2",
+    "SystemDrive": "C:",
+    "SystemRoot": "C:\\WINDOWS",
+    "TEMP": "C:\\Users\\BYXFA\\AppData\\Local\\Temp",
+    "TERM_PROGRAM": "vscode",
+    "TERM_PROGRAM_VERSION": "1.33.1",
+    "TMP": "C:\\Users\\BYXFA\\AppData\\Local\\Temp",
+    "USERDOMAIN": "DESKTOP-IJUMJLQ",
+    "USERDOMAIN_ROAMINGPROFILE": "DESKTOP-IJUMJLQ",
+    "USERNAME": "BYXFA",
+    "USERPROFILE": "C:\\Users\\BYXFA",
+    "VBOX_MSI_INSTALL_PATH": "C:\\Program Files\\Oracle\\VirtualBox\\",
+    "windir": "C:\\WINDOWS",
+    "YARN_WRAP_OUTPUT": "false"
+  },
+  "sharedObjects": [
+    "C:\\Program Files\\nodejs\\node.exe",
+    "C:\\WINDOWS\\SYSTEM32\\ntdll.dll",
+    "C:\\WINDOWS\\System32\\KERNEL32.DLL",
+    "C:\\WINDOWS\\System32\\KERNELBASE.dll",
+    "C:\\WINDOWS\\System32\\PSAPI.DLL",
+    "C:\\WINDOWS\\System32\\WS2_32.dll",
+    "C:\\WINDOWS\\System32\\RPCRT4.dll",
+    "C:\\WINDOWS\\System32\\ADVAPI32.dll",
+    "C:\\WINDOWS\\System32\\msvcrt.dll",
+    "C:\\WINDOWS\\System32\\sechost.dll",
+    "C:\\WINDOWS\\SYSTEM32\\dbghelp.dll",
+    "C:\\WINDOWS\\System32\\ucrtbase.dll",
+    "C:\\WINDOWS\\System32\\USER32.dll",
+    "C:\\WINDOWS\\System32\\win32u.dll",
+    "C:\\WINDOWS\\System32\\GDI32.dll",
+    "C:\\WINDOWS\\System32\\gdi32full.dll",
+    "C:\\WINDOWS\\System32\\msvcp_win.dll",
+    "C:\\WINDOWS\\System32\\CRYPT32.dll",
+    "C:\\WINDOWS\\System32\\MSASN1.dll",
+    "C:\\WINDOWS\\System32\\bcrypt.dll",
+    "C:\\WINDOWS\\SYSTEM32\\USERENV.dll",
+    "C:\\WINDOWS\\SYSTEM32\\IPHLPAPI.DLL",
+    "C:\\WINDOWS\\System32\\profapi.dll",
+    "C:\\WINDOWS\\SYSTEM32\\WINMM.dll",
+    "C:\\WINDOWS\\SYSTEM32\\winmmbase.dll",
+    "C:\\WINDOWS\\System32\\cfgmgr32.dll",
+    "C:\\WINDOWS\\System32\\IMM32.DLL",
+    "C:\\WINDOWS\\System32\\powrprof.dll",
+    "C:\\WINDOWS\\system32\\mswsock.dll",
+    "C:\\WINDOWS\\System32\\kernel.appcore.dll",
+    "C:\\WINDOWS\\System32\\bcryptprimitives.dll",
+    "C:\\WINDOWS\\system32\\napinsp.dll",
+    "C:\\WINDOWS\\system32\\pnrpnsp.dll",
+    "C:\\WINDOWS\\SYSTEM32\\DNSAPI.dll",
+    "C:\\WINDOWS\\System32\\NSI.dll",
+    "C:\\WINDOWS\\System32\\winrnr.dll",
+    "C:\\WINDOWS\\system32\\NLAapi.dll",
+    "C:\\WINDOWS\\system32\\wshbth.dll",
+    "C:\\WINDOWS\\SYSTEM32\\CRYPTBASE.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\dhcpcsvc6.DLL",
+    "C:\\WINDOWS\\SYSTEM32\\dhcpcsvc.DLL",
+    "C:\\Windows\\System32\\rasadhlp.dll",
+    "C:\\WINDOWS\\System32\\fwpuclnt.dll"
+  ]
+}

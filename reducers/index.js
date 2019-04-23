@@ -8,8 +8,8 @@ const user = (state = {}, action) => {
             return { ...state, password: action.payload }
         case 'UPDATE_fullname':
             return { ...state, fullname: action.payload }
-        // case 'UPDATE_LOCATION':
-        //     return {...state, location: action.payload}
+        case 'UPDATE_LOCATION':
+            return {...state, location: action.payload}
         case 'UPDATE_RESIDENCE':
             return { ...state, residence: action.payload }
         case 'UPDATE_UNIT':
@@ -27,20 +27,32 @@ const user = (state = {}, action) => {
     }
 }
 
-// const post = (state = null, action) => {
-//     switch (action.type) {
-//         case 'UPDATE_DESCRIPTION':
-//             return {...state, description: action.payload}
-//         case 'GET_POSTS':
-//             return {...state, feed: action.payload}
-//         default:
-//             return state
-//     }
-// }   
+const post = (state ={}, action) => {
+    switch (action.type) {
+        case 'UPDATE_TITLE':
+            return {...state, title: action.payload}
+        case 'UPDATE_CATAGORY':
+            return {...state, catagory: action.payload}
+        case 'UPDATE_LOGGED_DATE':
+            return {...state, loggedDate: action.payload}
+        case 'UPDATE_INCIDENCE_DATE':
+            return {...state, incidenceDate: action.payload}
+        case 'UPDATE_DESCRIPTION':
+            return {...state, description: action.payload}
+        case 'UPDATE_PHOTOS':
+            return {...state, postPhotos: action.payload}
+        case 'UPDATE_LOCATION':
+            return {...state, location: action.payload}
+        case 'GET_POSTS':
+            return {...state, feed: action.payload}
+        default:
+            return state
+    }
+}   
 
 const rootReducer = combineReducers({
     user,
-    // post
+    post
 })
 
 export default rootReducer;

@@ -59,12 +59,28 @@ class Home extends React.Component {
                 </View>
                 <Ionicons style={styles.iconsGap} name='md-flag' size={30} /> 
               </View>
-              <TouchableOpacity onPress={() => this.likePost(item)} >
-                <Image style={styles.postPhoto} source={{uri: item.postPhotos[0]}}/>
-              </TouchableOpacity>
+             
+              {
+                item.postPhotos && item.postPhotos.length ?
+                <View>
+                  <ScrollView
+                    horizontal
+                    pagingEnabled
+                    showsHorizontalScrollIndicator={false}
+                  >
+                    {item.postPhotos.map(image => (
+                      <Image style={styles.incidencePicture} source={{uri: image}} />
+                    ))}
+                  </ScrollView> 
+                  </View>: null      
+                  }
+               
+             
               <View style={[styles.row, styles.awayFromEdges,{marginVertical:5}]}>
-                <Ionicons style={styles.iconsGap} name={item.likes.includes(this.props.user.uid) ? 'md-heart' : 'md-heart-empty'} 
-                 color={item.likes.includes(this.props.user.uid) ? 'red' : 'black'} size={32} /> 
+                <TouchableOpacity onPress={() => this.likePost(item)} >
+                  <Ionicons style={styles.iconsGap} name={item.likes.includes(this.props.user.uid) ? 'md-heart' : 'md-heart-empty'} 
+                  color={item.likes.includes(this.props.user.uid) ? 'red' : 'black'} size={32} /> 
+                 </TouchableOpacity>
                 <Ionicons style={styles.iconsGap} name='md-chatbubbles' size={32} /> 
                 <Ionicons style={styles.iconsGap} name='md-send' size={32} /> 
               </View>

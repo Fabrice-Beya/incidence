@@ -76,6 +76,7 @@ class Post extends React.Component {
 
 
   render() {
+    const postPhotos = this.props.post.postPhotos
     return (
       // <Header 
       //   rightComponent={
@@ -83,7 +84,8 @@ class Post extends React.Component {
       //       <Ionicons style={{marginRight: 10}} name={'md-send'} size={30}/>
       //     </TouchableOpacity>
       //   }/>
-      <KeyboardAwareScrollView >
+      
+      <ScrollView >
         <View style={styles.container}>
           <TextInput
             style={styles.noBorder}
@@ -134,22 +136,32 @@ class Post extends React.Component {
           <TouchableOpacity style={styles.button} onPress={this.attachPhoto}>
             <Text style={styles.buttonText}>Attach existing photo</Text>
           </TouchableOpacity>
-          <View style={{flex:1}}>
-        <FlatList
-          data={this.props.post.postPhotos}
-          renderItem={({item}) => (
-            <ScrollView >
-              <Image style={styles.incidencePicture} source={{uri: item}}/>
-           </ScrollView>
-          )}
-        />
-      </View>
+         
+        
+        {
+         postPhotos && postPhotos.length ?
+         <View>
+          <ScrollView
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+          >
+            {postPhotos.map(image => (
+              <Image style={styles.incidencePicture} source={{uri: image}} />
+            ))}
+          </ScrollView> 
+          </View>: null
+         
+        }
+        
 
           <TouchableOpacity style={styles.button} onPress={this.uploadPost}>
             <Text style={styles.buttonText}>Post</Text>
           </TouchableOpacity>
-        </View>
-      </KeyboardAwareScrollView>
+       
+      
+      </View>
+      </ScrollView>
 
     );
   }

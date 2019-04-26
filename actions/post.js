@@ -55,7 +55,7 @@ export const uploadPost = () => {
                 catagory: post.catagory,
                 loggedDate: new Date().getDate(),
                 incidenceDate: String(post.incidenceDate),
-                location: post.location,
+                location: post.location || {},
                 description: post.description,
                 postPhotos: post.postPhotos || [],
                 uid: user.uid ,
@@ -84,6 +84,35 @@ export const getPosts = () => {
 				resolvedPosts.push(post.data())
 			})
             dispatch({type: 'GET_POSTS', payload: resolvedPosts})
+        } catch (e) {
+            alert(e)
+        }
+       
+    }
+}
+
+export const getUserPosts = (uid) => {
+    return async (dispatch, getState) => {
+        try {
+            const posts = await db.collection('posts').where('uid', '==', uid).get();
+            let resolvedPosts = []
+			posts.forEach((post)=>{
+				resolvedPosts.push(post.data())
+            })
+            console.log(resolvedPosts)
+            return resolvedPosts
+        } catch (e) {
+            alert(e)
+        }
+       
+    }
+}
+
+export const updatePost = (post) => {
+    return async (dispatch, getState) => {
+        try {
+            const posts = await db.collection('posts').doc(post.id).set();
+        
         } catch (e) {
             alert(e)
         }

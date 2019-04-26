@@ -38,6 +38,12 @@ class Home extends React.Component {
     }
   }
 
+  navigatePost = (item) => {
+    this.props.navigation.navigate('PostDetail', 
+      { post: item }
+    )
+  }
+
   render() {
     if(this.props.post === null) return <ActivityIndicator style={styles.container}/>;
     return (
@@ -51,7 +57,9 @@ class Home extends React.Component {
                 <View style={[styles.row, styles.center,styles.awayFromEdges]}>
                     <Image style={styles.roundImage} source={{uri: item.photo}}/>
                     <View style={[styles.col]}>
-                      <Text>{item.title}</Text>
+                    <TouchableOpacity onPress={() => this.navigatePost(item)} >
+                          <Text>{item.title}</Text>
+                      </TouchableOpacity>
                       <TouchableOpacity onPress={() => this.navigateMap(item)} >
                         <Text style = {styles.gray}>{item.location ? item.location.name: null}</Text>
                       </TouchableOpacity>

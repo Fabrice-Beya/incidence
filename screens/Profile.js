@@ -27,6 +27,9 @@ class Profile extends React.Component {
           <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('EditProfile')}>
             <Text style={styles.buttonText}>Edit Profile</Text>
           </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Posts')}>
+            <Text style={styles.buttonText}>Edit Posts</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => this.signout()}>
             <Text style={styles.buttonText}>Logout</Text>
           </TouchableOpacity>

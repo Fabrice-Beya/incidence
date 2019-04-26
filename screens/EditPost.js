@@ -9,11 +9,9 @@ import { NavigationEvents, Header } from 'react-navigation';
 import { Permissions, ImagePicker, Location } from 'expo';
 import { uploadPhoto } from '../actions/index'
 import DateTimePicker from "react-native-modal-datetime-picker";
-import { updateTitle, updateCatagory, updateIncidenceDate, updateDescription, updateLocation, updatePhotos, uploadPost } from '../actions/post';
+import { updateTitle, updateCatagory,updatePost, updateIncidenceDate, updateDescription, updateLocation, updatePhotos, uploadPost } from '../actions/post';
 
-
-
-class Post extends React.Component {
+class EditPost extends React.Component {
 
   state = {
     isDateTimePickerVisible: false
@@ -35,15 +33,14 @@ class Post extends React.Component {
 
   uploadPost = async () => {
     try{
-      // await this.getLocation();
-      this.props.uploadPost();
+      await this.getLocation();
+      this.props.updatePost();
       this.props.navigation.navigate('Home');
     } catch(e) {
       alert(e)
     }
   
   }
-
 
   getLocation = async () => {
     const {status} = await Permissions.askAsync(Permissions.LOCATION);
@@ -76,24 +73,21 @@ class Post extends React.Component {
 
 
   render() {
-    const postPhotos = this.props.post.postPhotos
+    const  {post}  = this.props.navigation.state.params
+    const postPhotos = post.postPhotos
     return (
-      <View>
-        {/* <Header 
-        rightComponent={
-          <TouchableOpacity onPress={() => this.uploadPost()}  >
-            <Ionicons style={{marginRight: 10}} name={'md-send'} size={30}/>
-          </TouchableOpacity>
-        }/>
-       */}
-     
-      
+      // <Header 
+      //   rightComponent={
+      //     <TouchableOpacity onPress={() => this.uploadPost()}  >
+      //       <Ionicons style={{marginRight: 10}} name={'md-send'} size={30}/>
+      //     </TouchableOpacity>
+      //   }/>
       
       <ScrollView >
         <View style={styles.container}>
           <TextInput
             style={styles.noBorder}
-            value={this.props.post.title}
+            value={post.title}
             placeholder='Title'
             autoFocus={true}
             autoCapitalize="words"
@@ -102,10 +96,10 @@ class Post extends React.Component {
             returnKeyType="next"
             onChangeText={input => this.props.updateTitle(input)} />
           <TouchableOpacity onPress={this.showDateTimePicker}>
-            <Text style={styles.bold}>{this.props.post.incidenceDate ? String(this.props.post.incidenceDate) : 'Add incidence date'}</Text>
+            <Text style={styles.bold}>{post.incidenceDate ? String(post.incidenceDate) : 'Add incidence date'}</Text>
           </TouchableOpacity>
           <Picker
-            selectedValue={this.props.post.catagory}
+            selectedValue={post.catagory}
             onValueChange={(itemValue, itemIndex) =>
               this.props.updateCatagory(itemValue)}
             style={[styles.pickerBorder]}
@@ -130,7 +124,7 @@ class Post extends React.Component {
             returnKeyType="next"
             multiline={true}
             numberOfLines={5}
-            value={this.props.post.description}
+            value={post.description}
             placeholder='Description'
             onChangeText={input => this.props.updateDescription(input)} />
           <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Camera')}>
@@ -160,13 +154,12 @@ class Post extends React.Component {
         
 
           <TouchableOpacity style={styles.button} onPress={this.uploadPost}>
-            <Text style={styles.buttonText}>Post</Text>
+            <Text style={styles.buttonText}>Update</Text>
           </TouchableOpacity>
        
       
       </View>
       </ScrollView>
-      </View>
 
     );
   }
@@ -180,9 +173,9 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ updateTitle, updateCatagory, updateIncidenceDate, updateDescription, updateLocation, uploadPost, updatePhotos, uploadPhoto }, dispatch)
+  return bindActionCreators({ updateTitle, updateCatagory,updatePost, updateIncidenceDate, updateDescription, updateLocation, uploadPost, updatePhotos, uploadPhoto }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post)
+export default connect(mapStateToProps, mapDispatchToProps)(EditPost)
 
 

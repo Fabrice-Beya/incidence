@@ -8,6 +8,9 @@ import ProfileScreen from '../screens/Profile';
 import CameraScreen from '../screens/Camera';
 import { Image, TouchableOpacity} from 'react-native';
 import EditProfileScreen from '../screens/EditProfile';
+import EditPostScreen from '../screens/EditPost';
+import PostsScreen from '../screens/Posts';
+import PostDetailScreen from '../screens/PostDetail';
 import { Ionicons } from '@expo/vector-icons';
 
 export const HomeNavigator = createAppContainer(createStackNavigator({
@@ -20,6 +23,18 @@ export const HomeNavigator = createAppContainer(createStackNavigator({
             <Ionicons style={{marginRight: 10}} name={'md-send'} size={30}/>
           </TouchableOpacity>
         ),
+        
+      })
+    },
+    PostDetail: {
+      screen: PostDetailScreen,
+      navigationOptions: ({navigation}) => ({
+        title:'Post Detail',
+        headerLeft: (
+          <TouchableOpacity onPress={() => navigation.goBack()} >
+            <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
+          </TouchableOpacity>
+        )
       })
     }
 }))
@@ -51,6 +66,28 @@ export const ProfileNavigator = createAppContainer(createStackNavigator({
         )
       })
     },
+    EditPost: {
+      screen: EditPostScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: 'Edit Post',
+        headerLeft: (
+          <TouchableOpacity onPress={() => navigation.goBack()} >
+            <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
+          </TouchableOpacity>
+        )
+      })
+    },
+    Posts: {
+      screen: PostsScreen,
+      navigationOptions: ({ navigation }) => ({
+        title: 'Posts',
+        headerLeft: (
+          <TouchableOpacity onPress={() => navigation.goBack()} >
+            <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
+          </TouchableOpacity>
+        )
+      })
+    },
 }))
 
 export const PostNavigator = createAppContainer(createStackNavigator({
@@ -60,6 +97,7 @@ export const PostNavigator = createAppContainer(createStackNavigator({
         title: "Post"
       }
     },
+    
     Camera: {
       screen: CameraScreen,
       navigationOptions: {

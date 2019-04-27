@@ -74,7 +74,12 @@ export const ProfileNavigator = createAppContainer(createStackNavigator({
           <TouchableOpacity onPress={() => navigation.goBack()} >
             <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
           </TouchableOpacity>
-        )
+        ),
+        headerRight: (
+          <TouchableOpacity style={{marginHorizontal:10}} onPress={navigation.getParam('updatePost')} >
+            <Ionicons style={styles.icon} name={'md-add-circle'} size={30}/>
+          </TouchableOpacity>
+        ),
       })
     },
     Posts: {

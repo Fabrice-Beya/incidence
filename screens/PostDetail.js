@@ -7,6 +7,15 @@ import { bindActionCreators } from 'redux';
 
 class PostDetail extends React.Component {
 
+  likePost = (post) => {
+    const {uid} = this.props.user;
+    if(post.likes.includes(uid)){
+      this.props.unlikePost(post)
+    } else {
+      this.props.likePost(post)
+    }
+  }
+
   render() {
     const  {post}  = this.props.navigation.state.params
     const postPhotos = post.postPhotos
@@ -15,10 +24,11 @@ class PostDetail extends React.Component {
       
       <ScrollView >
         <View style={styles.container}>
-          <Text>{post.title}</Text>
-          <Text>{post.residence}</Text>
-          <Text>{post.unit}</Text>
-          <Text style={styles.bold}>{post.incidenceDate}</Text>
+          <Text style={styles.bold}>{post.title}</Text>
+          <Text>Catagory - {post.catagory}</Text>
+          <Text>Residence - {post.residence}</Text>
+          <Text>Unit - {post.unit}</Text>
+          <Text>Logged on - {post.incidenceDate.substring(0, post.incidenceDate.indexOf('G'))}</Text>
         
         {
          postPhotos && postPhotos.length ?
@@ -32,17 +42,16 @@ class PostDetail extends React.Component {
             ))}
           </ScrollView> : null
         }
-        
-        <View style={[styles.row, styles.awayFromEdges,{marginVertical:5}]}>
+
+        <View style={[styles.row,{marginVertical:5}]}>
             <TouchableOpacity onPress={() => this.likePost(post)} >
                 <Ionicons style={styles.iconsGap} name={post.likes.includes(this.props.user.uid) ? 'md-heart' : 'md-heart-empty'} 
                 color={post.likes.includes(this.props.user.uid) ? 'red' : 'black'} size={32} /> 
                 </TouchableOpacity>
             <Ionicons style={styles.iconsGap} name='md-chatbubbles' size={32} /> 
             <Ionicons style={styles.iconsGap} name='md-send' size={32} /> 
-            <Text style={styles.textPadding}>{post.description}</Text>
         </View>
-      
+        <Text style={styles.textPadding}>{post.description}</Text>
       </View>
       </ScrollView>
 

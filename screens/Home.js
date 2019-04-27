@@ -4,7 +4,7 @@ import { Text, RefreshControl, View, ActivityIndicator, TouchableOpacity, Image,
 import {bindActionCreators} from 'redux';
 import styles from '../styles';
 import firebase from 'firebase';
-import {getPosts, likePost, unlikePost} from '../actions/post';
+import {getPosts, likePost, unlikePost} from '../actions/feed';
 import { Ionicons } from '@expo/vector-icons';
 
 
@@ -29,15 +29,6 @@ class Home extends React.Component {
     this.setState({refreshing: false});
   }
 
-  likePost = (post) => {
-    const {uid} = this.props.user;
-    if(post.likes.includes(uid)){
-      this.props.unlikePost(post)
-    } else {
-      this.props.likePost(post)
-    }
-  }
-
   navigatePost = (item) => {
     this.props.navigation.navigate('PostDetail', 
       { post: item }
@@ -53,45 +44,24 @@ class Home extends React.Component {
           refreshControl={<RefreshControl enabled={true} refreshing={this.state.refreshing} onRefresh={this.handleRefresh}/>}
           renderItem={({item}) => (
             <View>
-              <View style={[styles.row, styles.center]}>
-                <View style={[styles.row, styles.center,styles.awayFromEdges]}>
-                    <Image style={styles.roundImage} source={{uri: item.photo}}/>
-                    <View style={[styles.col]}>
-                    <TouchableOpacity onPress={() => this.navigatePost(item)} >
-                          <Text>{item.title}</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={() => this.navigateMap(item)} >
-                        <Text style = {styles.gray}>{item.location ? item.location.name: null}</Text>
-                      </TouchableOpacity>
+               <TouchableOpacity onPress={() => this.navigatePost(item)} >
+                <View style={[styles.row, styles.center]}>
+                  <View style={[styles.row, styles.center,styles.awayFromEdges]}>
+                    <View style={[styles.col, styles.center]}>
+                      <Image style={styles.squareImage} source={{uri: item.photo}}/>
+                      <Text>{item.fullname}</Text>
                     </View>
+                    <View style={[styles.col]}>
+                      <Text>{item.title}</Text>
+                      <Text>{item.catagory}</Text>
+                      <Text>{item.residence}: {item.unit}</Text>
+                      <Text style = {styles.gray}>{item.location ? item.location.name: null}</Text>
+                      <Text>{item.incidenceDate}</Text>
+                    </View>
+                  </View>
+              
                 </View>
-              </View>
-             
-              {
-                item.postPhotos && item.postPhotos.length ?
-                <View>
-                  <ScrollView
-                    horizontal
-                    pagingEnabled
-                    showsHorizontalScrollIndicator={false}
-                  >
-                    {item.postPhotos.map(image => (
-                      <Image style={styles.incidencePicture} source={{uri: image}} />
-                    ))}
-                  </ScrollView> 
-                  </View>: null      
-                  }
-               
-             
-              <View style={[styles.row, styles.awayFromEdges,{marginVertical:5}]}>
-                <TouchableOpacity onPress={() => this.likePost(item)} >
-                  <Ionicons style={styles.iconsGap} name={item.likes.includes(this.props.user.uid) ? 'md-heart' : 'md-heart-empty'} 
-                  color={item.likes.includes(this.props.user.uid) ? 'red' : 'black'} size={32} /> 
-                 </TouchableOpacity>
-                <Ionicons style={styles.iconsGap} name='md-chatbubbles' size={32} /> 
-                <Ionicons style={styles.iconsGap} name='md-send' size={32} /> 
-              </View>
-              <Text style={styles.textPadding}>{item.description}</Text>
+              </TouchableOpacity>
             </View>
           )}
         />
@@ -104,7 +74,7 @@ class Home extends React.Component {
 const mapStateToProps = (state) => {
     return {
       user: state.user,
-      post: state.post
+      post: state.feed
     }
 }
 

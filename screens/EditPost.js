@@ -9,14 +9,21 @@ import { NavigationEvents, Header } from 'react-navigation';
 import { Permissions, ImagePicker, Location } from 'expo';
 import { uploadPhoto } from '../actions/index'
 import DateTimePicker from "react-native-modal-datetime-picker";
-import { updateTitle, updateCatagory,updatePost, updateIncidenceDate, updateDescription, updateLocation, updatePhotos, uploadPost } from '../actions/post';
+import {deletePost, updatePostLocal, updateTitle, updateCatagory,updatePost, updateIncidenceDate, updateDescription, updateLocation, updatePhotos, uploadPost } from '../actions/post';
 
 class EditPost extends React.Component {
 
   state = {
     isDateTimePickerVisible: false
   };
-
+  onWillFocus = () => {
+    // this.getLocation();
+    this.props.navigation.setParams({ 
+      updatePost: this.updatePost
+    });
+    const  {post}  = this.props.navigation.state.params
+    this.props.updatePostLocal(post)
+  }
   showDateTimePicker = () => {
     this.setState({ isDateTimePickerVisible: true });
   };
@@ -31,11 +38,20 @@ class EditPost extends React.Component {
     this.hideDateTimePicker();
   };
 
-  uploadPost = async () => {
+  updatePost = async () => {
     try{
-      await this.getLocation();
       this.props.updatePost();
-      this.props.navigation.navigate('Home');
+      this.props.navigation.goBack();
+    } catch(e) {
+      alert(e)
+    }
+  
+  }
+
+  deletePost = async () => {
+    try{
+      this.props.deletePost();
+      this.props.navigation.goBack();
     } catch(e) {
       alert(e)
     }
@@ -73,21 +89,14 @@ class EditPost extends React.Component {
 
 
   render() {
-    const  {post}  = this.props.navigation.state.params
-    const postPhotos = post.postPhotos
     return (
-      // <Header 
-      //   rightComponent={
-      //     <TouchableOpacity onPress={() => this.uploadPost()}  >
-      //       <Ionicons style={{marginRight: 10}} name={'md-send'} size={30}/>
-      //     </TouchableOpacity>
-      //   }/>
       
       <ScrollView >
+         <NavigationEvents onWillFocus={this.onWillFocus}/>
         <View style={styles.container}>
           <TextInput
             style={styles.noBorder}
-            value={post.title}
+            value={this.props.post.title}
             placeholder='Title'
             autoFocus={true}
             autoCapitalize="words"
@@ -96,10 +105,10 @@ class EditPost extends React.Component {
             returnKeyType="next"
             onChangeText={input => this.props.updateTitle(input)} />
           <TouchableOpacity onPress={this.showDateTimePicker}>
-            <Text style={styles.bold}>{post.incidenceDate ? String(post.incidenceDate) : 'Add incidence date'}</Text>
+            <Text style={styles.bold}>{this.props.post.incidenceDate ? String(this.props.post.incidenceDate) : 'Add incidence date'}</Text>
           </TouchableOpacity>
           <Picker
-            selectedValue={post.catagory}
+            selectedValue={this.props.post.catagory}
             onValueChange={(itemValue, itemIndex) =>
               this.props.updateCatagory(itemValue)}
             style={[styles.pickerBorder]}
@@ -124,40 +133,37 @@ class EditPost extends React.Component {
             returnKeyType="next"
             multiline={true}
             numberOfLines={5}
-            value={post.description}
+            value={this.props.post.description}
             placeholder='Description'
             onChangeText={input => this.props.updateDescription(input)} />
-          <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Camera')}>
-            <Text style={styles.buttonText}>Take Photo</Text>
-          </TouchableOpacity>
-          <Text style={styles.center}>OR</Text>
-          <TouchableOpacity style={styles.button} onPress={this.attachPhoto}>
-            <Text style={styles.buttonText}>Attach existing photo</Text>
-          </TouchableOpacity>
+            <View style={styles.row}>
+              <TouchableOpacity style={styles.smallButton} onPress={() => this.props.navigation.navigate('Camera')}>
+              <Text style={styles.buttonText}>Take Photo</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.smallButton} onPress={this.attachPhoto}>
+              <Text style={styles.buttonText}>Attach existing photo</Text>
+            </TouchableOpacity>
+            </View>
+         
          
         
         {
-         postPhotos && postPhotos.length ?
-         <View>
+         this.props.post.postPhotos && this.props.post.postPhotos.length ?
+        
           <ScrollView
             horizontal
             pagingEnabled
             showsHorizontalScrollIndicator={false}
           >
-            {postPhotos.map(image => (
+            {this.props.post.postPhotos.map(image => (
               <Image style={styles.incidencePicture} source={{uri: image}} />
             ))}
-          </ScrollView> 
-          </View>: null
+          </ScrollView> : null
          
         }
-        
-
-          <TouchableOpacity style={styles.button} onPress={this.uploadPost}>
-            <Text style={styles.buttonText}>Update</Text>
-          </TouchableOpacity>
-       
-      
+        <TouchableOpacity style={styles.smallButton} onPress={this.deletePost}>
+              <Text style={styles.buttonText}>Delete</Text>
+            </TouchableOpacity>
       </View>
       </ScrollView>
 
@@ -173,7 +179,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ updateTitle, updateCatagory,updatePost, updateIncidenceDate, updateDescription, updateLocation, uploadPost, updatePhotos, uploadPhoto }, dispatch)
+  return bindActionCreators({deletePost, updatePostLocal, updateTitle, updateCatagory,updatePost, updateIncidenceDate, updateDescription, updateLocation, uploadPost, updatePhotos, uploadPhoto }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditPost)

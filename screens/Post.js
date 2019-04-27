@@ -98,7 +98,7 @@ onWillFocus = () => {
             returnKeyType="next"
             onChangeText={input => this.props.updateTitle(input)} />
           <TouchableOpacity onPress={this.showDateTimePicker}>
-            <Text style={styles.bold}>{this.props.post.incidenceDate ? String(this.props.post.incidenceDate) : 'Add incidence date'}</Text>
+            <Text>{this.props.post.incidenceDate ? String(this.props.post.incidenceDate).substring(0, String(this.props.post.incidenceDate).indexOf('G')) : 'Add incidence date'}</Text>
           </TouchableOpacity>
           <Picker
             selectedValue={this.props.post.catagory}

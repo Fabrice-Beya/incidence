@@ -43,16 +43,26 @@ const post = (state ={}, action) => {
             return {...state, postPhotos: action.payload}
         case 'UPDATE_LOCATION':
             return {...state, location: action.payload}
-        case 'GET_POSTS':
-            return {...state, feed: action.payload}
+        case 'UPDATE_POST':
+            return  action.payload;
         default:
             return state
     }
 }   
 
+const feed = (state ={}, action) => {
+    switch (action.type) {
+        case 'GET_POSTS':
+            return {...state, feed: action.payload}
+        default:
+            return state
+    }
+}
+
 const rootReducer = combineReducers({
     user,
-    post
+    post,
+    feed
 })
 
 export default rootReducer;

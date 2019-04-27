@@ -41,6 +41,16 @@ export default styles = StyleSheet.create({
       width: 250,
       backgroundColor: '#333333',
     },
+    smallButton : {
+      margin: 10,
+      paddingVertical: 10,
+      alignItems: 'center',
+      borderColor: '#333333',
+      borderWidth: 1,
+      borderRadius: 5,
+      width: 150,
+      backgroundColor: '#333333',
+    },
     buttonText: {
       color: 'white'
     },
@@ -96,13 +106,16 @@ export default styles = StyleSheet.create({
       margin:5
     },
     squareImage: {
-      height: 40,
-      width:40,
+      height: 80,
+      width:80,
+      borderRadius: 10,
+      margin: 5,
       backgroundColor: '#adadad'
     },
     incidencePicture: {
       width: width,
       height:200,
+      marginVertical:10
     },
     postPhoto: {
       height: 250,
@@ -130,7 +143,8 @@ export default styles = StyleSheet.create({
       color: 'gray'
     },
     bold: {
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      margin:3,
     }
   });
 

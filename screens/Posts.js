@@ -4,10 +4,9 @@ import { Text, RefreshControl, View, ActivityIndicator, TouchableOpacity, Image,
 import {bindActionCreators} from 'redux';
 import styles from '../styles';
 import firebase from 'firebase';
+import { NavigationEvents, Header } from 'react-navigation';
 import {getPosts, getUserPosts, likePost, unlikePost} from '../actions/post';
 import { Ionicons } from '@expo/vector-icons';
-
-
 
 class Posts extends React.Component {
   state = { 
@@ -15,7 +14,7 @@ class Posts extends React.Component {
     posts: [] 
   }
 
-  componentDidMount = () => {
+  onWillFocus = () => {
     this.load()
   }
 
@@ -44,18 +43,30 @@ class Posts extends React.Component {
     if(this.state.post === null) return <ActivityIndicator style={styles.container}/>;
     return (
       <View style={styles.container}>
+       <NavigationEvents onWillFocus={this.onWillFocus}/>
         <FlatList
           data={this.state.posts}
           refreshControl={<RefreshControl enabled={true} refreshing={this.state.refreshing} onRefresh={this.handleRefresh}/>}
           renderItem={({item}) => (
             <View>
-              <View style={[styles.row, styles.center]}>
-                <View style={[styles.row, styles.center,styles.awayFromEdges]}>
-                <TouchableOpacity onPress={() => this.navigatePost(item)} >
-                    <Text style={{fontSize: 30}}>{item.title}</Text>
-                </TouchableOpacity>
+               <TouchableOpacity onPress={() => this.navigatePost(item)} >
+                <View style={[styles.row, styles.center]}>
+                  <View style={[styles.row, styles.center,styles.awayFromEdges]}>
+                    <View style={[styles.col, styles.center]}>
+                      <Image style={styles.squareImage} source={{uri: item.photo}}/>
+                      <Text>{item.fullname}</Text>
+                    </View>
+                    <View style={[styles.col]}>
+                      <Text>{item.title}</Text>
+                      <Text>{item.catagory}</Text>
+                      <Text>{item.residence}: {item.unit}</Text>
+                      <Text style = {styles.gray}>{item.location ? item.location.name: null}</Text>
+                      <Text>{item.incidenceDate}</Text>
+                    </View>
+                  </View>
+              
                 </View>
-              </View>
+              </TouchableOpacity>
             </View>
           )}
         />

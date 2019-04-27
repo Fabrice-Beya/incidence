@@ -52,6 +52,9 @@ const TabNavigator = createBottomTabNavigator({
     },
     },
     {
+      lazy: false
+    },
+    {
         tabBarOptions: {
             style: {
                 paddingVertical: 10,

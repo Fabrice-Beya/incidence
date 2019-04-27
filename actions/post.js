@@ -52,9 +52,9 @@ export const uploadPost = () => {
             console.log(post);
             const upload = {
                 title: post.title,
-                catagory: post.catagory,
-                loggedDate: new Date().getDate(),
-                incidenceDate: String(post.incidenceDate),
+                catagory: post.catagory || 'Other',
+                loggedDate: new Date().getDate() || '',
+                incidenceDate: String(post.incidenceDate) || new Date().getDate(),
                 location: post.location || {},
                 description: post.description,
                 postPhotos: post.postPhotos || [],
@@ -123,7 +123,7 @@ export const updatePost = (post) => {
 export const likePost = (post) => {
     return async (dispatch, getState) => {
         try {
-            const {uid,username, photo} = getState().user;
+            const {uid,fullname, photo} = getState().user;
             
             const home = cloneDeep(getState().post.feed);
             let newFeed = home.map(item => {
@@ -138,9 +138,10 @@ export const likePost = (post) => {
             db.collection('activity').doc().set({
                 postId: post.id,
                 postPhoto: post.photo,
+                title: post.title,
                 likerId: uid,
                 likerPhoto: photo,
-                likerName: username,
+                likerName: fullname,
                 uid: post.uid,
                 date: new Date().getTime(),
                 type: 'LIKE'

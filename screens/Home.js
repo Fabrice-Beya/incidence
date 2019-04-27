@@ -65,7 +65,6 @@ class Home extends React.Component {
                       </TouchableOpacity>
                     </View>
                 </View>
-                <Ionicons style={styles.iconsGap} name='md-flag' size={30} /> 
               </View>
              
               {

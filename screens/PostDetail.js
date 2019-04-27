@@ -10,27 +10,27 @@ class PostDetail extends React.Component {
   render() {
     const  {post}  = this.props.navigation.state.params
     const postPhotos = post.postPhotos
+    console.log(post)
     return (
       
       <ScrollView >
         <View style={styles.container}>
           <Text>{post.title}</Text>
+          <Text>{post.residence}</Text>
+          <Text>{post.unit}</Text>
           <Text style={styles.bold}>{post.incidenceDate}</Text>
         
         {
          postPhotos && postPhotos.length ?
-         <View>
+        
           <ScrollView
             horizontal
             pagingEnabled
-            showsHorizontalScrollIndicator={false}
-          >
+            showsHorizontalScrollIndicator={false}>
             {postPhotos.map(image => (
               <Image style={styles.incidencePicture} source={{uri: image}} />
             ))}
-          </ScrollView> 
-          </View>: null
-         
+          </ScrollView> : null
         }
         
         <View style={[styles.row, styles.awayFromEdges,{marginVertical:5}]}>

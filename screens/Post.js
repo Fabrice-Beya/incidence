@@ -15,6 +15,12 @@ import { updateTitle, updateCatagory, updateIncidenceDate, updateDescription, up
 
 class Post extends React.Component {
 
+onWillFocus = () => {
+  this.props.navigation.setParams({ 
+    uploadPost: this._uploadPost
+  });
+}
+
   state = {
     isDateTimePickerVisible: false
   };
@@ -33,9 +39,9 @@ class Post extends React.Component {
     this.hideDateTimePicker();
   };
 
-  uploadPost = async () => {
+  _uploadPost = async () => {
     try{
-      // await this.getLocation();
+
       this.props.uploadPost();
       this.props.navigation.navigate('Home');
     } catch(e) {
@@ -43,7 +49,6 @@ class Post extends React.Component {
     }
   
   }
-
 
   getLocation = async () => {
     const {status} = await Permissions.askAsync(Permissions.LOCATION);
@@ -78,18 +83,9 @@ class Post extends React.Component {
   render() {
     const postPhotos = this.props.post.postPhotos
     return (
-      <View>
-        {/* <Header 
-        rightComponent={
-          <TouchableOpacity onPress={() => this.uploadPost()}  >
-            <Ionicons style={{marginRight: 10}} name={'md-send'} size={30}/>
-          </TouchableOpacity>
-        }/>
-       */}
      
-      
-      
       <ScrollView >
+       <NavigationEvents onWillFocus={this.onWillFocus}/>
         <View style={styles.container}>
           <TextInput
             style={styles.noBorder}
@@ -144,7 +140,7 @@ class Post extends React.Component {
         
         {
          postPhotos && postPhotos.length ?
-         <View>
+        
           <ScrollView
             horizontal
             pagingEnabled
@@ -153,20 +149,12 @@ class Post extends React.Component {
             {postPhotos.map(image => (
               <Image style={styles.incidencePicture} source={{uri: image}} />
             ))}
-          </ScrollView> 
-          </View>: null
+          </ScrollView> : null
          
         }
-        
-
-          <TouchableOpacity style={styles.button} onPress={this.uploadPost}>
-            <Text style={styles.buttonText}>Post</Text>
-          </TouchableOpacity>
-       
-      
       </View>
       </ScrollView>
-      </View>
+     
 
     );
   }

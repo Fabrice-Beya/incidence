@@ -85,7 +85,7 @@ export const ProfileNavigator = createAppContainer(createStackNavigator({
           <TouchableOpacity onPress={() => navigation.goBack()} >
             <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
           </TouchableOpacity>
-        )
+        ),
       })
     },
 }))
@@ -93,11 +93,15 @@ export const ProfileNavigator = createAppContainer(createStackNavigator({
 export const PostNavigator = createAppContainer(createStackNavigator({
     Post: {
       screen: PostScreen,
-      navigationOptions: {
-        title: "Post"
-      }
+      navigationOptions: ({ navigation }) => ({
+        title: 'Post',
+        headerRight: (
+          <TouchableOpacity style={{marginHorizontal:10}} onPress={navigation.getParam('uploadPost')} >
+            <Ionicons style={styles.icon} name={'md-add-circle'} size={30}/>
+          </TouchableOpacity>
+        ),
+      })
     },
-    
     Camera: {
       screen: CameraScreen,
       navigationOptions: {
@@ -112,6 +116,17 @@ export const NotificationsNavigator = createAppContainer(createStackNavigator({
       navigationOptions: {
         title: "Notifications"
       }
+    },
+    PostDetail: {
+      screen: PostDetailScreen,
+      navigationOptions: ({navigation}) => ({
+        title:'Post Detail',
+        headerLeft: (
+          <TouchableOpacity onPress={() => navigation.goBack()} >
+            <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
+          </TouchableOpacity>
+        )
+      })
     }
 }))
  

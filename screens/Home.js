@@ -36,11 +36,13 @@ class Home extends React.Component {
   }
 
   render() {
-    if(this.props.post === null) return <ActivityIndicator style={styles.container}/>;
+    console.log(this.props.feed)
+    if(this.props.feed === null) return <ActivityIndicator style={styles.container}/>;
     return (
       <View style={styles.container}>
         <FlatList
-          data={this.props.post.feed}
+          data={this.props.feed}
+          keyExtractor={(item) => JSON.stringify(item.id)}
           refreshControl={<RefreshControl enabled={true} refreshing={this.state.refreshing} onRefresh={this.handleRefresh}/>}
           renderItem={({item}) => (
             <View>
@@ -56,7 +58,7 @@ class Home extends React.Component {
                       <Text>{item.catagory}</Text>
                       <Text>{item.residence}: {item.unit}</Text>
                       <Text style = {styles.gray}>{item.location ? item.location.name: null}</Text>
-                      <Text>{item.incidenceDate}</Text>
+                      <Text>{String(item.incidenceDate)}</Text>
                     </View>
                   </View>
               
@@ -74,7 +76,7 @@ class Home extends React.Component {
 const mapStateToProps = (state) => {
     return {
       user: state.user,
-      post: state.feed
+      feed: state.feed
     }
 }
 

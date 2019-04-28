@@ -50,10 +50,10 @@ const post = (state ={}, action) => {
     }
 }   
 
-const feed = (state ={}, action) => {
+const feed = (state =null, action) => {
     switch (action.type) {
         case 'GET_POSTS':
-            return {...state, feed: action.payload}
+            return action.payload;
         default:
             return state
     }

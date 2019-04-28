@@ -34,7 +34,9 @@ class EditPost extends React.Component {
 
   handleDatePicked = (date) => {
     console.log("A date has been picked: ", date);
-    this.props.updateIncidenceDate(date);
+    const formatedDate = String(date).substring(0, String(date).indexOf('G'));
+
+    this.props.updateIncidenceDate(formatedDate);
     this.hideDateTimePicker();
   };
 
@@ -105,7 +107,7 @@ class EditPost extends React.Component {
             returnKeyType="next"
             onChangeText={input => this.props.updateTitle(input)} />
           <TouchableOpacity onPress={this.showDateTimePicker}>
-            <Text style={styles.bold}>{this.props.post.incidenceDate ? String(this.props.post.incidenceDate) : 'Add incidence date'}</Text>
+            <Text>{this.props.post.incidenceDate ? String(this.props.post.incidenceDate).substring(0, String(this.props.post.incidenceDate).indexOf('G')) : 'Add incidence date'}</Text>
           </TouchableOpacity>
           <Picker
             selectedValue={this.props.post.catagory}

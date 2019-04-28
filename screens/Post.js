@@ -112,6 +112,7 @@ onWillFocus = () => {
             <Picker.Item label="Enquery" value="Enquery" />
             <Picker.Item label="Theft" value="Theft" />
             <Picker.Item label="Proposal" value="Proposal" />
+            <Picker.Item label="General Notice" value="General Notice" />
             <Picker.Item label="Other" value="Other" />
           </Picker>
           <DateTimePicker

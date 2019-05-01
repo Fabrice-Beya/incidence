@@ -73,6 +73,16 @@ export default styles = StyleSheet.create({
       borderBottomWidth: 1,
       textAlign: 'center'
     },
+    commentBubble: {
+      width: 300,
+      margin: 5,
+      padding: 5  ,
+      fontSize: 16,
+      borderColor: '#333333',
+      borderWidth: 1,
+      textAlign: 'left',
+      borderRadius: 10
+    },
     noBorder: {
       width: '85%',
       margin: 10,

@@ -4,8 +4,19 @@ import styles from '../styles';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { bindActionCreators } from 'redux';
+import {updateComment, postComment} from '../actions/post';
+import { NavigationEvents } from 'react-navigation';
+
 
 class PostDetail extends React.Component {
+
+  state = {
+    commentBoxVisible: false
+  }
+
+  onWillFocus = () => {
+    // this.loadComments()
+  }
 
   likePost = (post) => {
     const {uid} = this.props.user;
@@ -16,6 +27,14 @@ class PostDetail extends React.Component {
     }
   }
 
+  addCommnet = () => {
+    this.setState({commentBoxVisible: true})
+  }
+
+  postComment = () => {
+    this.props.postComment(this.props.post.comment, this.props.post.id)
+  }
+
   render() {
     const  {post}  = this.props.navigation.state.params
     const postPhotos = post.postPhotos
@@ -23,6 +42,7 @@ class PostDetail extends React.Component {
     return (
       
       <ScrollView >
+        <NavigationEvents onWillFocus={this.onWillFocus}/>
         <View style={styles.container}>
           <Text style={styles.bold}>{post.title}</Text>
           <Text>Catagory - {post.catagory}</Text>
@@ -48,10 +68,39 @@ class PostDetail extends React.Component {
                 <Ionicons style={styles.iconsGap} name={post.likes.includes(this.props.user.uid) ? 'md-heart' : 'md-heart-empty'} 
                 color={post.likes.includes(this.props.user.uid) ? 'red' : 'black'} size={32} /> 
                 </TouchableOpacity>
-            <Ionicons style={styles.iconsGap} name='md-chatbubbles' size={32} /> 
+            <TouchableOpacity onPress={() => this.addCommnet()} >
+              <Ionicons style={styles.iconsGap} name='md-chatbubbles' size={32} /> 
+            </TouchableOpacity>
             <Ionicons style={styles.iconsGap} name='md-send' size={32} /> 
         </View>
         <Text style={styles.textPadding}>{post.description}</Text>
+        
+        {
+          this.props.post.comments && this.props.post.comments ?
+        <FlatList
+				  data={this.props.post.comments}
+				  keyExtractor={(item) => JSON.stringify(item.commentId)}
+				  renderItem={({ item }) => (
+
+           <Text>{item.comment}</Text>
+				  )}/> : null
+          }
+          {
+            this.state.commentBoxVisible ?
+              <View style={{flex:1}}>
+                <TextInput
+                  style={styles.commentBubble}
+                  value={this.props.post.commnet}
+                  placeholder='Comment'
+                  autoFocus={true}
+                  multiline={true}
+                  numberOfLines={5}
+                  onChangeText={input => this.props.updateComment(input)} />
+                <TouchableOpacity style={styles.button} onPress={() => this.postComment()}>
+                  <Text style={styles.buttonText}>Comment</Text>
+                </TouchableOpacity>
+            </View> : null
+        }
       </View>
       </ScrollView>
 
@@ -67,7 +116,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ }, dispatch)
+  return bindActionCreators({ updateComment, postComment}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail)

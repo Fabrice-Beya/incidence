@@ -26,6 +26,10 @@ export const updatePostLocal = (post) => {
     return {type: 'UPDATE_POST', payload: post}
 }
 
+export const updateComment = (text) => {
+    return {type: 'UPDATE_COMMENT', payload: text}
+}
+
 
 export const updatePhotos = (url) => {
     return async (dispatch, getState) => {
@@ -53,8 +57,8 @@ export const uploadPost = () => {
             const upload = {
                 title: post.title,
                 catagory: post.catagory || 'Other',
-                loggedDate: new Date().getDate() || '',
-                incidenceDate: String(post.incidenceDate).substring(0, String(post.incidenceDate).indexOf('G')) || new Date().getDate(),
+                loggedDate: new Date().getTime() || '',
+                incidenceDate: String(post.incidenceDate).substring(0, String(post.incidenceDate).indexOf('G')) || new Date().getTime(),
                 location: post.location || {},
                 description: post.description || ' ',
                 postPhotos: post.postPhotos || [],
@@ -97,8 +101,9 @@ export const updatePost = () => {
         try {
            const post = getState().post;
            
-            const posts = await db.collection('posts').doc(post.id).set(post);
-        
+            const newPost = await db.collection('posts').doc(post.id).set(post);
+            
+            return {type: 'UPDATE_POST', payload: newPost}
         } catch (e) {
             alert(e)
         }
@@ -120,3 +125,33 @@ export const deletePost = () => {
     }
 }
 
+export const postComment = () => {
+    return async (dispatch, getState) => {
+        try {
+           const post = getState().post;
+           const user = getState().user;
+
+
+           const newComment = {
+               comment: post.comment,
+               commentId: user.uid ,
+               commenterName: user.fullname,
+               commenterPhoto: user.photo || ' ',
+               date: new Date().getTime(),
+           }
+
+           console.log(post)
+           console.log(newComment)
+           
+            const newPost = await db.collection('posts').doc(post.id).update({
+                comments: firebase.firestore.FieldValue.arrayUnion(newComment)
+              })
+            
+            return {type: 'UPDATE_POST', payload: newPost}
+        
+        } catch (e) {
+            alert(e)
+        }
+       
+    }
+}

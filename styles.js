@@ -22,6 +22,9 @@ export default styles = StyleSheet.create({
     vSEnd: {
       alignContent: 'flex-start'
     },
+    hStart: {
+      alignSelf: 'flex-start'
+    },
     spaceAroud: {
       justifyContent: 'space-around'
     },
@@ -76,11 +79,10 @@ export default styles = StyleSheet.create({
     commentBubble: {
       width: 300,
       margin: 5,
-      padding: 5  ,
       fontSize: 16,
       borderColor: '#333333',
       borderWidth: 1,
-      textAlign: 'left',
+      textAlign: 'center',
       borderRadius: 10
     },
     noBorder: {
@@ -155,6 +157,48 @@ export default styles = StyleSheet.create({
     bold: {
       fontWeight: 'bold',
       margin:3,
-    }
+    },
+    commentStyle: {
+      padding: 3,
+      margin:3,
+      borderWidth: 1,
+      borderRadius: 0,
+      flex: 1
+    },
+    separator: {
+      height: 1,
+      backgroundColor: "#333333"
+    },
+    root: {
+      backgroundColor: "#ffffff",
+      marginTop:10,
+    },
+    commentContainer: {
+      backgroundColor: '#fff',
+      alignItems: 'flex-start'
+    },
+    content: {
+      marginLeft: 16,
+      flex: 1,
+    },
+    contentHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginBottom: 6
+    },
+    commentImage:{
+      width:45,
+      height:45,
+      borderRadius:20,
+      marginLeft:20
+    },
+    time:{
+      fontSize:11,
+      color:"#808080",
+    },
+    name:{
+      fontSize:16,
+      fontWeight:"bold",
+    },
   });
 

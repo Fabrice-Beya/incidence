@@ -125,25 +125,22 @@ export const deletePost = () => {
     }
 }
 
-export const postComment = () => {
+export const postComment = (text, id) => {
     return async (dispatch, getState) => {
         try {
-           const post = getState().post;
            const user = getState().user;
 
-
            const newComment = {
-               comment: post.comment,
+               comment: text,
                commentId: user.uid ,
                commenterName: user.fullname,
                commenterPhoto: user.photo || ' ',
                date: new Date().getTime(),
            }
 
-           console.log(post)
            console.log(newComment)
-           
-            const newPost = await db.collection('posts').doc(post.id).update({
+           console.log(id)
+            const newPost = await db.collection('posts').doc(id).update({
                 comments: firebase.firestore.FieldValue.arrayUnion(newComment)
               })
             

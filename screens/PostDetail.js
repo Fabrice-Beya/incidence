@@ -6,6 +6,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { bindActionCreators } from 'redux';
 import {updateComment, postComment} from '../actions/post';
 import { NavigationEvents } from 'react-navigation';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 
 class PostDetail extends React.Component {
@@ -32,7 +34,9 @@ class PostDetail extends React.Component {
   }
 
   postComment = () => {
-    this.props.postComment(this.props.post.comment, this.props.post.id)
+    const  {post}  = this.props.navigation.state.params
+    this.props.postComment(this.props.post.comment, post.id)
+    this.setState({commentBoxVisible: false})
   }
 
   render() {
@@ -41,7 +45,7 @@ class PostDetail extends React.Component {
     console.log(post)
     return (
       
-      <ScrollView >
+      <KeyboardAwareScrollView >
         <NavigationEvents onWillFocus={this.onWillFocus}/>
         <View style={styles.container}>
           <Text style={styles.bold}>{post.title}</Text>
@@ -63,11 +67,11 @@ class PostDetail extends React.Component {
           </ScrollView> : null
         }
 
-        <View style={[styles.row,{marginVertical:5}]}>
+        <View style={[styles.row,styles.hStart,{marginVertical:5}]}>
             <TouchableOpacity onPress={() => this.likePost(post)} >
-                <Ionicons style={styles.iconsGap} name={post.likes.includes(this.props.user.uid) ? 'md-heart' : 'md-heart-empty'} 
-                color={post.likes.includes(this.props.user.uid) ? 'red' : 'black'} size={32} /> 
-                </TouchableOpacity>
+              <Ionicons style={styles.iconsGap} name={post.likes.includes(this.props.user.uid) ? 'md-heart' : 'md-heart-empty'} 
+              color={post.likes.includes(this.props.user.uid) ? 'red' : 'black'} size={32} /> 
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => this.addCommnet()} >
               <Ionicons style={styles.iconsGap} name='md-chatbubbles' size={32} /> 
             </TouchableOpacity>
@@ -76,33 +80,57 @@ class PostDetail extends React.Component {
         <Text style={styles.textPadding}>{post.description}</Text>
         
         {
-          this.props.post.comments && this.props.post.comments ?
+         
+          post.comments && post.comments.length>0 ?
         <FlatList
-				  data={this.props.post.comments}
-				  keyExtractor={(item) => JSON.stringify(item.commentId)}
-				  renderItem={({ item }) => (
-
-           <Text>{item.comment}</Text>
-				  )}/> : null
+          style={styles.root}
+				  data={post.comments}
+          keyExtractor={(item) => { return item.commentId}}
+          ItemSeparatorComponent={() => {
+            return (
+              <View style={styles.separator}/>
+            )
+          }}
+				  renderItem={({ item }) => {
+            return(
+              <View style={styles.container}>
+                <TouchableOpacity onPress={() => {}}>
+                  <Image style={styles.commentImage} source={{uri: item.commenterPhoto}}/>
+                </TouchableOpacity>
+                <View style={styles.content}>
+                  <View style={styles.contentHeader}>
+                    <Text  style={styles.name}>{item.commenterName}</Text>
+                    <Text style={styles.time}>
+                      9:58 am
+                    </Text>
+                  </View>
+                  <Text rkType='primary3 mediumLine'>{item.comment}</Text>
+                </View>
+              </View>
+            );
+          }}/> : null
           }
           {
             this.state.commentBoxVisible ?
+              <KeyboardAwareScrollView >
               <View style={{flex:1}}>
+             
                 <TextInput
                   style={styles.commentBubble}
                   value={this.props.post.commnet}
                   placeholder='Comment'
                   autoFocus={true}
                   multiline={true}
-                  numberOfLines={5}
+                  numberOfLines={3}
                   onChangeText={input => this.props.updateComment(input)} />
                 <TouchableOpacity style={styles.button} onPress={() => this.postComment()}>
                   <Text style={styles.buttonText}>Comment</Text>
                 </TouchableOpacity>
-            </View> : null
+                </View>
+            </KeyboardAwareScrollView> : null
         }
       </View>
-      </ScrollView>
+      </KeyboardAwareScrollView>
 
     );
   }

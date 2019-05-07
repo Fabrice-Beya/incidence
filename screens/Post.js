@@ -109,7 +109,7 @@ onWillFocus = () => {
             <Picker.Item label="Catagory" value="" />
             <Picker.Item label="Complaint" value="Complain" />
             <Picker.Item label="Damage" value="Damage" />
-            <Picker.Item label="Enquery" value="Enquery" />
+            <Picker.Item label="Inquiry" value="Inquiry" />
             <Picker.Item label="Theft" value="Theft" />
             <Picker.Item label="Proposal" value="Proposal" />
             <Picker.Item label="General Notice" value="General Notice" />

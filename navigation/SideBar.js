@@ -9,7 +9,9 @@ import {
   Container,
   Left,
   Right,
-  Badge
+  Badge,
+  Footer,
+  Button
 } from "native-base";
 
 
@@ -82,6 +84,11 @@ class SideBar extends Component {
                 </Left>
               </ListItem>}
           />
+          {/* <Footer>
+            <Button block dark onPress={() => this.signout()}>
+              <Text>Logout</Text>
+            </Button>
+          </Footer> */}
         </Content>
       </Container>
     );

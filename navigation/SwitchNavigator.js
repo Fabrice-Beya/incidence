@@ -1,4 +1,4 @@
-import TabNavigator from './TabNavigator';
+import DrawerNavigator from './DrawerNavigator';
 import AuthNavigator from './AuthNavigator';
 
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';  
@@ -6,7 +6,7 @@ import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 
 const SwitchNavigator = createSwitchNavigator({
     Home: {
-      screen: TabNavigator,
+      screen: DrawerNavigator,
     },
     Auth: {
         screen: AuthNavigator,

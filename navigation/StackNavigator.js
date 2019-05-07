@@ -23,6 +23,11 @@ export const HomeNavigator = createAppContainer(createStackNavigator({
             <Ionicons style={{marginRight: 10}} name={'md-send'} size={30}/>
           </TouchableOpacity>
         ),
+        headerLeft: (
+          <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.toggleDrawer()}  >
+            <Ionicons style={{marginRight: 10}} name={'md-menu'} size={30}/>
+          </TouchableOpacity>
+        )
         
       })
     },
@@ -42,18 +47,28 @@ export const HomeNavigator = createAppContainer(createStackNavigator({
 export const SearchNavigator = createAppContainer(createStackNavigator({
     Search: {
       screen: SearchScreen,
-      navigationOptions: {
-        title: "Search"
-      }
+      navigationOptions:  ({navigation}) => ({
+        title: "Search",
+        headerLeft: (
+          <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.toggleDrawer()}  >
+            <Ionicons style={{marginRight: 10}} name={'md-menu'} size={30}/>
+          </TouchableOpacity>
+        )
+      })
     }
 }))
 
 export const ProfileNavigator = createAppContainer(createStackNavigator({
     Profile: {
       screen: ProfileScreen,
-      navigationOptions: {
-        title: "Profile"
-      }
+      navigationOptions: ({navigation}) => ({
+        title: "Profile",
+        headerLeft: (
+          <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.toggleDrawer()}  >
+            <Ionicons style={{marginRight: 10}} name={'md-menu'} size={30}/>
+          </TouchableOpacity>
+        )
+      })
     },
     EditProfile: {
       screen: EditProfileScreen,
@@ -105,6 +120,11 @@ export const PostNavigator = createAppContainer(createStackNavigator({
             <Ionicons style={styles.icon} name={'md-add-circle'} size={30}/>
           </TouchableOpacity>
         ),
+        headerLeft: (
+          <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.toggleDrawer()}  >
+            <Ionicons style={{marginRight: 10}} name={'md-menu'} size={30}/>
+          </TouchableOpacity>
+        )
       })
     },
     Camera: {
@@ -118,9 +138,14 @@ export const PostNavigator = createAppContainer(createStackNavigator({
 export const NotificationsNavigator = createAppContainer(createStackNavigator({
     Notifications: {
       screen: NotificationsScreen,
-      navigationOptions: {
-        title: "Notifications"
-      }
+      navigationOptions: ({navigation}) => ({
+        title: "Notifications",
+        headerLeft: (
+          <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.toggleDrawer()}  >
+            <Ionicons style={{marginRight: 10}} name={'md-menu'} size={30}/>
+          </TouchableOpacity>
+        )
+      })
     },
     PostDetail: {
       screen: PostDetailScreen,

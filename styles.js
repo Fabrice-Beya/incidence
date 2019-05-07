@@ -1,6 +1,10 @@
 import {StyleSheet, Dimensions} from 'react-native';
 const {width} = Dimensions.get('window');
+const React = require("react-native");
+const { Platform } = React;
 
+const deviceHeight = Dimensions.get("window").height;
+const deviceWidth = Dimensions.get("window").width;
 
 export default styles = StyleSheet.create({
     container: {
@@ -200,5 +204,27 @@ export default styles = StyleSheet.create({
       fontSize:16,
       fontWeight:"bold",
     },
+  drawerCover: {
+    alignSelf: "stretch",
+    height: deviceHeight / 3.5,
+    width: null,
+    position: "relative",
+    marginBottom: 10
+  },
+  drawerImage: {
+    alignSelf: "stretch",
+    position: "relative",
+    width: null,
+    height: 40,
+    margin: 20,
+    borderBottomWidth: 1,
+    borderColor: '#333333',
+  },
+  text: {
+    fontWeight: Platform.OS === "ios" ? "500" : "400",
+    fontSize: 16,
+    marginLeft: 20
+  },
+
   });
 

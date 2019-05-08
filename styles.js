@@ -215,16 +215,22 @@ export default styles = StyleSheet.create({
     alignSelf: "stretch",
     position: "relative",
     width: null,
-    height: 40,
+    height: 20,
     margin: 20,
+    padding: 20,
     borderBottomWidth: 1,
     borderColor: '#333333',
+    justifyContent: 'center'
   },
   text: {
     fontWeight: Platform.OS === "ios" ? "500" : "400",
     fontSize: 16,
     marginLeft: 20
   },
+  underlined: {
+    borderBottomWidth : 1,
+    borderColor: '#333333'
+  }
 
   });
 

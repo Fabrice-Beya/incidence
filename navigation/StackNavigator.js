@@ -36,7 +36,7 @@ export const HomeNavigator = createAppContainer(createStackNavigator({
       navigationOptions: ({navigation}) => ({
         title:'Post Detail',
         headerLeft: (
-          <TouchableOpacity onPress={() => navigation.goBack()} >
+          <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.goBack()} >
             <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
           </TouchableOpacity>
         )
@@ -75,7 +75,7 @@ export const ProfileNavigator = createAppContainer(createStackNavigator({
       navigationOptions: ({ navigation }) => ({
         title: 'Edit Profile',
         headerLeft: (
-          <TouchableOpacity onPress={() => navigation.goBack()} >
+          <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.goBack()} >
             <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
           </TouchableOpacity>
         )
@@ -86,7 +86,7 @@ export const ProfileNavigator = createAppContainer(createStackNavigator({
       navigationOptions: ({ navigation }) => ({
         title: 'Edit Post',
         headerLeft: (
-          <TouchableOpacity onPress={() => navigation.goBack()} >
+          <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.goBack()} >
             <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
           </TouchableOpacity>
         ),
@@ -102,7 +102,7 @@ export const ProfileNavigator = createAppContainer(createStackNavigator({
       navigationOptions: ({ navigation }) => ({
         title: 'Posts',
         headerLeft: (
-          <TouchableOpacity onPress={() => navigation.goBack()} >
+          <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.goBack()} >
             <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
           </TouchableOpacity>
         ),
@@ -152,7 +152,7 @@ export const NotificationsNavigator = createAppContainer(createStackNavigator({
       navigationOptions: ({navigation}) => ({
         title:'Post Detail',
         headerLeft: (
-          <TouchableOpacity onPress={() => navigation.goBack()} >
+          <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.goBack()} >
             <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
           </TouchableOpacity>
         )

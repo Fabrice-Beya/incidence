@@ -1,19 +1,14 @@
 import React, { Component } from "react";
 import { Image } from "react-native";
 import {
-  Content,
-  Text,
-  List,
-  ListItem,
-  Icon,
+  Content, Text, List, ListItem, Icon,
   Container,
   Left,
   Right,
   Badge,
   Footer,
-  Button
+  Button,
 } from "native-base";
-
 
 // const drawerCover = require("../../../assets/drawer-cover.png");
 const drawerImage = require("../assets/logo.png");
@@ -59,7 +54,7 @@ class SideBar extends Component {
       <Container>
         <Content
           bounces={false}
-          style={{ flex: 1, backgroundColor: "#fff", top: -1 }}
+          style={{ flex: 1, backgroundColor: "#fff"}}
         >
           {/* <Image source={drawerCover} style={styles.drawerCover} /> */}
           <Image square style={styles.drawerImage} source={drawerImage} />
@@ -69,14 +64,15 @@ class SideBar extends Component {
             renderRow={data =>
               <ListItem
                 button
-                noBorder
+                
                 onPress={() => this.props.navigation.navigate(data.route)}
+                
               >
                 <Left>
                   <Icon
                     active
                     name={data.icon}
-                    style={{ color: "#777", fontSize: 26, width: 30 }}
+                    style={{ color: "#333", fontSize: 26, width: 30 }}
                   />
                   <Text style={styles.text}>
                     {data.name}
@@ -84,11 +80,14 @@ class SideBar extends Component {
                 </Left>
               </ListItem>}
           />
-          {/* <Footer>
-            <Button block dark onPress={() => this.signout()}>
+
+            <Button style={{flex:1, justifyContent: 'flex-end', alignItems: 'center', margin: 30}} iconLeft transparent dark onPress={() => this.signout()}>
+              <Icon name='home' />
               <Text>Logout</Text>
             </Button>
-          </Footer> */}
+          
+         
+          
         </Content>
       </Container>
     );
@@ -96,3 +95,4 @@ class SideBar extends Component {
 }
 
 export default SideBar;
+  

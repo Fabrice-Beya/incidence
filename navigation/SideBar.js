@@ -9,8 +9,9 @@ import {
   Footer,
   Button,
 } from "native-base";
+import firebase from 'firebase';
 
-// const drawerCover = require("../../../assets/drawer-cover.png");
+const drawerCover = require("../assets/logo_blk.png");
 const drawerImage = require("../assets/logo.png");
 const datas = [
   {
@@ -23,20 +24,25 @@ const datas = [
     route: "Search",
     icon: "md-search",
   },
-   {
+  {
     name: "Post",
     route: "Post",
     icon: "md-add-circle-outline",
   },
-   {
+  {
     name: "Notifications",
     route: "Notifications",
     icon: "md-heart",
-  }, 
+  },
   {
     name: "Profile",
     route: "Profile",
     icon: "md-person",
+  },
+  {
+    name: "Logout",
+    route: "logout",
+    icon: "md-logout",
   },
 ];
 
@@ -49,25 +55,31 @@ class SideBar extends Component {
     };
   }
 
+  navigate = async (item) => {
+    if(item.name == "Logout"){
+      await firebase.auth().signOut();
+      this.props.navigation.navigate('Auth');
+    } else {
+      this.props.navigation.navigate(data.route)
+    }
+  }
+
+
   render() {
     return (
       <Container>
         <Content
           bounces={false}
-          style={{ flex: 1, backgroundColor: "#fff"}}
+          style={{ flex: 1, backgroundColor: "#fff" }}
         >
-          {/* <Image source={drawerCover} style={styles.drawerCover} /> */}
-          <Image square style={styles.drawerImage} source={drawerImage} />
+          <Image source={drawerCover} style={styles.drawerCover} />
+          {/* <Image square style={styles.drawerImage} source={drawerImage} /> */}
 
           <List
             dataArray={datas}
-            renderRow={data =>
+            renderRow={data => 
               <ListItem
-                button
-                
-                onPress={() => this.props.navigation.navigate(data.route)}
-                
-              >
+                button onPress={() => this.navigate(data)}>
                 <Left>
                   <Icon
                     active
@@ -80,14 +92,6 @@ class SideBar extends Component {
                 </Left>
               </ListItem>}
           />
-
-            <Button style={{flex:1, justifyContent: 'flex-end', alignItems: 'center', margin: 30}} iconLeft transparent dark onPress={() => this.signout()}>
-              <Icon name='home' />
-              <Text>Logout</Text>
-            </Button>
-          
-         
-          
         </Content>
       </Container>
     );
@@ -95,4 +99,3 @@ class SideBar extends Component {
 }
 
 export default SideBar;
-  

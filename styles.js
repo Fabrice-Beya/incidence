@@ -42,21 +42,18 @@ export default styles = StyleSheet.create({
       marginHorizontal: 7
     },
     button: {
-      margin: 15,
-      paddingVertical: 10,
+      justifyContent: 'center',
+      margin: 10,
+     
       alignItems: 'center',
-      borderColor: '#333333',
-      borderWidth: 1,
       borderRadius: 5,
-      width: 250,
+      width: 300,
       backgroundColor: '#333333',
     },
     smallButton : {
       margin: 10,
-      paddingVertical: 10,
+      
       alignItems: 'center',
-      borderColor: '#333333',
-      borderWidth: 1,
       borderRadius: 5,
       width: 150,
       backgroundColor: '#333333',
@@ -65,14 +62,13 @@ export default styles = StyleSheet.create({
       color: 'white'
     },
     facebookButton: {
+      justifyContent: 'center',
       backgroundColor: '#3b5998',
-      marginTop: 15,
+      margin: 10,
       paddingVertical: 10,
       alignItems: 'center',
-      borderColor: '#3b5998',
-      borderWidth: 1,
       borderRadius: 5,
-      width: 250
+      width: 300
     },
     border: {
       width: '85%',
@@ -82,6 +78,12 @@ export default styles = StyleSheet.create({
       borderColor: '#333333',
       borderBottomWidth: 1,
       textAlign: 'center'
+    },
+    buttonStack: {
+      flex:1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop:20
     },
     commentBubble: {
       width: 300,
@@ -106,12 +108,11 @@ export default styles = StyleSheet.create({
       fontSize: 14,
       margin: 10,
       padding: 5,
-      // borderColor: '#333333',
-      // borderWidth: 1,
       textAlign: 'left'
     },
     pickerBorder: {
-      width: '85%',
+      width: '90%',
+      marginVertical: 10
     },
     pickerItem: {
       fontSize: 16,
@@ -120,9 +121,9 @@ export default styles = StyleSheet.create({
     profileImage: {
       width: 180,
       height: 180,
-      borderRadius: 150,
-      backgroundColor: '#adadad',
-      margin:5
+      margin:10,
+      resizeMode: 'contain',
+      borderWidth:0.5
     },
     squareImage: {
       height: 80,
@@ -250,5 +251,24 @@ export default styles = StyleSheet.create({
     height: 2,
     justifyContent: 'center'
   },
+  loginPicture : {
+    width: deviceWidth,
+    height: 250,
+    marginBottom: 50
+  },
+  inputText: {
+    margin: 10,
+   
+    fontSize: 16,
+    textAlign: 'left',
+    width: 300,
+
+  },
+  inputStack: {
+    flex:1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding:20
+  }
   });
 

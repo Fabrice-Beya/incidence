@@ -13,11 +13,11 @@ import { likePost } from '../actions/feed'
 class PostDetail extends React.Component {
 
   state = {
-    commentBoxVisible: false
+    commentBoxVisible: false, 
   }
 
   onWillFocus = () => {
-    // this.loadComments()
+    this.loadComments()
   }
 
   likePost = (post) => {
@@ -85,10 +85,12 @@ class PostDetail extends React.Component {
             <View style={{ flexDirection: 'row', justifyContent: 'space-around', margin: 10 }}>
               <Button iconLeft transparent large dark onPress={() => this.props.navigation.navigate('Comment',{ post: post })} >
                 <Icon name='md-chatbubbles' />
+                <Text>{post.comments ? post.comments.length + 1 : null}</Text>
               </Button>
               <Button iconLeft transparent large dark onPress={() => this.likePost(post)}>
                 <Icon name={post.likes.includes(this.props.user.uid) ? 'md-heart' : 'md-heart-empty'}
                   color={post.likes.includes(this.props.user.uid) ? 'red' : 'black'} />
+                    <Text>{post.likes ? post.likes.length + 1 : null}</Text>
               </Button>
               <Button iconLeft transparent large dark>
                 <Icon name='md-send' onPress={() => this.message()} />

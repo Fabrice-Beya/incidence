@@ -11,6 +11,7 @@ import EditProfileScreen from '../screens/EditProfile';
 import EditPostScreen from '../screens/EditPost';
 import PostsScreen from '../screens/Posts';
 import PostDetailScreen from '../screens/PostDetail';
+import CommentScreen from '../screens/Comment';
 import { Ionicons } from '@expo/vector-icons';
 
 export const HomeNavigator = createAppContainer(createStackNavigator({
@@ -19,8 +20,8 @@ export const HomeNavigator = createAppContainer(createStackNavigator({
       navigationOptions: ({navigation}) => ({
         headerTitle: <Image style={{width:120, height: 35}} source={require('../assets/logo.png')}/>,
         headerRight: (
-          <TouchableOpacity onPress={() => navigation.navigate('Message')}  >
-            <Ionicons style={{marginRight: 10}} name={'md-send'} size={30}/>
+          <TouchableOpacity onPress={() => navigation.navigate('Post')}  >
+            <Ionicons style={{marginRight: 10}} name={'md-add-circle-outline'} size={30}/>
           </TouchableOpacity>
         ),
         headerLeft: (
@@ -41,7 +42,23 @@ export const HomeNavigator = createAppContainer(createStackNavigator({
           </TouchableOpacity>
         )
       })
-    }
+    },
+    Comment: {
+      screen: CommentScreen,
+      navigationOptions: ({navigation}) => ({
+        title:'Comments',
+        headerLeft: (
+          <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.goBack()} >
+            <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
+          </TouchableOpacity>
+        ),
+        headerRight: (
+          <TouchableOpacity style={{paddingRight:16}} onPress={navigation.getParam('showComment')} >
+            <Ionicons style={styles.icon} name={'md-chatbubbles'} size={30}/>
+          </TouchableOpacity>
+        )
+      })
+    },
 }))
 
 export const SearchNavigator = createAppContainer(createStackNavigator({

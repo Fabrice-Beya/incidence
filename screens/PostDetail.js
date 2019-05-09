@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, TextInput, View, FlatList, Picker, Image, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+// import { Text, TextInput, View, FlatList, Picker, Image, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+import { Content, Text, List, Item ,ListItem, Input ,H1, View, H2, H3, Icon, Separator, Container, Left, Right, Badge, Footer, Button, Thumbnail, Body, Image } from "native-base";
 import styles from '../styles';
 import { connect } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
@@ -7,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import { updateComment, postComment } from '../actions/post';
 import { NavigationEvents } from 'react-navigation';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { likePost } from '../actions/feed'
 
 class PostDetail extends React.Component {
 
@@ -37,98 +39,67 @@ class PostDetail extends React.Component {
     this.setState({ commentBoxVisible: false })
   }
 
+  message = () => {
+
+  }
+
   render() {
     const { post } = this.props.navigation.state.params
     const postPhotos = post.postPhotos
     console.log(post)
     return (
 
-      <KeyboardAwareScrollView >
+      <Container >
         <NavigationEvents onWillFocus={this.onWillFocus} />
-        <View style={styles.container}>
-          <Text style={styles.bold}>{post.title}</Text>
-          <Text>Catagory - {post.catagory}</Text>
-          <Text>Residence - {post.residence}</Text>
-          <Text>Unit - {post.unit}</Text>
-          <Text>Logged on - {post.incidenceDate.substring(0, post.incidenceDate.indexOf('G'))}</Text>
+        <Content>
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <H1 >{post.title}</H1>
+            <Thumbnail source={{ uri: post.photo }} />
+            <Text >{post.fullname}</Text>
+            <Text note>{String(post.incidenceDate)}</Text>
+          </View>
 
           {
             postPhotos && postPhotos.length ?
 
-              <ScrollView
+              <Content
                 horizontal
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}>
-                {postPhotos.map(image => (
-                  <Image style={styles.incidencePicture} source={{ uri: image }} />
+                {postPhotos.map((image, index) => (
+                  <Content>
+                    <Thumbnail square style={styles.incidencePicture} source={{ uri: image }} />
+                    <Text style={{ textAlign: 'center' }} note >{index + 1} of {postPhotos.length}</Text>
+                  </Content>
                 ))}
-              </ScrollView> : null
+              </Content> : null
           }
 
-          <View style={[styles.row, styles.hStart, { marginVertical: 5 }]}>
-            <TouchableOpacity onPress={() => this.likePost(post)} >
-              <Ionicons style={styles.iconsGap} name={post.likes.includes(this.props.user.uid) ? 'md-heart' : 'md-heart-empty'}
-                color={post.likes.includes(this.props.user.uid) ? 'red' : 'black'} size={32} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.addCommnet()} >
-              <Ionicons style={styles.iconsGap} name='md-chatbubbles' size={32} />
-            </TouchableOpacity>
-            <Ionicons style={styles.iconsGap} name='md-send' size={32} />
-          </View>
-          <Text style={styles.textPadding}>{post.description}</Text>
+          <Content >
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+              <H3 style={styles.incidenceSubDesc}>{post.catagory} at {post.residence} - {post.unit}</H3>
+              <Separator color='#333333' style={styles.separator} />
+              <Text style={styles.incidenceDescription}>{post.description}</Text>
+            </View>
 
-          {
+            <View style={{ flexDirection: 'row', justifyContent: 'space-around', margin: 10 }}>
+              <Button iconLeft transparent large dark onPress={() => this.props.navigation.navigate('Comment',{ post: post })} >
+                <Icon name='md-chatbubbles' />
+              </Button>
+              <Button iconLeft transparent large dark onPress={() => this.likePost(post)}>
+                <Icon name={post.likes.includes(this.props.user.uid) ? 'md-heart' : 'md-heart-empty'}
+                  color={post.likes.includes(this.props.user.uid) ? 'red' : 'black'} />
+              </Button>
+              <Button iconLeft transparent large dark>
+                <Icon name='md-send' onPress={() => this.message()} />
+              </Button>
+            </View>
 
-            post.comments && post.comments.length > 0 ?
-              <FlatList
-                style={styles.root}
-                data={post.comments}
-                keyExtractor={(item) => { return item.commentId }}
-                ItemSeparatorComponent={() => {
-                  return (
-                    <View style={styles.separator} />
-                  )
-                }}
-                renderItem={({ item }) => {
-                  return (
-                    <View style={styles.container}>
-                      <TouchableOpacity onPress={() => { }}>
-                        <Image style={styles.commentImage} source={{ uri: item.commenterPhoto }} />
-                      </TouchableOpacity>
-                      <View style={styles.content}>
-                        <View style={styles.contentHeader}>
-                          <Text style={styles.name}>{item.commenterName}</Text>
-                          <Text style={styles.time}>
-                            9:58 am
-                    </Text>
-                        </View>
-                        <Text rkType='primary3 mediumLine'>{item.comment}</Text>
-                      </View>
-                    </View>
-                  );
-                }} /> : null
-          }
-          {
-            this.state.commentBoxVisible ?
-              <KeyboardAwareScrollView >
-                <View style={{ flex: 1 }}>
 
-                  <TextInput
-                    style={styles.commentBubble}
-                    value={this.props.post.commnet}
-                    placeholder='Comment'
-                    autoFocus={true}
-                    multiline={true}
-                    numberOfLines={3}
-                    onChangeText={input => this.props.updateComment(input)} />
-                  <TouchableOpacity style={styles.button} onPress={() => this.postComment()}>
-                    <Text style={styles.buttonText}>Comment</Text>
-                  </TouchableOpacity>
-                </View>
-              </KeyboardAwareScrollView> : null
-          }
-        </View>
-      </KeyboardAwareScrollView>
+          </Content>
+      
+        </Content>
+      </Container>
 
     );
   }
@@ -142,7 +113,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ updateComment, postComment }, dispatch)
+  return bindActionCreators({ updateComment, postComment, likePost }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail)

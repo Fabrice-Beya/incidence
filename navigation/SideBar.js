@@ -42,7 +42,7 @@ const datas = [
   {
     name: "Logout",
     route: "logout",
-    icon: "md-logout",
+    icon: "md-log-out",
   },
 ];
 
@@ -60,7 +60,7 @@ class SideBar extends Component {
       await firebase.auth().signOut();
       this.props.navigation.navigate('Auth');
     } else {
-      this.props.navigation.navigate(data.route)
+      this.props.navigation.navigate(item.route)
     }
   }
 

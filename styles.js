@@ -23,6 +23,9 @@ export default styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'space-between'
     },
+    justCenter : {
+      alignItems: 'center'
+    },
     vSEnd: {
       alignContent: 'flex-start'
     },
@@ -130,7 +133,7 @@ export default styles = StyleSheet.create({
     },
     incidencePicture: {
       width: width,
-      height:200,
+      height:300,
       marginVertical:10
     },
     postPhoto: {
@@ -230,7 +233,22 @@ export default styles = StyleSheet.create({
   underlined: {
     borderBottomWidth : 1,
     borderColor: '#333333'
-  }
-
+  },
+  incidenceDescription : {
+    textAlign: 'center',
+    padding: 5,
+    marginVertical: 10
+  },
+  incidenceSubDesc : {
+    textAlign: 'center',
+    margin: 10
+  },
+  separator: {
+    color: '#333333',
+    paddingHorizontal: 200,
+    alignItems: 'center',
+    height: 2,
+    justifyContent: 'center'
+  },
   });
 

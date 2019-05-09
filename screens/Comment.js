@@ -52,6 +52,22 @@ class Comment extends React.Component {
             <Container >
                 <NavigationEvents onWillFocus={this.onWillFocus} />
                 <Content>
+                {
+                        this.state.commentBoxVisible ?
+                          
+                        <Content padder>
+                            <Item regular>
+                                <Input
+                                    value={this.props.post.commnet}
+                                    placeholder='Your comment'
+                                    autoFocus={true}
+                                    onChangeText={input => this.props.updateComment(input)} />
+                            </Item>
+                            <Button  style={{ alignItems: 'center', justifyContent: 'center' }} full primary onPress={() => this.postComment()}>
+                                <Text>Comment</Text>
+                            </Button>
+                        </Content> : null
+                    }
                     {
                          this.state.comments &&  this.state.comments.length > 0 ?
                             <List
@@ -70,22 +86,7 @@ class Comment extends React.Component {
                                 } /> : null
                     }
 
-                    {
-                        this.state.commentBoxVisible ?
-                          
-                        <Content padder>
-                            <Item regular>
-                                <Input
-                                    value={this.props.post.commnet}
-                                    placeholder='Your comment'
-                                    autoFocus={true}
-                                    onChangeText={input => this.props.updateComment(input)} />
-                            </Item>
-                            <Button  style={{ alignItems: 'center', justifyContent: 'center' }} full primary onPress={() => this.postComment()}>
-                                <Text>Comment</Text>
-                            </Button>
-                        </Content> : null
-                    }
+                   
 
                 </Content>
             </Container>

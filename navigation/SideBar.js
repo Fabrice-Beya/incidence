@@ -32,7 +32,7 @@ const datas = [
   {
     name: "Notifications",
     route: "Notifications",
-    icon: "md-heart",
+    icon: "md-notifications",
   },
   {
     name: "Profile",

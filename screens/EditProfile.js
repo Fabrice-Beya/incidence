@@ -29,13 +29,13 @@ class EditProfile extends React.Component {
     render() {
         return (
             <Container>
-                <Content padder>
-                    <View style={styles.inputStack}>
+                <Content>
+                    <View style={styles.container}>
                         <TouchableOpacity style={styles.center} onPress={() => this.openPhotoLib()}>
                             {
                                 this.props.user.photo ?
-                                    <Thumbnail style={styles.profileImage} source={{ uri: this.props.user.photo }} /> :
-                                    <Thumbnail style={styles.profileImage} source={require('../assets/blank_photo.png')} />
+                                    <Thumbnail large style={styles.profileImage} source={{ uri: this.props.user.photo }} /> :
+                                    <Thumbnail large style={styles.profileImage} source={require('../assets/blank_photo.png')} />
                             }
 
                         </TouchableOpacity>
@@ -46,8 +46,6 @@ class EditProfile extends React.Component {
                                 placeholder='Full Names'
                                 onChangeText={input => this.props.updateFullname(input)} />
                         </Item>
-
-
                         <Picker
                             selectedValue={this.props.user.residence}
                             onValueChange={(itemValue, itemIndex) =>

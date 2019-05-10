@@ -42,7 +42,7 @@ class Posts extends React.Component {
     if (this.state.posts.length < 0) return <Spinner color='black' />;
     return (
       <Container>
-        <Content>
+        
           <NavigationEvents onWillFocus={this.onWillFocus} />
           <List
             dataArray={this.state.posts}
@@ -63,7 +63,7 @@ class Posts extends React.Component {
                 </Body>
               </ListItem>}
           />
-        </Content>
+       
       </Container>
     );
   }

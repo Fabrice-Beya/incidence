@@ -52,7 +52,7 @@ class Notifications extends React.Component {
 
       <Container>
         <NavigationEvents onWillFocus={this.onWillFocus}/>
-        <Content padder>
+      
          
           <List
             dataArray={this.state.activity}
@@ -89,7 +89,7 @@ class Notifications extends React.Component {
               </ListItem>}
             />
          
-        </Content>
+       
       </Container>
     )
   }

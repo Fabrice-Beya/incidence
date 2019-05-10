@@ -132,6 +132,17 @@ export default styles = StyleSheet.create({
       textAlign: 'center'
     },
     profileImage: {
+      // width: 180,
+      // height: 180,
+      marginTop:50,
+      marginBottom: 15,
+      width: 200,
+      height:200,
+      borderRadius:100
+      // resizeMode: 'contain',
+      // borderWidth:1
+    },
+    editProfileImage: {
       width: 180,
       height: 180,
       margin:10,
@@ -276,11 +287,10 @@ export default styles = StyleSheet.create({
   },
   inputText: {
     margin: 10,
-   
     fontSize: 16,
     textAlign: 'left',
-    width: 300,
-
+    width: 280,
+    paddingHorizontal: 10
   },
   inputStack: {
     flex:1,

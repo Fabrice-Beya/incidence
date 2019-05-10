@@ -42,7 +42,7 @@ class Home extends React.Component {
         <Content>
           <List
             dataArray={this.props.feed}
-            refreshControl={<RefreshControl enabled={true}
+            refreshControl={<RefreshControl
              refreshing={this.state.refreshing} 
              onRefresh={this.handleRefresh}/>}
             renderRow={(item) =>

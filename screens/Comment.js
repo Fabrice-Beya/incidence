@@ -28,22 +28,14 @@ class Comment extends React.Component {
         this.setState({ commentBoxVisible: true })
     }
 
-
     addCommnet = () => {
         this.setState({ commentBoxVisible: true })
     }
 
     postComment = () => {
         const { post } = this.props.navigation.state.params
-        this.props.postComment(this.props.post.comment, post.id)
-        const newComments = this.state.comments;
-        newComments.push({
-            commenterName : this.props.user.fullname,
-            commenterPhoto : this.props.user.photo,
-            comment : this.props.post.comment
-        });
-        this.setState({ commentBoxVisible: false ,
-        comments : newComments})
+        this.props.postComment(this.props.post.comment, post.id, post.title, post.uid)
+        this.setState({ commentBoxVisible: false })
     }
 
     render() {
@@ -75,7 +67,7 @@ class Comment extends React.Component {
                                 renderRow={(item) =>
                                     <ListItem avatar>
                                         <Left style={{ flexDirection: 'column', alignItems: 'center' }}>
-                                            <Thumbnail small  source={{ uri: item.commenterPhoto }} />
+                                            <Thumbnail small source={{ uri: item.commenterPhoto }} />
                                             <Text note>{item.commenterName}</Text>
                                         </Left>
                                         <Body>

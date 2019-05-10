@@ -18,7 +18,7 @@ export const HomeNavigator = createAppContainer(createStackNavigator({
     Home: {
       screen: HomeScreen,
       navigationOptions: ({navigation}) => ({
-        headerTitle: <Image style={{width:120, height: 35}} source={require('../assets/logo.png')}/>,
+        headerTitle: <Image style={{width:115, height: 27}} source={require('../assets/logo.png')}/>,
         headerRight: (
           <TouchableOpacity onPress={() => navigation.navigate('Post')}  >
             <Ionicons style={{marginRight: 10}} name={'md-add-circle-outline'} size={30}/>
@@ -134,7 +134,7 @@ export const PostNavigator = createAppContainer(createStackNavigator({
         title: 'Post',
         headerRight: (
           <TouchableOpacity style={{marginHorizontal:10}} onPress={navigation.getParam('uploadPost')} >
-            <Ionicons style={styles.icon} name={'md-add-circle'} size={30}/>
+            <Ionicons style={styles.icon} name={'md-save'} size={30}/>
           </TouchableOpacity>
         ),
         headerLeft: (

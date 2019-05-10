@@ -1,19 +1,25 @@
 import React from 'react';
 import styles from '../styles'
 import { connect } from 'react-redux'
-import { NavigationEvents, Header } from 'react-navigation';
-import { Text, View, TouchableOpacity, FlatList, ActivityIndicator, Image} from 'react-native';
+import {RefreshControl} from 'react-native';
+import { NavigationEvents } from 'react-navigation';
+import { Content, Text, List, Item, ListItem, Input, Form,Left, View, Textarea, Spinner, Picker, Icon, Separator, Container, Footer, Button, Thumbnail, Body, Image } from "native-base";
 import db from '../config/firebase';
 import orderBy from 'lodash/orderBy'
 
-
 class Notifications extends React.Component {
 	state = {
+    refreshing: false,
 		activity: []
 	}
 
   onWillFocus = () => {
     this.getActivity()
+  }
+
+  handleRefresh = async () => {
+    this.setState({refreshing: true});
+    await this.getActivity();
   }
 
   getActivity = async () => {
@@ -22,12 +28,13 @@ class Notifications extends React.Component {
     query.forEach((response) => {
       activity.push(response.data())
     })
-		this.setState({activity: activity})
+    this.setState({activity: activity})
+    console.log(activity)
   }
 
   navigatePost = (id) => {
     console.log(id)
-    const post = this.props.post.feed.find(obj => obj.id == id);
+    const post = this.props.feed.find(obj => obj.id == id);
     console.log(post)
     this.props.navigation.navigate('PostDetail', 
       { post: post }
@@ -38,30 +45,52 @@ class Notifications extends React.Component {
   	if (this.state.activity.length <= 0 ) return (
       <View>
         <NavigationEvents onWillFocus={this.onWillFocus}/>
-        <ActivityIndicator style={styles.container}/>
-    </View>
+        <Spinner color='black'/>
+      </View>
     )
     return (
-    	<View style={{flex: 1, padding:5}}>
-      
-				<FlatList
-				  data={this.state.activity}
-				  keyExtractor={(item) => JSON.stringify(item.loggedDate)}
-				  renderItem={({ item }) => (
-           <TouchableOpacity onPress={() => this.navigatePost(item.postId)} >
-            <View style={[styles.row, styles.center]}>
-	        	<Image style={styles.roundImage} source={{uri: item.likerPhoto}}/>
-            <View>
-              <Text>{item.likerName}</Text>
-              <Text>Liked Your Post</Text>
-              <Text>{item.date}</Text>
-            </View>
-	          <Text>{item.title}</Text>
-            </View>
-            </TouchableOpacity>
-	        
-				)}/>
-			</View>
+
+      <Container>
+        <NavigationEvents onWillFocus={this.onWillFocus}/>
+        <Content padder>
+         
+          <List
+            dataArray={this.state.activity}
+            refreshControl={<RefreshControl enabled={true}
+             refreshing={this.state.refreshing} 
+             onRefresh={this.handleRefresh}/>}
+            renderRow={(item) =>
+              <ListItem thumbnail  onPress={() => this.navigatePost(item.postId)} >
+                <Left style={{flexDirection: 'column', alignItems: 'center'}}>
+                    <Thumbnail style={{borderRadius: 2}} large square source={{ uri: item.actorPhoto }} />
+                    <Text note>{item.actorName}</Text>
+                </Left>
+                <Body>
+                  {
+                    item.type === 'LIKE' ?
+                      <Text>Liked your post</Text>  
+                   : null
+                  }
+                  {
+                   item.type === 'COMMENT' ?
+                   <Text>Commented on your post</Text>  
+                  : null
+                  }
+
+                  {
+                   item.type === 'MESSAGE' ?
+                   <Text>You have a message related to</Text>  
+                  : null
+                  }
+                 
+                  <Text>{item.title}</Text>     
+                  <Text note>3hrs ago</Text>
+                </Body>
+              </ListItem>}
+            />
+         
+        </Content>
+      </Container>
     )
   }
 }
@@ -69,7 +98,8 @@ class Notifications extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    post: state.post
+    post: state.post,
+    feed: state.feed
   }
 }
 

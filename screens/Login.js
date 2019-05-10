@@ -25,7 +25,7 @@ class Login extends React.Component {
       <Container >
         <Content sytle={styles.container}>
 
-          <Thumbnail square style={styles.loginPicture} source={require('../assets/logo_blk.png')} />
+          <Thumbnail square style={styles.loginPicture} source={require('../assets/logo.png')} />
           <View style={styles.container}>
           <View style={styles.inputStack} >
             <Item>

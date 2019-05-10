@@ -43,20 +43,23 @@ export default styles = StyleSheet.create({
     },
     button: {
       justifyContent: 'center',
+      backgroundColor: '#333333',
       margin: 10,
-     
+      paddingVertical: 10,
       alignItems: 'center',
       borderRadius: 5,
       width: 300,
-      backgroundColor: '#333333',
+      alignSelf: 'center'
     },
     smallButton : {
+      justifyContent: 'center',
+      backgroundColor: '#333333',
       margin: 10,
-      
+      paddingVertical: 10,
       alignItems: 'center',
       borderRadius: 5,
-      width: 150,
-      backgroundColor: '#333333',
+      width: 200,
+      alignSelf: 'center'
     },
     buttonText: {
       color: 'white'
@@ -68,7 +71,8 @@ export default styles = StyleSheet.create({
       paddingVertical: 10,
       alignItems: 'center',
       borderRadius: 5,
-      width: 300
+      width: 300,
+      alignSelf: 'center'
     },
     border: {
       width: '85%',
@@ -83,6 +87,13 @@ export default styles = StyleSheet.create({
       flex:1,
       alignItems: 'center',
       justifyContent: 'center',
+      marginTop:20
+    },
+    buttonStackRow: {
+      flex:1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'row',
       marginTop:20
     },
     commentBubble: {
@@ -104,11 +115,13 @@ export default styles = StyleSheet.create({
       textAlign: 'center'
     },
     textArea: {
-      width: '85%',
-      fontSize: 14,
-      margin: 10,
+      width: '90%',
+      fontSize: 18,
+      margin: 15,
       padding: 5,
-      textAlign: 'left'
+      textAlign: 'left',
+      borderWidth: 1,
+      height: 200
     },
     pickerBorder: {
       width: '90%',
@@ -123,7 +136,7 @@ export default styles = StyleSheet.create({
       height: 180,
       margin:10,
       resizeMode: 'contain',
-      borderWidth:0.5
+      borderWidth:1
     },
     squareImage: {
       height: 80,
@@ -252,9 +265,14 @@ export default styles = StyleSheet.create({
     justifyContent: 'center'
   },
   loginPicture : {
-    width: deviceWidth,
-    height: 250,
-    marginBottom: 50
+    width: '80%',
+    marginTop: 100,
+    marginBottom: 50,
+    flex:1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    resizeMode: 'contain'
   },
   inputText: {
     margin: 10,
@@ -268,7 +286,8 @@ export default styles = StyleSheet.create({
     flex:1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding:20
+    padding:10,
+    width: 320
   }
   });
 

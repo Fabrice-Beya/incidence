@@ -1,11 +1,10 @@
 import React from 'react';
-import { Image, Text, View, TouchableOpacity, Modal, KeyboardAvoidingView, TextInput, SafeAreaView } from 'react-native';
+import { Content, Text, List, Item, ListItem, Input, Form, View, Textarea, DatePicker, Picker, Icon, Separator, Container, Footer, Button, Thumbnail, Body, Image } from "native-base";
 import styles from '../styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import firebase from 'firebase';
-import { Ionicons } from '@expo/vector-icons';
-import { updateUser, updateEmail, updateUsername, updateBio } from '../actions/user';
+
 
 class Profile extends React.Component {
 
@@ -16,26 +15,27 @@ class Profile extends React.Component {
 
   render() {
     return (
-
-      <View style={{ flex: 1, justifyContent: 'space-around', alignContent: 'center' }}>
-        <View style={{ alignItems: 'center', justifyContent: 'space-between', alignSelf: 'center' }}>
-          <Image style={styles.profileImage} source={{ uri: this.props.user.photo }} />
-          <Text style={{ fontSize: 35 }}>{this.props.user.fullname}</Text>
-          <Text>{this.props.user.email}</Text>
-          <Text style={styles.gray}>{this.props.user.residence}</Text>
-          <Text style={styles.gray}>{this.props.user.unit}</Text>
-          <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('EditProfile')}>
-            <Text style={styles.buttonText}>Edit Profile</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Posts')}>
-            <Text style={styles.buttonText}>Edit Posts</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => this.signout()}>
-            <Text style={styles.buttonText}>Logout</Text>
-          </TouchableOpacity>
-        </View>
-
-      </View>
+      <Container>
+        <Content>
+          <View style={styles.container}>
+            <Thumbnail square style={styles.incidencePicture} source={{ uri: this.props.user.photo }} />
+            <Text style={{ fontSize: 35 }}>{this.props.user.fullname}</Text>
+            <Text>{this.props.user.email}</Text>
+            <Text style={styles.gray}>{this.props.user.residence}</Text>
+            <Text style={styles.gray}>{this.props.user.unit}</Text>
+            <View sytle={styles.buttonStack}>
+              <Button style={styles.button} iconLeft dark onPress={() => this.props.navigation.navigate('EditProfile')}>
+                <Icon name='md-person' />
+                <Text>Edit Profile</Text>
+              </Button>
+              <Button  style={styles.button}  iconLeft dark onPress={() => this.props.navigation.navigate('Posts')}>
+                <Icon name='md-create' />
+                <Text>Edit Posts</Text>
+              </Button>
+            </View>
+          </View>
+        </Content>
+      </Container>
     );
   }
 }

@@ -5,6 +5,7 @@ import { Container, Content, View, List, ListItem, Left, Body, Thumbnail, Text, 
 import { bindActionCreators } from 'redux';
 import styles from '../styles';
 import { getPosts, likePost, unlikePost } from '../actions/feed';
+import moment from 'moment'
 
 class Home extends React.Component {
   state = {
@@ -41,8 +42,8 @@ class Home extends React.Component {
           <View style={{ flex: 1 }}>
             <List
               refreshControl={<RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this.handleRefresh} />}
+                refreshing={false}
+                onRefresh={() =>  this.props.getPosts()} />}
               dataArray={this.props.feed}
               renderRow={(item) =>
                 <ListItem thumbnail onPress={() => this.navigatePost(item)}>
@@ -54,7 +55,7 @@ class Home extends React.Component {
                     <Text >{item.title}</Text>
                     <Text>{item.catagory}</Text>
                     <Text note>{item.residence} - {item.unit}</Text>
-                    <Text note>3hrs ago</Text>
+                    <Text note>{moment(item.incidenceDate).format('ll')}</Text>
                   </Body>
                 </ListItem>}
             />

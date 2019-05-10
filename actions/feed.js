@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 import db from '../config/firebase';
-import cloneDeep from 'lodash/cloneDeep';
+import orderBy from 'lodash/cloneDeep';
+
 
 export const getPosts = () => {
     return async (dispatch, getState) => {
@@ -10,7 +11,7 @@ export const getPosts = () => {
 			posts.forEach((post)=>{
 				resolvedPosts.push(post.data())
 			})
-            dispatch({type: 'GET_POSTS', payload: resolvedPosts})
+            dispatch({type: 'GET_POSTS', payload: orderBy(resolvedPosts, 'date', 'desc')})
         } catch (e) {
             alert(e)
         }

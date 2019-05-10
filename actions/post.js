@@ -87,7 +87,6 @@ export const getUserPosts = (uid) => {
             posts.forEach((post) => {
                 resolvedPosts.push(post.data())
             })
-            console.log(resolvedPosts)
             return resolvedPosts
         } catch (e) {
             alert(e)

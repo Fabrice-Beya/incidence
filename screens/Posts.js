@@ -47,8 +47,8 @@ class Posts extends React.Component {
           <List
             dataArray={this.state.posts}
             refreshControl={<RefreshControl enabled={true}
-              refreshing={this.state.refreshing}
-              onRefresh={this.handleRefresh} />}
+            refreshing={false}
+            onRefresh={() =>  this.load()} />}
             renderRow={(item) =>
               <ListItem thumbnail onPress={() => this.navigatePost(item)} >
                 <Left style={{ flexDirection: 'column', alignItems: 'center' }}>

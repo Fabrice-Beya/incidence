@@ -6,6 +6,7 @@ import { NavigationEvents } from 'react-navigation';
 import { Content, Text, List, Item, ListItem, Input, Form,Left, View, Textarea, Spinner, Picker, Icon, Separator, Container, Footer, Button, Thumbnail, Body, Image } from "native-base";
 import db from '../config/firebase';
 import orderBy from 'lodash/orderBy'
+import moment from 'moment'
 
 class Notifications extends React.Component {
 	state = {
@@ -28,7 +29,7 @@ class Notifications extends React.Component {
     query.forEach((response) => {
       activity.push(response.data())
     })
-    this.setState({activity: activity})
+    this.setState({activity: orderBy(activity, 'date','desc')})
     console.log(activity)
   }
 
@@ -57,8 +58,8 @@ class Notifications extends React.Component {
           <List
             dataArray={this.state.activity}
             refreshControl={<RefreshControl enabled={true}
-             refreshing={this.state.refreshing} 
-             onRefresh={this.handleRefresh}/>}
+            refreshing={false}
+            onRefresh={() =>  this.getActivity()} />}
             renderRow={(item) =>
               <ListItem thumbnail  onPress={() => this.navigatePost(item.postId)} >
                 <Left style={{flexDirection: 'column', alignItems: 'center'}}>
@@ -84,7 +85,7 @@ class Notifications extends React.Component {
                   }
                  
                   <Text>{item.title}</Text>     
-                  <Text note>3hrs ago</Text>
+                  <Text note>{moment(item.date).format('ll')}</Text>
                 </Body>
               </ListItem>}
             />

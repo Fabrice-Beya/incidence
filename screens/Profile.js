@@ -4,7 +4,7 @@ import styles from '../styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import firebase from 'firebase';
-import { NavigationEvents } from 'react-navigation';
+import {getProfile} from '../actions/profile'
 import { RefreshControl } from 'react-native';
 
 
@@ -17,10 +17,15 @@ class Profile extends React.Component {
     }
 
     load = () => {
-        this.props.getUser(this.props.profile.uid);
+        this.props.getProfile(this.props.profile.uid);
     }
 
     render() {
+      if (this.props.profile.posts && this.props.profile.posts.length <= 0 ) return (
+        <View>
+          <Spinner color='black'/>
+        </View>
+      )
         return (
             <Container>
                 <Content>
@@ -31,7 +36,7 @@ class Profile extends React.Component {
                         <Text style={styles.gray}>{this.props.profile.residence}</Text>
                         <Text style={styles.gray}>{this.props.profile.unit}</Text>
                         <View sytle={styles.buttonStack}>
-                            <Button style={styles.button} iconLeft dark onPress={() => this.props.navigation.navigate('Message')}>
+                            <Button style={styles.button} iconLeft dark onPress={() => this.props.navigation.navigate('Chat', this.props.profile.uid)}>
                                 <Icon name='md-person' />
                                 <Text>Message</Text>
                             </Button>
@@ -61,7 +66,7 @@ class Profile extends React.Component {
                                     </Body>
                                 </ListItem>}
                         />
-                    </View>
+                    </View> 
 
                 </Content>
             </Container>
@@ -76,7 +81,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({}, dispatch)
+    return bindActionCreators({getProfile}, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)
 

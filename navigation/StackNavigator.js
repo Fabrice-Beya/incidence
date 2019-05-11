@@ -7,6 +7,8 @@ import NotificationsScreen from '../screens/Notifications';
 import MyProfileScreen from '../screens/MyProfile';
 import ProfileScreen from '../screens/Profile';
 import CameraScreen from '../screens/Camera';
+import ChatScreen from '../screens/Chat';
+import MessagesScreen from '../screens/Messages';
 import { Image, TouchableOpacity} from 'react-native';
 import EditProfileScreen from '../screens/EditProfile';
 import EditPostScreen from '../screens/EditPost';
@@ -60,6 +62,28 @@ export const HomeNavigator = createAppContainer(createStackNavigator({
         )
       })
     },
+    Chat: {
+      screen: ChatScreen,
+      navigationOptions: ({navigation}) => ({
+        title:'Chat',
+        headerLeft: (
+          <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.goBack()} >
+            <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
+          </TouchableOpacity>
+        )
+      })
+    },
+    Messages: {
+      screen: MessagesScreen,
+      navigationOptions: ({navigation}) => ({
+        title:'Inbox',
+        headerLeft: (
+          <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.goBack()} >
+            <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
+          </TouchableOpacity>
+        )
+      })
+    },
 }))
 
 export const SearchNavigator = createAppContainer(createStackNavigator({
@@ -108,6 +132,17 @@ export const SearchNavigator = createAppContainer(createStackNavigator({
         headerRight: (
           <TouchableOpacity style={{paddingRight:16}} onPress={navigation.getParam('showComment')} >
             <Ionicons style={styles.icon} name={'md-chatbubbles'} size={30}/>
+          </TouchableOpacity>
+        )
+      })
+    },
+    Chat: {
+      screen: ChatScreen,
+      navigationOptions: ({navigation}) => ({
+        title:'Chat',
+        headerLeft: (
+          <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.goBack()} >
+            <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
           </TouchableOpacity>
         )
       })
@@ -216,3 +251,27 @@ export const NotificationsNavigator = createAppContainer(createStackNavigator({
     }
 }))
  
+export const MessagesNavigator = createAppContainer(createStackNavigator({
+  Messages: {
+    screen: MessagesScreen,
+    navigationOptions: ({navigation}) => ({
+      title: "Inbox",
+      headerLeft: (
+        <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.toggleDrawer()}  >
+          <Ionicons style={{marginRight: 10}} name={'md-menu'} size={30}/>
+        </TouchableOpacity>
+      )
+    })
+  },
+  Chat: {
+    screen: ChatScreen,
+    navigationOptions: ({navigation}) => ({
+      title:'Chat',
+      headerLeft: (
+        <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.goBack()} >
+          <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
+        </TouchableOpacity>
+      )
+    })
+  }
+}))

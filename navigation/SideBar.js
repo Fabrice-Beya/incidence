@@ -26,6 +26,11 @@ const datas = [
     icon: "md-add-circle-outline",
   },
   {
+    name: "Inbox",
+    route: "Messages",
+    icon: "md-mail",
+  },
+  {
     name: "Notifications",
     route: "Notifications",
     icon: "md-notifications",

@@ -8,24 +8,15 @@ import { getPosts, likePost, unlikePost } from '../actions/feed';
 import moment from 'moment'
 
 class Home extends React.Component {
-  state = {
-    refreshing: false
-  }
 
   componentDidMount = () => {
     this.props.getPosts();
   }
 
-  navigateMap = (item) => {
-    this.props.navigation.navigate('Map',
-      { location: item.location })
-  }
-
-  handleRefresh = async () => {
-    this.setState({ refreshing: true });
-    await this.props.getPosts();
-    this.setState({ refreshing: false });
-  }
+  // navigateMap = (item) => {
+  //   this.props.navigation.navigate('Map',
+  //     { location: item.location })
+  // }
 
   navigatePost = (item) => {
     this.props.navigation.navigate('PostDetail',

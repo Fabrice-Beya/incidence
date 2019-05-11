@@ -94,7 +94,7 @@ class PostDetail extends React.Component {
                     <Text>{this.props.post.likes ? this.props.post.likes.length : null}</Text>
               </Button>
               <Button iconLeft transparent large dark>
-                <Icon name='md-send' onPress={() => this.message()} />
+                <Icon name='md-send' onPress={() => this.props.navigation.navigate('Chat', this.props.post.uid)} />
               </Button>
             </View>
 

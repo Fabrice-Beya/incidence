@@ -119,7 +119,7 @@ export const updateUser = () => {
             const {user} = getState();
         
             const updatedUser = await db.collection('users').doc(user.uid).set(user);
-            console.log(user)
+            
             if(user.exists){
                 dispatch({type: 'UPDATE_USER', payload: updatedUser.data()})
             }

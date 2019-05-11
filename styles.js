@@ -299,6 +299,30 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     padding:10,
     width: 320
+  },
+  commentBox: {
+    width: width*.90,
+    padding: 5,
+    alignSelf: 'center',
+    fontSize: 16,
+  },
+  left: {
+    alignItems: 'flex-start',
+  },
+  right: {
+    alignItems: 'flex-end',
+  },
+  bottomStick: {
+    flex: 1,
+    alignSelf: 'center',
+    margin:5,
+    // position: 'absolute',
+    bottom: 3,
+    width: width*.90,
+    alignItems: 'center'
+  },
+  listContent: {
+    height: deviceHeight*.75
   }
   });
 

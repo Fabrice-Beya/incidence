@@ -53,7 +53,6 @@ export const uploadPost = () => {
     return async (dispatch, getState) => {
         try {
             const { post, user } = getState();
-            console.log(post);
             const upload = {
                 title: post.title,
                 catagory: post.catagory || 'Other',

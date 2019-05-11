@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Icon} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { HomeNavigator, SearchNavigator, MyProfileNavigator, PostNavigator, NotificationsNavigator } from './StackNavigator';
+import { HomeNavigator, SearchNavigator, MyProfileNavigator, PostNavigator, NotificationsNavigator, MessagesNavigator } from './StackNavigator';
 import { createBottomTabNavigator, createAppContainer, createDrawerNavigator } from 'react-navigation';
 import SideBar from './SideBar';
 
@@ -54,7 +54,17 @@ const DrawerNavigator = createDrawerNavigator({
       )
     }
   },
+  Messages: {
+    screen: MessagesNavigator,
+    navigationOptions: {
+      tabBarLabel: ' ',
+      drawerIcon: ({ focused }) => (
+        <Ionicons name='md-mail' size={30} color={focused ? 'black' : 'grey'} />
+      )
+    }
+  },
 },
+
   {
     initialRouteName: "Home",
     contentOptions: {

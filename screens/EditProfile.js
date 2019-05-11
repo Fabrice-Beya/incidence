@@ -30,19 +30,19 @@ class EditProfile extends React.Component {
     render() {
         return (
             <Container>
-                <KeyboardAwareScrollView enableOnAndroid >
-                    <View style={styles.container}>
-                        <TouchableOpacity style={styles.center} onPress={() => this.openPhotoLib()}>
-                            {
-                                this.props.user.photo ?
-                                    <Thumbnail large style={styles.profileImage} source={{ uri: this.props.user.photo }} /> :
-                                    <Thumbnail large style={styles.editProfileImage} source={require('../assets/blank_photo.png')} />
-                            }
+                 <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={styles.container}>
+                    
+                    <TouchableOpacity style={styles.center} onPress={() => this.openPhotoLib()}>
+                        {
+                            this.props.user.photo ?
+                                <Thumbnail large style={styles.profileImage} source={{ uri: this.props.user.photo }} /> :
+                                <Thumbnail large style={styles.editProfileImage} source={require('../assets/blank_photo.png')} />
+                        }
 
-                        </TouchableOpacity>
+                    </TouchableOpacity>
+                    <View style={styles.inputStack}>
                         <Item>
                             <Input
-                                style={styles.inputText}
                                 value={this.props.user.fullname}
                                 placeholder='Full Names'
                                 onChangeText={input => this.props.updateFullname(input)} />
@@ -74,13 +74,13 @@ class EditProfile extends React.Component {
                             <Picker.Item label="006" value="006" />
                         </Picker>
 
-                        <View sytle={styles.buttonStack}>
-                            <Button style={styles.button} iconLeft dark onPress={() => this.updateUser()}>
-                                <Icon name='md-person-add' />
-                                <Text>Update</Text>
-                            </Button>
-                        </View>
-                    </View>
+                    
+                        <Button style={styles.button} iconLeft dark onPress={() => this.updateUser()}>
+                            <Icon name='md-person-add' />
+                            <Text>Update</Text>
+                        </Button>
+                    
+                </View>
                 </KeyboardAwareScrollView>
             </Container>
         );

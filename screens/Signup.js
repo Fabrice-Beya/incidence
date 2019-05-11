@@ -37,38 +37,40 @@ class Signup extends React.Component {
     render() {
         return (
             <Container>
-               <KeyboardAwareScrollView enableOnAndroid>
-                <View style={styles.container}>
-                <TouchableOpacity style={styles.center} onPress={() => this.openPhotoLib()}>
-                {
-                    this.props.user.photo ?
-                    <Thumbnail style={styles.profileImage} source={{ uri: this.props.user.photo }} /> :
-                    <Thumbnail style={styles.editProfileImage} source={require('../assets/blank_photo.png')} /> 
-                }
-                </TouchableOpacity>
+                <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={styles.container}>
+                    <TouchableOpacity style={styles.center} onPress={() => this.openPhotoLib()}>
+                    {
+                        this.props.user.photo ?
+                        <Thumbnail style={styles.profileImage} source={{ uri: this.props.user.photo }} /> :
+                        <Thumbnail style={styles.editProfileImage} source={require('../assets/blank_photo.png')} /> 
+                    }
+                    </TouchableOpacity>
                    
-                    <Item>
-                        <Input
-                            style={styles.inputText}
-                            value={this.props.user.fullname}
-                            placeholder='Full Names'
-                            onChangeText={input => this.props.updateFullname(input)} />
-                    </Item>
-                    <Item>
-                       <Input
-                            style={styles.inputText}
-                            value={this.props.user.email}
-                            placeholder='Email'
-                            onChangeText={input => this.props.updateEmail(input)} />
-                    </Item>
-                    <Item>
-                       <Input
-                            style={styles.inputText}
-                            value={this.props.user.password}
-                            placeholder='Password'
-                            secureTextEntry={true}
-                            onChangeText={input => this.props.updatePassword(input)} />
-                    </Item>
+                    <View style={styles.inputStack}>
+                        <Item>
+                            <Input
+                                style={styles.inputText}
+                                value={this.props.user.fullname}
+                                placeholder='Full Names'
+                                returnKeyType="next"
+                                onChangeText={input => this.props.updateFullname(input)} />
+                        </Item>
+                        <Item>
+                            <Input
+                                style={styles.inputText}
+                                value={this.props.user.email}
+                                placeholder='Email'
+                                returnKeyType="next"
+                                onChangeText={input => this.props.updateEmail(input)} />
+                        </Item>
+                        <Item>
+                            <Input
+                                style={styles.inputText}
+                                value={this.props.user.password}
+                                placeholder='Password'
+                                secureTextEntry={true}
+                                onChangeText={input => this.props.updatePassword(input)} />
+                        </Item>
                     
                         <Picker
                             selectedValue={this.props.user.residence}
@@ -82,6 +84,7 @@ class Signup extends React.Component {
                             <Picker.Item label="KOPANO" value="KOPANO" />
                             <Picker.Item label="BAXTER" value="BAXTER" />
                         </Picker>
+
                         <Picker
                             selectedValue={this.props.user.unit}
                             onValueChange={(itemValue, itemIndex) =>
@@ -97,12 +100,11 @@ class Signup extends React.Component {
                             <Picker.Item label="006" value="006" />
                         </Picker>
                    
-                        <View sytle={styles.buttonStack}>
-                    <Button style={styles.button} iconLeft dark onPress={() => this.signup()}>
-                        <Icon name='md-person-add' />
-                        <Text>Sign Up</Text>
-                    </Button>
-                    </View>
+                        <Button style={styles.button} iconLeft dark onPress={() => this.signup()}>
+                            <Icon name='md-person-add' />
+                            <Text>Sign Up</Text>
+                        </Button>
+
                     </View>
                     </KeyboardAwareScrollView>
             </Container>

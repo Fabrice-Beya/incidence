@@ -45,27 +45,13 @@ class Chat extends React.Component {
                                             onRefresh={() => this.props.getMessages()} />}
 
                                         renderRow={(item) =>
-                                            <ListItem >
-                                                {
-                                                    item.uid === uid ?
-                                                        <Left style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
-                                                            <Thumbnail source={{ uri: item.photo }} />
-                                                            <Text style={{ alignSelf: 'flex-start' }} note>{item.fullname}</Text>
-                                                        </Left> : null
-                                                }
-                                                {
-                                                    item.uid !== uid ?
-                                                        <Right style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
-                                                         <Text style={{ alignSelf: 'flex-end' }} note>{item.fullname}</Text>
-                                                            <Thumbnail source={{ uri: item.photo }} />
-                                                           
-                                                        </Right> : null
-                                                }
-
-                                                <Body>
-                                                    <Text>{item.message}</Text>
-                                                    <Text note>{moment(item.date).format('ll')}</Text>
-                                                </Body>
+                                            <ListItem thumbnail>
+                                             {/* <Thumbnail style={[styles.roundImage, item.uid === uid? styles.right: styles.left]} source={{uri: item.photo}}/> */}
+                                                <View style={[styles.container, styles.spaceAroud, item.uid === uid? styles.right: styles.left]}>
+                                                    <Text style={styles.bold}>{item.fullname}</Text>
+                                                    <Text note>{item.message}</Text>
+                                                    <Text note style={{fontSize: 8}}>{moment(item.date).format('ll')}</Text>
+                                                </View>
                                             </ListItem>}
                                     />
                                 </View> : null

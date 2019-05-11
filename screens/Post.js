@@ -8,7 +8,7 @@ import { Permissions, ImagePicker, Location } from 'expo';
 import { uploadPhoto } from '../actions/index'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { updateTitle, updateCatagory, updateIncidenceDate, updateDescription, updateLocation, updatePhotos, uploadPost } from '../actions/post';
-
+import moment from 'moment'
 class Post extends React.Component {
 
   onWillFocus = () => {
@@ -60,38 +60,23 @@ class Post extends React.Component {
   render() {
     const postPhotos = this.props.post.postPhotos
     return (
-
       <Container >
         <NavigationEvents onWillFocus={this.onWillFocus} />
-        <KeyboardAwareScrollView enableOnAndroid >
-          <View style={styles.container}>
-
-            <Input
-              style={styles.noBorder}
-              value={this.props.post.title}
-              placeholder='Title'
-              autoFocus={true}
-              autoCapitalize="words"
-              autoCorrect={true}
-              keyboardType="default"
-              returnKeyType="next"
-              onChangeText={input => this.props.updateTitle(input)} />
-            <Picker
-              selectedValue={this.props.post.catagory}
-              onValueChange={(itemValue, itemIndex) =>
-                this.props.updateCatagory(itemValue)}
-              style={[styles.pickerBorder]}
-              itemStyle={styles.pickerItem}>
-              <Picker.Item label="Catagory" value="" />
-              <Picker.Item label="Complaint" value="Complain" />
-              <Picker.Item label="Damage" value="Damage" />
-              <Picker.Item label="Inquiry" value="Inquiry" />
-              <Picker.Item label="Theft" value="Theft" />
-              <Picker.Item label="Proposal" value="Proposal" />
-              <Picker.Item label="General Notice" value="General Notice" />
-              <Picker.Item label="Other" value="Other" />
-            </Picker>
-
+        <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={styles.containerStart}>
+          {/* <View style={styles.postStack}>   */}
+            <Item>
+              <Input
+                  style={styles.noBorder}
+                  value={this.props.post.title}
+                  placeholder='Title'
+                  autoCapitalize="words"
+                  autoCorrect={true}
+                  keyboardType="default"
+                  returnKeyType="next"
+                  onChangeText={input => this.props.updateTitle(input)} />
+            </Item>
+            
+           
             <DatePicker
               defaultDate={new Date(2019, 1, 1)}
               minimumDate={new Date(2018, 1, 1)}
@@ -101,16 +86,31 @@ class Post extends React.Component {
               modalTransparent={false}
               animationType={"fade"}
               androidMode={"default"}
+              style={{alignSelf:'flex-start'}}
               placeHolderText="Select date"
-              textStyle={{ color: "Black", fontWeight: '200' }}
-              placeHolderTextStyle={{ color: "Black" }}
+              textStyle={{ color: "Black", fontWeight: '200', textAlign:'center' }}
+              placeHolderTextStyle={{ color: "Black", textAlign:'center' }}
               onDateChange={this.props.updateIncidenceDate}
               disabled={false}
-              value={this.props.post.incidenceDate ? this.props.post.incidenceDate.toString().substr(4, 12) : null}
+              value={this.props.post.incidenceDate ? moment(String(this.props.post.incidenceDate)).format('ll') : null}
             />
+             <Picker
+              selectedValue={this.props.post.catagory}
+              onValueChange={(itemValue, itemIndex) =>
+                this.props.updateCatagory(itemValue)}
+              style={[styles.pickerBorder]}
+              itemStyle={styles.pickerItem}>
+              <Picker.Item label="Choose a Catagory" value="" />
+              <Picker.Item label="Complaint" value="Complain" />
+              <Picker.Item label="Damage" value="Damage" />
+              <Picker.Item label="Inquiry" value="Inquiry" />
+              <Picker.Item label="Theft" value="Theft" />
+              <Picker.Item label="Proposal" value="Proposal" />
+              <Picker.Item label="General Notice" value="General Notice" />
+              <Picker.Item label="Other" value="Other" />
+            </Picker>
 
             <Text>Please describe your incidence below:</Text>
-
             <Textarea
               style={styles.textArea}
               rowspan={10}
@@ -142,7 +142,7 @@ class Post extends React.Component {
                   ))}
                 </Content> : null
             }
-          </View>
+            {/* </View> */}
         </KeyboardAwareScrollView>
       </Container >
 

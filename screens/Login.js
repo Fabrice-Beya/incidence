@@ -27,50 +27,40 @@ class Login extends React.Component {
   render() {
     return (
       <Container >
-        <KeyboardAwareScrollView  
-                enableOnAndroid
-                 >
-          <View style={styles.container}>
+        <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={styles.container}>
           <Thumbnail square style={styles.loginPicture} source={require('../assets/logo.png')} />
-          <View style={styles.container}>
-          <View style={styles.inputStack} >
-            <Item>
-              <Icon active name='md-mail' />
-              <Input
-                style={styles.inputText}
-                value={this.props.user.email}
-                placeholder='Email'
-                onChangeText={input => this.props.updateEmail(input)} />
-            </Item>
-            <Item>
-              <Icon active name='md-lock' />
-              <Input
-                style={styles.inputText}
-                value={this.props.user.password}
-                placeholder='Password'
-                secureTextEntry={true}
-                onChangeText={input => this.props.updatePassword(input)} />
-            </Item>
-           
+            <View style={styles.inputStack}>
+              <Item >
+                <Icon active name='md-mail' />
+                <Input
+                  value={this.props.user.email}
+                  placeholder='Email'
+                  returnKeyType="next"
+                  onChangeText={input => this.props.updateEmail(input)} />
+              </Item>
+              <Item >
+                <Icon active name='md-lock' />
+                <Input
+                  value={this.props.user.password}
+                  placeholder='Password'
+                  secureTextEntry={true}
+                  onChangeText={input => this.props.updatePassword(input)} />
+              </Item>
             </View>
-            <View sytle={styles.buttonStack}>
-
-            
-            <Button style={styles.button} iconLeft dark onPress={() => this.props.login()}>
-              <Icon name='md-log-in' />
-              <Text>Login</Text>
-            </Button>
-            <Button  style={styles.button}  iconLeft dark onPress={() => this.props.navigation.navigate('Signup')}>
-              <Icon name='md-person-add' />
-              <Text>Sign Up</Text>
-            </Button>
-            <Button  style={styles.facebookButton}  primary onPress={() => this.props.facebookLogin()}>
-              <Icon name='logo-facebook' />
-              <Text>Login with Facebook</Text>
-            </Button>
-            </View>
-            </View>
-            </View>
+              <View sytle={styles.buttonStack}>
+                <Button style={styles.button} iconLeft dark onPress={() => this.props.login()}>
+                  <Icon name='md-log-in' />
+                  <Text>Login</Text>
+                </Button>
+                <Button  style={styles.button}  iconLeft dark onPress={() => this.props.navigation.navigate('Signup')}>
+                  <Icon name='md-person-add' />
+                  <Text>Sign Up</Text>
+                </Button>
+                <Button  style={styles.facebookButton}  primary onPress={() => this.props.facebookLogin()}>
+                  <Icon name='logo-facebook' />
+                  <Text>Login with Facebook</Text>
+                </Button>
+              </View>
         </KeyboardAwareScrollView>
       </Container>
     );

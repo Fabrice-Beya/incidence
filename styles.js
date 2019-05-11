@@ -13,6 +13,12 @@ export default styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    containerStart: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+    },
     row: {
       flexDirection: 'row'
     },
@@ -84,9 +90,6 @@ export default styles = StyleSheet.create({
       textAlign: 'center'
     },
     buttonStack: {
-      flex:1,
-      alignItems: 'center',
-      justifyContent: 'center',
       marginTop:20
     },
     buttonStackRow: {
@@ -106,50 +109,44 @@ export default styles = StyleSheet.create({
       borderRadius: 10
     },
     noBorder: {
-      width: '85%',
-      margin: 10,
-      padding: 5,
-      fontSize: 16,
-      borderColor: '#333333',
-      borderBottomWidth: 1,
+      fontSize: 18,
       textAlign: 'center'
     },
     textArea: {
-      width: '90%',
-      fontSize: 18,
-      margin: 15,
+      width: 350,
+      fontSize: 16,
+      marginVertical: 15,
       padding: 5,
       textAlign: 'left',
       borderWidth: 1,
+      borderRadius: 5,
+      borderColor: '#333333',
       height: 200
     },
     pickerBorder: {
-      width: '90%',
-      marginVertical: 10
+      width: 300,
+      margin: 0
     },
     pickerItem: {
       fontSize: 16,
-      textAlign: 'center'
+      textAlign: 'center',
+      margin: 0
     },
     profileImage: {
-      // width: 180,
-      // height: 180,
-      marginTop:50,
-      marginBottom: 15,
-      width: 200,
-      height:200,
-      borderRadius:100
-      // resizeMode: 'contain',
-      // borderWidth:1
-    },
-    editProfileImage: {
       marginTop:50,
       marginBottom: 15,
       width: 200,
       height:200,
       borderRadius:100,
       resizeMode: 'contain',
-     
+    },
+    editProfileImage: {
+      marginTop:50,
+      marginBottom: 15,
+      width: 100,
+      height:100,
+      borderRadius:50,
+      resizeMode: 'contain',
     },
     squareImage: {
       height: 80,
@@ -171,7 +168,7 @@ export default styles = StyleSheet.create({
       height: 40,
       width: 40,
       borderRadius: 20,
-      margin: 5,
+      margin: 10,
       backgroundColor: '#adadad'
     },
     textPadding: {
@@ -278,29 +275,17 @@ export default styles = StyleSheet.create({
     justifyContent: 'center'
   },
   loginPicture : {
-    width: 350,
-    height: 75,
-    marginTop: 100,
-    marginBottom: 10,
-    flex:1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    // resizeMode: 'contain'
-  },
-  inputText: {
-    margin: 10,
-    fontSize: 16,
-    textAlign: 'left',
-    width: 280,
-    paddingHorizontal: 10
+    width: 300,
+    height: 100,
+    resizeMode: 'contain'
   },
   inputStack: {
-    flex:1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding:10,
-    width: 320
+    marginVertical: 15,
+    fontSize: 16,
+    width: 300,
+  },
+  postStack: {
+    padding: 15,
   },
   commentBox: {
     width: width*.90,
@@ -325,6 +310,9 @@ export default styles = StyleSheet.create({
   },
   listContent: {
     height: deviceHeight*.75
+  },
+  space: {
+    margin: 10
   }
   });
 

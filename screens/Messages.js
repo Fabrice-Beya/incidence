@@ -20,11 +20,11 @@ class Messages extends React.Component {
   }
 
   render() {
-  	if (this.props.messages.length <= 0 ) return (
-      <View>
-        <Spinner color='black'/>
-      </View>
-    )
+  	// if (this.props.messages.length <= 0 ) return (
+    //   <View>
+    //     <Spinner color='black'/>
+    //   </View>
+    // )
     return (
       <Container>
           <View style={{flex:1, paddingTop:10}}>

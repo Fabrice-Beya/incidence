@@ -21,11 +21,11 @@ class Profile extends React.Component {
     }
 
     render() {
-      if (this.props.profile.posts && this.props.profile.posts.length <= 0 ) return (
-        <View>
-          <Spinner color='black'/>
-        </View>
-      )
+    //   if (this.props.profile.posts && this.props.profile.posts.length <= 0 ) return (
+    //     <View>
+    //       <Spinner color='black'/>
+    //     </View>
+    //   )
         return (
             <Container>
                 <Content>

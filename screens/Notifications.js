@@ -43,12 +43,12 @@ class Notifications extends React.Component {
   }
 
   render() {
-  	if (this.state.activity.length <= 0 ) return (
-      <View>
-        <NavigationEvents onWillFocus={this.onWillFocus}/>
-        <Spinner color='black'/>
-      </View>
-    )
+  	// if (this.state.activity.length <= 0 ) return (
+    //   <View>
+    //     <NavigationEvents onWillFocus={this.onWillFocus}/>
+    //     <Spinner color='black'/>
+    //   </View>
+    // )
     return (
 
       <Container>

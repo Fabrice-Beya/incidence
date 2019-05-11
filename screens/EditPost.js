@@ -8,6 +8,7 @@ import { NavigationEvents, Header } from 'react-navigation';
 import { Permissions, ImagePicker, Location } from 'expo';
 import { uploadPhoto } from '../actions/index'
 import {deletePost, updatePostLocal, updateTitle, updateCatagory,updatePost, updateIncidenceDate, updateDescription, updateLocation, updatePhotos, uploadPost } from '../actions/post';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class EditPost extends React.Component {
 
@@ -76,7 +77,7 @@ class EditPost extends React.Component {
     return (
       <Container >
       <NavigationEvents onWillFocus={this.onWillFocus} />
-      <Content >
+      <KeyboardAwareScrollView enableOnAndroid >
         <View style={styles.container}>
 
           <Input
@@ -156,7 +157,7 @@ class EditPost extends React.Component {
               </Content> : null
           }
         </View>
-      </Content>
+      </KeyboardAwareScrollView>
     </Container >
 
     );

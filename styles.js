@@ -143,11 +143,13 @@ export default styles = StyleSheet.create({
       // borderWidth:1
     },
     editProfileImage: {
-      width: 180,
-      height: 180,
-      margin:10,
+      marginTop:50,
+      marginBottom: 15,
+      width: 200,
+      height:200,
+      borderRadius:100,
       resizeMode: 'contain',
-      borderWidth:1
+     
     },
     squareImage: {
       height: 80,

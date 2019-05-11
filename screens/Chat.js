@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { addMessage } from '../actions/message'
 import { KeyboardAvoidingView } from 'react-native';
 import moment from 'moment';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class Chat extends React.Component {
 
@@ -26,6 +27,10 @@ class Chat extends React.Component {
         console.log(this.props.messages)
         return (
             <Container >
+                <KeyboardAwareScrollView  
+                enableOnAndroid
+                scrollEnabled={false}
+                extraScrollHeight={200} >
                 <Grid>
                     <Row style={styles.listContent}>
                         {
@@ -40,7 +45,7 @@ class Chat extends React.Component {
                                             onRefresh={() => this.props.getMessages()} />}
 
                                         renderRow={(item) =>
-                                            <ListItem onPress={() => this.navigateToChat(item.members)} >
+                                            <ListItem >
                                                 {
                                                     item.uid === uid ?
                                                         <Left style={{ flexDirection: 'column', alignItems: 'flex-start' }}>
@@ -84,6 +89,7 @@ class Chat extends React.Component {
 
                     </Row>
                 </Grid>
+                </KeyboardAwareScrollView>
             </Container>
 
         );

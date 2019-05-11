@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ImagePicker, Permissions } from 'expo';
 import { uploadPhoto } from '../actions/index'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { updateEmail, updatePhoto, updateUser, updatePassword, updateFullname, updateResidence, updateUnit, signup } from '../actions/user';
 
 class EditProfile extends React.Component {
@@ -29,13 +30,13 @@ class EditProfile extends React.Component {
     render() {
         return (
             <Container>
-                <Content>
+                <KeyboardAwareScrollView enableOnAndroid >
                     <View style={styles.container}>
                         <TouchableOpacity style={styles.center} onPress={() => this.openPhotoLib()}>
                             {
                                 this.props.user.photo ?
                                     <Thumbnail large style={styles.profileImage} source={{ uri: this.props.user.photo }} /> :
-                                    <Thumbnail large style={styles.profileImage} source={require('../assets/blank_photo.png')} />
+                                    <Thumbnail large style={styles.editProfileImage} source={require('../assets/blank_photo.png')} />
                             }
 
                         </TouchableOpacity>
@@ -80,7 +81,7 @@ class EditProfile extends React.Component {
                             </Button>
                         </View>
                     </View>
-                </Content>
+                </KeyboardAwareScrollView>
             </Container>
         );
     }

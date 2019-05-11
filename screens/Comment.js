@@ -9,12 +9,11 @@ import { updateComment, postComment } from '../actions/post';
 import { NavigationEvents } from 'react-navigation';
 import { likePost } from '../actions/feed'
 import { KeyboardAvoidingView } from 'react-native';
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class Comment extends React.Component {
 
     state = {
-        commentBoxVisible: false,
         comments: []
     }
 
@@ -26,14 +25,6 @@ class Comment extends React.Component {
         this.setState({ comments: post.comments })
     }
 
-    showComment = () => {
-        this.setState({ commentBoxVisible: true })
-    }
-
-    addCommnet = () => {
-        this.setState({ commentBoxVisible: true })
-    }
-
     postComment = () => {
         const { post } = this.props.navigation.state.params
         this.props.postComment(this.props.post.comment, post.id, post.title, post.uid)
@@ -42,11 +33,13 @@ class Comment extends React.Component {
 
     render() {
         return (
-
             <Container >
+                <KeyboardAwareScrollView  
+                enableOnAndroid
+                scrollEnabled={false}
+                extraScrollHeight={200} >
                 <NavigationEvents onWillFocus={this.onWillFocus} />
                 <Grid>
-
                <Row style={styles.listContent}>
                     {
                         this.state.comments && this.state.comments.length > 0 ?
@@ -68,8 +61,8 @@ class Comment extends React.Component {
                                 </View> : null
                     }
                      </Row>
-                    <Row >
-                        <KeyboardAvoidingView enabled behavior='padding' style={styles.bottomStick}>
+                      <Row >
+                        <View style={styles.bottomStick}>
                             <Item rounded>
                                 <Input
                                     value={this.props.post.commnet}
@@ -79,10 +72,13 @@ class Comment extends React.Component {
                             <Button style={{ alignItems: 'center', justifyContent: 'center', margin: 5, alignSelf: 'center' }} full rounded dark onPress={() => this.postComment()}>
                                 <Text>Comment</Text>
                             </Button>
-                        </KeyboardAvoidingView>
+                            </View>
+                   
                     </Row>
                 </Grid>
+                </KeyboardAwareScrollView>
             </Container>
+           
 
         );
     }

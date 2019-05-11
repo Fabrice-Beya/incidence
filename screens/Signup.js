@@ -37,23 +37,22 @@ class Signup extends React.Component {
     render() {
         return (
             <Container>
-              
-                <KeyboardAvoidingView style={styles.inputStack}>
+               <KeyboardAwareScrollView enableOnAndroid>
+                <View style={styles.container}>
                 <TouchableOpacity style={styles.center} onPress={() => this.openPhotoLib()}>
                 {
                     this.props.user.photo ?
                     <Thumbnail style={styles.profileImage} source={{ uri: this.props.user.photo }} /> :
-                    <Thumbnail style={styles.profileImage} source={require('../assets/blank_photo.png')} /> 
+                    <Thumbnail style={styles.editProfileImage} source={require('../assets/blank_photo.png')} /> 
                 }
-
                 </TouchableOpacity>
                    
                     <Item>
                         <Input
-                                style={styles.inputText}
-                                value={this.props.user.fullname}
-                                placeholder='Full Names'
-                                onChangeText={input => this.props.updateFullname(input)} />
+                            style={styles.inputText}
+                            value={this.props.user.fullname}
+                            placeholder='Full Names'
+                            onChangeText={input => this.props.updateFullname(input)} />
                     </Item>
                     <Item>
                        <Input
@@ -104,8 +103,8 @@ class Signup extends React.Component {
                         <Text>Sign Up</Text>
                     </Button>
                     </View>
-                    </KeyboardAvoidingView>
-              
+                    </View>
+                    </KeyboardAwareScrollView>
             </Container>
         );
     }

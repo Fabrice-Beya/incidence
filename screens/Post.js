@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { NavigationEvents } from 'react-navigation';
 import { Permissions, ImagePicker, Location } from 'expo';
 import { uploadPhoto } from '../actions/index'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { updateTitle, updateCatagory, updateIncidenceDate, updateDescription, updateLocation, updatePhotos, uploadPost } from '../actions/post';
 
 class Post extends React.Component {
@@ -56,14 +57,13 @@ class Post extends React.Component {
     }
   }
 
-
   render() {
     const postPhotos = this.props.post.postPhotos
     return (
 
       <Container >
         <NavigationEvents onWillFocus={this.onWillFocus} />
-        <Content >
+        <KeyboardAwareScrollView enableOnAndroid >
           <View style={styles.container}>
 
             <Input
@@ -143,7 +143,7 @@ class Post extends React.Component {
                 </Content> : null
             }
           </View>
-        </Content>
+        </KeyboardAwareScrollView>
       </Container >
 
 

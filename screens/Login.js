@@ -6,6 +6,8 @@ import { bindActionCreators } from 'redux';
 import { updateEmail, updatePassword, login, getUser, facebookLogin, signout } from '../actions/user';
 import firebase from 'firebase';
 import { Ionicons } from '@expo/vector-icons';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 
 class Login extends React.Component {
 
@@ -25,7 +27,9 @@ class Login extends React.Component {
   render() {
     return (
       <Container >
-        <Content >
+        <KeyboardAwareScrollView  
+                enableOnAndroid
+                 >
           <View style={styles.container}>
           <Thumbnail square style={styles.loginPicture} source={require('../assets/logo.png')} />
           <View style={styles.container}>
@@ -67,7 +71,7 @@ class Login extends React.Component {
             </View>
             </View>
             </View>
-        </Content>
+        </KeyboardAwareScrollView>
       </Container>
     );
   }

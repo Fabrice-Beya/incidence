@@ -4,10 +4,6 @@ import {
   Content, Text, List, ListItem, Icon,
   Container,
   Left,
-  Right,
-  Badge,
-  Footer,
-  Button,
 } from "native-base";
 import firebase from 'firebase';
 
@@ -36,7 +32,7 @@ const datas = [
   },
   {
     name: "Profile",
-    route: "Profile",
+    route: "MyProfile",
     icon: "md-person",
   },
   {

@@ -23,8 +23,8 @@ class Login extends React.Component {
   render() {
     return (
       <Container >
-        <Content sytle={styles.container}>
-
+        <Content >
+          <View style={styles.container}>
           <Thumbnail square style={styles.loginPicture} source={require('../assets/logo.png')} />
           <View style={styles.container}>
           <View style={styles.inputStack} >
@@ -64,7 +64,7 @@ class Login extends React.Component {
             </Button>
             </View>
             </View>
-         
+            </View>
         </Content>
       </Container>
     );

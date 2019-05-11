@@ -10,17 +10,19 @@ import { getPosts, getUserPosts, likePost, unlikePost } from '../actions/post';
 class Posts extends React.Component {
   state = {
     refreshing: false,
-    posts: []
+    posts: [],
+     uid: ' '
   }
 
   onWillFocus = () => {
-    this.load()
+    const { uid } = this.props.navigation.state.params
+    this.load(uid);
   }
 
-  load = async () => {
-    const posts = await this.props.getUserPosts(this.props.user.uid);
+  load = async (uid) => {
+    const posts = await this.props.getUserPosts(this.state.uid);
     console.log(posts);
-    this.setState({ posts: posts })
+    this.setState({ posts: posts, uid:uid })
   }
 
   handleRefresh = async () => {
@@ -42,13 +44,12 @@ class Posts extends React.Component {
     if (this.state.posts.length < 0) return <Spinner color='black' />;
     return (
       <Container>
-        
           <NavigationEvents onWillFocus={this.onWillFocus} />
           <List
             dataArray={this.state.posts}
             refreshControl={<RefreshControl enabled={true}
             refreshing={false}
-            onRefresh={() =>  this.load()} />}
+            onRefresh={() =>  this.load(this.state.uid)} />}
             renderRow={(item) =>
               <ListItem thumbnail onPress={() => this.navigatePost(item)} >
                 <Left style={{ flexDirection: 'column', alignItems: 'center' }}>

@@ -27,6 +27,15 @@ const user = (state = {}, action) => {
     }
 }
 
+const profile = (state = {}, action) => {
+    switch (action.type) {
+        case 'GET_PROFILE':
+            return action.payload;
+        default:
+            return state
+    }
+}
+
 const post = (state ={}, action) => {
     switch (action.type) {
         case 'UPDATE_TITLE':
@@ -64,7 +73,8 @@ const feed = (state =null, action) => {
 const rootReducer = combineReducers({
     user,
     post,
-    feed
+    feed, 
+    profile
 })
 
 export default rootReducer;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Icon} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { HomeNavigator, SearchNavigator, ProfileNavigator, PostNavigator, NotificationsNavigator } from './StackNavigator';
+import { HomeNavigator, SearchNavigator, MyProfileNavigator, PostNavigator, NotificationsNavigator } from './StackNavigator';
 import { createBottomTabNavigator, createAppContainer, createDrawerNavigator } from 'react-navigation';
 import SideBar from './SideBar';
 
@@ -45,8 +45,8 @@ const DrawerNavigator = createDrawerNavigator({
       )
     }
   },
-  Profile: {
-    screen: ProfileNavigator,
+  MyProfile: {
+    screen: MyProfileNavigator,
     navigationOptions: {
       tabBarLabel: ' ',
       drawerIcon: ({ focused }) => (

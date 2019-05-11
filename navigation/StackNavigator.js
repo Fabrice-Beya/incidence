@@ -4,6 +4,7 @@ import HomeScreen from '../screens/Home';
 import SearchScreen from '../screens/Search';
 import PostScreen from '../screens/Post';
 import NotificationsScreen from '../screens/Notifications';
+import MyProfileScreen from '../screens/MyProfile';
 import ProfileScreen from '../screens/Profile';
 import CameraScreen from '../screens/Camera';
 import { Image, TouchableOpacity} from 'react-native';
@@ -72,14 +73,52 @@ export const SearchNavigator = createAppContainer(createStackNavigator({
           </TouchableOpacity>
         )
       })
-    }
-}))
-
-export const ProfileNavigator = createAppContainer(createStackNavigator({
+    },
     Profile: {
       screen: ProfileScreen,
       navigationOptions: ({navigation}) => ({
         title: "Profile",
+        headerLeft: (
+          <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.goBack()} >
+            <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
+          </TouchableOpacity>
+        )
+      })
+    },
+    PostDetail: {
+      screen: PostDetailScreen,
+      navigationOptions: ({navigation}) => ({
+        title:'Post Detail',
+        headerLeft: (
+          <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.goBack()} >
+            <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
+          </TouchableOpacity>
+        )
+      })
+    },
+    Comment: {
+      screen: CommentScreen,
+      navigationOptions: ({navigation}) => ({
+        title:'Comments',
+        headerLeft: (
+          <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.goBack()} >
+            <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
+          </TouchableOpacity>
+        ),
+        headerRight: (
+          <TouchableOpacity style={{paddingRight:16}} onPress={navigation.getParam('showComment')} >
+            <Ionicons style={styles.icon} name={'md-chatbubbles'} size={30}/>
+          </TouchableOpacity>
+        )
+      })
+    },
+}))
+
+export const MyProfileNavigator = createAppContainer(createStackNavigator({
+    MyProfile: {
+      screen: MyProfileScreen,
+      navigationOptions: ({navigation}) => ({
+        title: "My Profile",
         headerLeft: (
           <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.toggleDrawer()}  >
             <Ionicons style={{marginRight: 10}} name={'md-menu'} size={30}/>

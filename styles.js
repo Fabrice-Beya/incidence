@@ -276,14 +276,15 @@ export default styles = StyleSheet.create({
     justifyContent: 'center'
   },
   loginPicture : {
-    width: '80%',
+    width: 350,
+    height: 75,
     marginTop: 100,
-    marginBottom: 50,
+    marginBottom: 10,
     flex:1,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
-    resizeMode: 'contain'
+    // resizeMode: 'contain'
   },
   inputText: {
     margin: 10,

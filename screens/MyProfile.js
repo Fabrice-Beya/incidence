@@ -9,7 +9,7 @@ import { RefreshControl } from 'react-native';
 
 
 
-class Profile extends React.Component {
+class MyProfile extends React.Component {
 
     signout = async () => {
         await firebase.auth().signOut();
@@ -17,7 +17,7 @@ class Profile extends React.Component {
     }
 
     load = () => {
-        this.props.getUser(this.props.profile.uid);
+        this.props.getUser(this.props.user.uid);
     }
 
     render() {
@@ -25,15 +25,15 @@ class Profile extends React.Component {
             <Container>
                 <Content>
                     <View style={styles.container}>
-                        <Thumbnail square style={styles.incidencePicture} source={{ uri: this.props.profile.photo }} />
-                        <Text style={{ fontSize: 35 }}>{this.props.profile.fullname}</Text>
-                        <Text>{this.props.profile.email}</Text>
-                        <Text style={styles.gray}>{this.props.profile.residence}</Text>
-                        <Text style={styles.gray}>{this.props.profile.unit}</Text>
+                        <Thumbnail square style={styles.incidencePicture} source={{ uri: this.props.user.photo }} />
+                        <Text style={{ fontSize: 35 }}>{this.props.user.fullname}</Text>
+                        <Text>{this.props.user.email}</Text>
+                        <Text style={styles.gray}>{this.props.user.residence}</Text>
+                        <Text style={styles.gray}>{this.props.user.unit}</Text>
                         <View sytle={styles.buttonStack}>
-                            <Button style={styles.button} iconLeft dark onPress={() => this.props.navigation.navigate('Message')}>
+                            <Button style={styles.button} iconLeft dark onPress={() => this.props.navigation.navigate('EditProfile')}>
                                 <Icon name='md-person' />
-                                <Text>Message</Text>
+                                <Text>Edit Profile</Text>
                             </Button>
                         </View>
 
@@ -42,13 +42,13 @@ class Profile extends React.Component {
                     <Separator color='#333333' style={styles.separator} />
                     
                         <List
-                            dataArray={this.props.profile.posts}
+                            dataArray={this.props.user.posts}
                             refreshControl={<RefreshControl enabled={true}
                                 refreshing={false}
                                 onRefresh={() => this.load()} />}
                             keyExtractor={(item) => JSON.stringify(item.date)}
                             renderRow={(item) =>
-                                <ListItem thumbnail onPress={() => this.props.navigation.navigate('PostDetail', { post: item })} >
+                                <ListItem thumbnail onPress={() => this.props.navigation.navigate('EditPost', { post: item })} >
                                     <Left style={{ flexDirection: 'column', alignItems: 'center' }}>
                                         <Thumbnail style={{ borderRadius: 2 }} large square source={{ uri: item.photo }} />
                                         <Text note>{item.fullname}</Text>
@@ -71,13 +71,13 @@ class Profile extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        profile: state.profile
+        user: state.user
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({}, dispatch)
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Profile)
+export default connect(mapStateToProps, mapDispatchToProps)(MyProfile)
 
 

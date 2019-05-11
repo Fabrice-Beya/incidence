@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import db from '../config/firebase';
+import orderBy from 'lodash/cloneDeep';
 
 export const updateEmail = (email) => {
     return {type: 'UPDATE_EMAIL', payload: email}
@@ -132,9 +133,16 @@ export const updateUser = () => {
 export const getUser = (uid) => {
     return async (dispatch) => {
         try {
-            const user = await db.collection('users').doc(uid).get();
-            if(user.exists){
-                dispatch({type: 'LOGIN', payload: user.data()})
+            const query = await db.collection('users').doc(uid).get();
+            if(query.exists){
+                let user = query.data();
+                let posts = []
+                const postsQuery = await db.collection('posts').where('uid', '==', uid).get()
+                postsQuery.forEach(function(response) {
+                  posts.push(response.data())
+                })
+                user.posts = orderBy(posts, 'date','desc')
+                dispatch({type: 'LOGIN', payload: user})
             }
         } catch (e) {
             alert(e)

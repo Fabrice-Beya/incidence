@@ -63,9 +63,6 @@ class Comment extends React.Component {
                     {
                          this.state.comments &&  this.state.comments.length > 0 ?
                             <List
-                            refreshControl={<RefreshControl enabled={true}
-                                refreshing={false}
-                                />}
                                 dataArray={ this.state.comments}
                                 renderRow={(item) =>
                                     <ListItem avatar>

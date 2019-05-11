@@ -51,8 +51,9 @@ class Chat extends React.Component {
                                                 {
                                                     item.uid !== uid ?
                                                         <Right style={{ flexDirection: 'column', alignItems: 'flex-end' }}>
+                                                         <Text style={{ alignSelf: 'flex-end' }} note>{item.fullname}</Text>
                                                             <Thumbnail source={{ uri: item.photo }} />
-                                                            <Text style={{ alignSelf: 'flex-end' }} note>{item.fullname}</Text>
+                                                           
                                                         </Right> : null
                                                 }
 

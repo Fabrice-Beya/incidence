@@ -18,6 +18,8 @@ const user = (state = {}, action) => {
             return { ...state, photo: action.payload }
         case 'LOGIN':
             return action.payload
+        case 'LOGIN':
+            return action.payload
         case 'SIGNUP':
             return action.payload
         case 'SIGNOUT':

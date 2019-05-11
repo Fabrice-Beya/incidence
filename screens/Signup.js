@@ -6,9 +6,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Camera, ImagePicker, Permissions } from 'expo';
 import firebase from 'firebase';
+import {KeyboardAvoidingView} from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import { uploadPhoto } from '../actions/index'
 import { updateEmail, updatePhoto, updateUser, updatePassword, updateFullname, updateResidence, updateUnit, signup } from '../actions/user';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 class Signup extends React.Component {
@@ -35,8 +37,8 @@ class Signup extends React.Component {
     render() {
         return (
             <Container>
-                <Content padder>
-                <View style={styles.inputStack}>
+              
+                <KeyboardAvoidingView style={styles.inputStack}>
                 <TouchableOpacity style={styles.center} onPress={() => this.openPhotoLib()}>
                 {
                     this.props.user.photo ?
@@ -68,7 +70,7 @@ class Signup extends React.Component {
                             secureTextEntry={true}
                             onChangeText={input => this.props.updatePassword(input)} />
                     </Item>
-                       
+                    
                         <Picker
                             selectedValue={this.props.user.residence}
                             onValueChange={(itemValue, itemIndex) =>
@@ -102,8 +104,8 @@ class Signup extends React.Component {
                         <Text>Sign Up</Text>
                     </Button>
                     </View>
-                    </View>
-                </Content>
+                    </KeyboardAvoidingView>
+              
             </Container>
         );
     }

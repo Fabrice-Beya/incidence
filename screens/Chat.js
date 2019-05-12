@@ -1,5 +1,5 @@
 import React from 'react';
-import { Content, Text, List, Item, ListItem, Input, View, Grid, Row, Container, Left, Right, Button, Thumbnail, Body, Image } from "native-base";
+import { Content, Text, List, Item, ListItem, Input, View, Grid, Row, Container, Button } from "native-base";
 import styles from '../styles';
 import { connect } from 'react-redux';
 import { RefreshControl } from 'react-native';

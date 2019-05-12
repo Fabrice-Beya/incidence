@@ -37,7 +37,9 @@ class Signup extends React.Component {
     render() {
         return (
             <Container>
-                <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={styles.container}>
+                <KeyboardAwareScrollView enableOnAndroid >
+                    <View style={styles.container}>
+                    
                     <TouchableOpacity style={styles.center} onPress={() => this.openPhotoLib()}>
                     {
                         this.props.user.photo ?
@@ -49,7 +51,6 @@ class Signup extends React.Component {
                     <View style={styles.inputStack}>
                         <Item>
                             <Input
-                                style={styles.inputText}
                                 value={this.props.user.fullname}
                                 placeholder='Full Names'
                                 returnKeyType="next"
@@ -57,7 +58,6 @@ class Signup extends React.Component {
                         </Item>
                         <Item>
                             <Input
-                                style={styles.inputText}
                                 value={this.props.user.email}
                                 placeholder='Email'
                                 returnKeyType="next"
@@ -65,7 +65,6 @@ class Signup extends React.Component {
                         </Item>
                         <Item>
                             <Input
-                                style={styles.inputText}
                                 value={this.props.user.password}
                                 placeholder='Password'
                                 secureTextEntry={true}
@@ -105,6 +104,7 @@ class Signup extends React.Component {
                             <Text>Sign Up</Text>
                         </Button>
 
+                    </View>
                     </View>
                     </KeyboardAwareScrollView>
             </Container>

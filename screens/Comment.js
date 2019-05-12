@@ -13,7 +13,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 class Comment extends React.Component {
 
     state = {
-        comments: []
+        comments: [],
+        comment: ''
     }
 
     onWillFocus = () => {
@@ -26,8 +27,8 @@ class Comment extends React.Component {
 
     postComment = () => {
         const { post } = this.props.navigation.state.params
-        this.props.postComment(this.props.post.comment, post.id, post.title, post.uid)
-       
+        this.props.postComment(this.state.comment, post.id, post.title, post.uid)
+        this.setState({comment: '', comments: this.props.post.comments})
     }
 
     render() {
@@ -36,7 +37,7 @@ class Comment extends React.Component {
                 <KeyboardAwareScrollView  
                 enableOnAndroid
                 scrollEnabled={false}
-                extraScrollHeight={200} >
+                extraScrollHeight={220} >
                 <NavigationEvents onWillFocus={this.onWillFocus} />
                 <Grid>
                <Row style={styles.listContent}>
@@ -61,17 +62,19 @@ class Comment extends React.Component {
                     }
                      </Row>
                       <Row >
-                        <View style={styles.bottomStick}>
+                        <View enabled behavior='padding' style={styles.bottomStick}>
                             <Item rounded>
                                 <Input
-                                    value={this.props.post.commnet}
+                                    style={styles.commentBox}
+                                    value={this.state.comment}
                                     placeholder='Your comment'
-                                    onChangeText={input => this.props.updateComment(input)} />
+                                    onSubmitEditing={this.postComment}
+                                    onChangeText={comment => this.setState({ comment })} />
                             </Item>
                             <Button style={{ alignItems: 'center', justifyContent: 'center', margin: 5, alignSelf: 'center' }} full rounded dark onPress={() => this.postComment()}>
                                 <Text>Comment</Text>
                             </Button>
-                            </View>
+                        </View>
                    
                     </Row>
                 </Grid>

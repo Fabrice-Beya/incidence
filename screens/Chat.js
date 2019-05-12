@@ -29,7 +29,7 @@ class Chat extends React.Component {
                 <KeyboardAwareScrollView  
                 enableOnAndroid
                 scrollEnabled={false}
-                extraScrollHeight={200} >
+                extraScrollHeight={220} >
                 <Grid>
                     <Row style={styles.listContent}>
                         {
@@ -46,9 +46,9 @@ class Chat extends React.Component {
                                         renderRow={(item) =>
                                             <ListItem thumbnail>
                                              {/* <Thumbnail style={[styles.roundImage, item.uid === uid? styles.right: styles.left]} source={{uri: item.photo}}/> */}
-                                                <View style={[styles.container, styles.spaceAroud, item.uid === uid? styles.right: styles.left]}>
-                                                    <Text style={styles.bold}>{item.fullname}</Text>
-                                                    <Text note>{item.message}</Text>
+                                                <View style={[styles.container, styles.spaceAroud, item.uid === uid? styles.msgRight: styles.msgLeft]}>
+                                                    {/* <Text style={styles.bold}>{item.fullname}</Text> */}
+                                                    <Text >{item.message}</Text>
                                                     <Text note style={{fontSize: 8}}>{moment(item.date).format('ll')}</Text>
                                                 </View>
                                             </ListItem>}

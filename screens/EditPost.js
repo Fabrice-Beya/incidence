@@ -2,17 +2,16 @@ import React from 'react';
 import { Content, Text, List, Item, ListItem, Input, Form, View, Textarea, DatePicker, Picker, Icon, Separator, Container, Footer, Button, Thumbnail, Body, Image } from "native-base";
 import styles from '../styles';
 import { connect } from 'react-redux';
-import { Ionicons } from '@expo/vector-icons';
 import { bindActionCreators } from 'redux';
 import { NavigationEvents, Header } from 'react-navigation';
 import { Permissions, ImagePicker, Location } from 'expo';
 import { uploadPhoto } from '../actions/index'
 import {deletePost, updatePostLocal, updateTitle, updateCatagory,updatePost, updateIncidenceDate, updateDescription, updateLocation, updatePhotos, uploadPost } from '../actions/post';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import moment from 'moment'
 
 class EditPost extends React.Component {
 
- 
   onWillFocus = () => {
     // this.getLocation();
     this.props.navigation.setParams({ 

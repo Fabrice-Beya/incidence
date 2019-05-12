@@ -5,11 +5,23 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateEmail, updatePassword, login, getUser, facebookLogin, signout } from '../actions/user';
 import firebase from 'firebase';
-import { Ionicons } from '@expo/vector-icons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 class Login extends React.Component {
+
+  componentWillMount = () => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.props.getUser(user.uid)
+        if (this.props.user != null) {
+          this.props.navigation.navigate('Home')
+        }
+      } else {
+        this.props.signout();
+      }
+    })
+  }
 
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged((user) => {

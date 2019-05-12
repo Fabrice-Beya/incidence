@@ -298,6 +298,20 @@ export default styles = StyleSheet.create({
   right: {
     alignItems: 'flex-end',
   },
+  msgLeft: {
+    alignItems: 'flex-start',
+    borderRadius: 3,
+    borderWidth:.5,
+    borderColor:'#333333',
+    backgroundColor: 'gray'
+  },
+  msgRight: {
+    alignItems: 'flex-end',
+    borderRadius: 3,
+    borderWidth:.5,
+    borderColor:'#333333',
+    backgroundColor: '#ffffff'
+  },
   bottomStick: {
     flex: 1,
     alignSelf: 'center',

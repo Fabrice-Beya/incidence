@@ -134,7 +134,7 @@ export const postComment = (text, id, title, uid) => {
                 commentId: user.uid,
                 commenterName: user.fullname,
                 commenterPhoto: user.photo || ' ',
-                date: new Date().getTime(),
+                date: new Date().getDate(),
             }
 
             if(post.comments)

@@ -27,7 +27,7 @@ export default class MyApp extends React.Component {
   renderLoading = () => {
     return (
         <View>                
-            <ActivityIndicator color="black" size={"large"} />
+            <ActivityIndicator color="#333333" size={"large"} />
         </View>        
     );    
 };

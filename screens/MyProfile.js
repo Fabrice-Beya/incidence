@@ -8,13 +8,11 @@ import { NavigationEvents } from 'react-navigation';
 import { RefreshControl } from 'react-native';
 
 
-
 class MyProfile extends React.Component {
 
-    signout = async () => {
-        await firebase.auth().signOut();
-        this.props.navigation.navigate('Auth');
-    }
+    onWillFocus = () => {
+        // this.load();
+      }
 
     load = () => {
         this.props.getUser(this.props.user.uid);
@@ -28,6 +26,7 @@ class MyProfile extends React.Component {
         //   )
         return (
             <Container>
+                <NavigationEvents onWillFocus={this.onWillFocus}/>
                 <Content>
                     <View style={styles.container}>
                         <Thumbnail square style={styles.incidencePicture} source={{ uri: this.props.user.photo }} />

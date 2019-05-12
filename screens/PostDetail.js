@@ -52,10 +52,6 @@ class PostDetail extends React.Component {
     this.setState({ commentBoxVisible: false })
   }
 
-  message = () => {
-
-  }
-
   render() {
     return (
       <Container >

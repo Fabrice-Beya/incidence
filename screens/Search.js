@@ -24,8 +24,8 @@ class Search extends React.Component {
     console.log(results)
   }
 
-  goToUser = (user) => {
-    this.props.getProfile(user.uid);
+  goToUser = async (user) => {
+    await this.props.getProfile(user.uid);
     this.props.navigation.navigate('Profile')
   }
 

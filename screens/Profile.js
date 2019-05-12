@@ -6,18 +6,16 @@ import { bindActionCreators } from 'redux';
 import firebase from 'firebase';
 import {getProfile} from '../actions/profile'
 import { RefreshControl } from 'react-native';
-
-
+import { NavigationEvents } from 'react-navigation';
 
 class Profile extends React.Component {
 
-    signout = async () => {
-        await firebase.auth().signOut();
-        this.props.navigation.navigate('Auth');
-    }
+    onWillFocus = () => {
+        // this.load();
+      }
 
-    load = () => {
-        this.props.getProfile(this.props.profile.uid);
+    load = async () => {
+        await this.props.getProfile(this.props.profile.uid);
     }
 
     render() {
@@ -28,6 +26,7 @@ class Profile extends React.Component {
     //   )
         return (
             <Container>
+                <NavigationEvents onWillFocus={this.onWillFocus}/>
                 <Content>
                     <View style={styles.container}>
                         <Thumbnail square style={styles.incidencePicture} source={{ uri: this.props.profile.photo }} />

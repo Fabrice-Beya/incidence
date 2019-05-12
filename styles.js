@@ -132,20 +132,22 @@ export default styles = StyleSheet.create({
     textAlign: 'center',
   },
   profileImage: {
-    marginTop: 50,
+   
+    marginTop: 1,
     marginBottom: 15,
-    width: 200,
+    width: width,
     height: 200,
-    borderRadius: 100,
-    resizeMode: 'contain',
+    // borderRadius: 100,
+    // resizeMode: 'contain',
   },
   editProfileImage: {
-    marginTop: 50,
+   
+    marginTop: 1,
     marginBottom: 15,
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    resizeMode: 'contain',
+    width: width,
+    height: 300,
+    // borderRadius: 100,
+    // resizeMode: 'contain',
   },
   squareImage: {
     height: 80,

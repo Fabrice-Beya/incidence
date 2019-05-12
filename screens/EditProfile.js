@@ -32,11 +32,11 @@ class EditProfile extends React.Component {
             <Container>
                 <KeyboardAwareScrollView enableOnAndroid>
                     <View style={styles.container}>
-                        <TouchableOpacity style={styles.center} onPress={() => this.openPhotoLib()}>
+                        <TouchableOpacity onPress={() => this.openPhotoLib()}>
                             {
                                 this.props.user.photo ?
-                                    <Thumbnail style={styles.profileImage} source={{ uri: this.props.user.photo }} /> :
-                                    <Thumbnail style={styles.editProfileImage} source={require('../assets/blank_photo.png')} />
+                                    <Thumbnail square style={styles.profileImage} source={{ uri: this.props.user.photo }} /> :
+                                    <Thumbnail square style={styles.editProfileImage} source={require('../assets/blank_photo.png')} />
                             }
                         </TouchableOpacity>
                         <View style={styles.inputStack}>

@@ -53,8 +53,6 @@ class Notifications extends React.Component {
 
       <Container>
         <NavigationEvents onWillFocus={this.onWillFocus}/>
-      
-         
           <List
             dataArray={this.state.activity}
             refreshControl={<RefreshControl enabled={true}

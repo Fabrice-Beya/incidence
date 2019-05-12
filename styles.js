@@ -299,18 +299,20 @@ export default styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   msgLeft: {
+    marginVertical: 8,
     alignItems: 'flex-start',
-    borderRadius: 3,
-    borderWidth:.5,
-    borderColor:'#333333',
-    backgroundColor: 'gray'
+    // borderRadius: 3,
+    // borderWidth:.5,
+    // borderColor:'#333333',
+    // backgroundColor: 'gray'
   },
   msgRight: {
+    marginVertical: 8,
     alignItems: 'flex-end',
-    borderRadius: 3,
-    borderWidth:.5,
-    borderColor:'#333333',
-    backgroundColor: '#ffffff'
+    // borderRadius: 3,
+    // borderWidth:.5,
+    // borderColor:'#333333',
+    // backgroundColor: '#ffffff'
   },
   bottomStick: {
     flex: 1,

@@ -29,7 +29,7 @@ class Chat extends React.Component {
                 <KeyboardAwareScrollView  
                 enableOnAndroid
                 scrollEnabled={false}
-                extraScrollHeight={220} >
+                extraScrollHeight={240} >
                 <Grid>
                     <Row style={styles.listContent}>
                         {

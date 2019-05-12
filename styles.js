@@ -125,7 +125,7 @@ export default styles = StyleSheet.create({
     height: 200
   },
   pickerBorder: {
-    width: 320,
+    width: 250,
   },
   pickerItem: {
     fontSize: 18,

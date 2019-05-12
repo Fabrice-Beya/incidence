@@ -7,11 +7,12 @@ import { NavigationEvents } from 'react-navigation';
 import { Permissions, ImagePicker, Location } from 'expo';
 import { uploadPhoto } from '../actions/index'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { updateTitle, updateCatagory, updateIncidenceDate, updateDescription, updateLocation, updatePhotos, uploadPost } from '../actions/post';
+import { updateTitle, updateCatagory, updateIncidenceDate, updateDescription, updateLocation, updatePhotos, uploadPost, clearPost } from '../actions/post';
 import moment from 'moment'
 class Post extends React.Component {
 
   onWillFocus = () => {
+    this.props.clearPost();
     this.props.navigation.setParams({
       uploadPost: this._uploadPost
     });
@@ -99,7 +100,7 @@ class Post extends React.Component {
               selectedValue={this.props.post.catagory}
               onValueChange={(itemValue, itemIndex) =>
                 this.props.updateCatagory(itemValue)}
-                style={{width:200}}
+                style={{width:250}}
               itemStyle={styles.pickerItem}
               >
               <Picker.Item label="Choose a Catagory" value="" />
@@ -164,7 +165,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ updateTitle, updateCatagory, updateIncidenceDate, updateDescription, updateLocation, uploadPost, updatePhotos, uploadPhoto }, dispatch)
+  return bindActionCreators({ updateTitle, updateCatagory, clearPost, updateIncidenceDate, updateDescription, updateLocation, uploadPost, updatePhotos, uploadPhoto }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post)

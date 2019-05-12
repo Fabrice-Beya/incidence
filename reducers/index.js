@@ -56,8 +56,12 @@ const post = (state ={}, action) => {
             return {...state, location: action.payload}
         case 'UPDATE_POST':
             return  action.payload;
+        case 'CLEAR_POST':
+            return  action.payload;
         case 'UPDATE_COMMENT':
             return {...state, comment: action.payload}
+        case 'UPDATE_STATUS':
+            return {...state, status: action.payload}
         default:
             return state
     }

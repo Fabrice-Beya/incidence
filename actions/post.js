@@ -30,6 +30,14 @@ export const updateComment = (text) => {
     return { type: 'UPDATE_COMMENT', payload: text }
 }
 
+export const updateStatus = (text) => {
+    return { type: 'UPDATE_STATUS', payload: text }
+}
+
+export const clearPost = () => {
+    return { type: 'CLEAR_POST', payload: {} }
+}
+
 
 export const updatePhotos = (url) => {
     return async (dispatch, getState) => {
@@ -66,7 +74,8 @@ export const uploadPost = () => {
                 residence: user.residence,
                 unit: user.unit,
                 photo: user.photo || ' ',
-                likes: []
+                likes: [],
+                status: 'Open'
             }
             const ref = await db.collection('posts').doc();
             upload.id = ref.id;
@@ -102,6 +111,36 @@ export const updatePost = () => {
             const newPost = await db.collection('posts').doc(post.id).set(post);
 
             return { type: 'UPDATE_POST', payload: newPost }
+        } catch (e) {
+            alert(e)
+        }
+
+    }
+}
+
+export const changeStatus = () => {
+    return async (dispatch, getState) => {
+        try {
+            const post = getState().post;
+            const user = getState().user;
+
+
+            await db.collection('posts').doc(post.id).update({
+                status: post.status
+            });
+
+            await db.collection('activity').doc().set({
+                postId: post.id,
+                title: post.title,
+                actorId: user.uid,
+                actorPhoto: user.photo,
+                actorName: user.fullname,
+                uid: post.uid,
+                date: new Date().getDate(),
+                status: post.status,
+                type: 'STATUS'
+            })
+
         } catch (e) {
             alert(e)
         }

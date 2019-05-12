@@ -79,8 +79,8 @@ class Notifications extends React.Component {
                   }
 
                   {
-                   item.type === 'MESSAGE' ?
-                   <Text>You have a message related to</Text>  
+                   item.type === 'STATUS' ?
+                   <Text>Your incidence status has been updated to: {item.status}</Text>  
                   : null
                   }
                  

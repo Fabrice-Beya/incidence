@@ -37,7 +37,7 @@ class Comment extends React.Component {
                 <KeyboardAwareScrollView  
                 enableOnAndroid
                 scrollEnabled={false}
-                extraScrollHeight={220} >
+                extraScrollHeight={240} >
                 <NavigationEvents onWillFocus={this.onWillFocus} />
                 <Grid>
                <Row style={styles.listContent}>

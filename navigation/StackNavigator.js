@@ -43,6 +43,11 @@ export const HomeNavigator = createAppContainer(createStackNavigator({
           <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.goBack()} >
             <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
           </TouchableOpacity>
+        ),
+        headerRight: (
+          <TouchableOpacity style={{paddingRight:16}} onPress={navigation.getParam('changeStatus')} >
+            <Ionicons style={styles.icon} name={'md-save'} size={30}/>
+          </TouchableOpacity>
         )
       })
     },
@@ -55,11 +60,7 @@ export const HomeNavigator = createAppContainer(createStackNavigator({
             <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
           </TouchableOpacity>
         ),
-        headerRight: (
-          <TouchableOpacity style={{paddingRight:16}} onPress={navigation.getParam('showComment')} >
-            <Ionicons style={styles.icon} name={'md-chatbubbles'} size={30}/>
-          </TouchableOpacity>
-        )
+        
       })
     },
     Chat: {
@@ -117,6 +118,11 @@ export const SearchNavigator = createAppContainer(createStackNavigator({
           <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.goBack()} >
             <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
           </TouchableOpacity>
+        ),
+        headerRight: (
+          <TouchableOpacity style={{paddingRight:16}} onPress={navigation.getParam('changeStatus')} >
+            <Ionicons style={styles.icon} name={'md-save'} size={30}/>
+          </TouchableOpacity>
         )
       })
     },
@@ -127,11 +133,6 @@ export const SearchNavigator = createAppContainer(createStackNavigator({
         headerLeft: (
           <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.goBack()} >
             <Ionicons style={styles.icon} name={'md-arrow-back'} size={30}/>
-          </TouchableOpacity>
-        ),
-        headerRight: (
-          <TouchableOpacity style={{paddingRight:16}} onPress={navigation.getParam('showComment')} >
-            <Ionicons style={styles.icon} name={'md-chatbubbles'} size={30}/>
           </TouchableOpacity>
         )
       })

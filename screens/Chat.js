@@ -36,7 +36,6 @@ class Chat extends React.Component {
                             this.props.messages && this.props.messages.length > 0 ?
                                 <View style={{ flex: 1, padding: 3 }}>
                                     <List
-                                        inverted
                                         dataArray={this.props.messages.filter(message => message.members.indexOf(params) >= 0 && message.members.indexOf(this.props.user.uid) >= 0)}
                                         refreshControl={<RefreshControl
                                             refreshing={false}

@@ -184,7 +184,7 @@ export const MyProfileNavigator = createAppContainer(createStackNavigator({
         ),
         headerRight: (
           <TouchableOpacity style={{marginHorizontal:10}} onPress={navigation.getParam('updatePost')} >
-            <Ionicons style={styles.icon} name={'md-add-circle'} size={30}/>
+            <Ionicons style={styles.icon} name={'md-save'} size={30}/>
           </TouchableOpacity>
         ),
       })

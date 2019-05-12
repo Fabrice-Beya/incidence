@@ -12,10 +12,13 @@ import moment from 'moment'
 class Post extends React.Component {
 
   onWillFocus = () => {
-    this.props.clearPost();
     this.props.navigation.setParams({
       uploadPost: this._uploadPost
     });
+  }
+
+  componentDidMount = () => {
+    this.props.clearPost();
   }
 
   _uploadPost = async () => {

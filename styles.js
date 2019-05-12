@@ -147,7 +147,7 @@ export default styles = StyleSheet.create({
     width: width,
     height: 300,
     // borderRadius: 100,
-    // resizeMode: 'contain',
+    resizeMode: 'contain',
   },
   squareImage: {
     height: 80,

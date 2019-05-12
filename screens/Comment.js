@@ -8,7 +8,6 @@ import { bindActionCreators } from 'redux';
 import { updateComment, postComment } from '../actions/post';
 import { NavigationEvents } from 'react-navigation';
 import { likePost } from '../actions/feed'
-import { KeyboardAvoidingView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class Comment extends React.Component {
@@ -28,7 +27,7 @@ class Comment extends React.Component {
     postComment = () => {
         const { post } = this.props.navigation.state.params
         this.props.postComment(this.props.post.comment, post.id, post.title, post.uid)
-        this.setState({ commentBoxVisible: false })
+       
     }
 
     render() {

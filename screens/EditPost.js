@@ -79,17 +79,36 @@ class EditPost extends React.Component {
       <NavigationEvents onWillFocus={this.onWillFocus} />
       <KeyboardAwareScrollView enableOnAndroid >
         <View style={styles.container}>
-
+          <Item>
           <Input
             style={styles.noBorder}
             value={this.props.post.title}
             placeholder='Title'
-            autoFocus={true}
             autoCapitalize="words"
             autoCorrect={true}
             keyboardType="default"
             returnKeyType="next"
             onChangeText={input => this.props.updateTitle(input)} />
+          </Item>
+         
+         
+          <DatePicker
+            defaultDate={new Date(2019, 1, 1)}
+            minimumDate={new Date(2018, 1, 1)}
+            maximumDate={new Date(2020, 12, 31)}
+            locale={"en"}
+            timeZoneOffsetInMinutes={undefined}
+            modalTransparent={false}
+            animationType={"fade"}
+            androidMode={"default"}
+            placeHolderText="Select date"
+            textStyle={{ color: "Black", fontWeight: '200', fontSize: 18 }}
+            placeHolderTextStyle={{ color: "Black", fontSize: 18 }}
+            onDateChange={this.props.updateIncidenceDate}
+            disabled={false}
+            value={this.props.post.incidenceDate ? moment(String(this.props.post.incidenceDate)).format('ll') : null}
+            />
+
           <Picker
             selectedValue={this.props.post.catagory}
             onValueChange={(itemValue, itemIndex) =>
@@ -106,22 +125,6 @@ class EditPost extends React.Component {
             <Picker.Item label="Other" value="Other" />
           </Picker>
 
-          <DatePicker
-            defaultDate={new Date(2019, 1, 1)}
-            minimumDate={new Date(2018, 1, 1)}
-            maximumDate={new Date(2020, 12, 31)}
-            locale={"en"}
-            timeZoneOffsetInMinutes={undefined}
-            modalTransparent={false}
-            animationType={"fade"}
-            androidMode={"default"}
-            placeHolderText="Select date"
-            textStyle={{ color: "Black", fontWeight: '200' }}
-            placeHolderTextStyle={{ color: "Black" }}
-            onDateChange={this.props.updateIncidenceDate}
-            disabled={false}
-            value={this.props.post.incidenceDate ? this.props.post.incidenceDate.toString().substr(4, 12) : null}
-          />
 
           <Text>Please describe your incidence below:</Text>
 
@@ -131,17 +134,8 @@ class EditPost extends React.Component {
             value={this.props.post.description}
             placeholder='Description'
             onChangeText={input => this.props.updateDescription(input)} />
-          <View sytle={styles.buttonStackRow}>
-            <Button style={styles.button} iconLeft dark onPress={() => this.props.navigation.navigate('Camera')}>
-              <Icon name='md-camera' />
-              <Text>Take Photo</Text>
-            </Button>
-            <Button style={styles.button} iconLeft dark onPress={this.attachPhoto}>
-              <Icon name='md-attach' />
-              <Text>Add Existing Photo</Text>
-            </Button>
-          </View>
-          {
+
+        {
              this.props.post.postPhotos && this.props.post.postPhotos.length ?
 
               <Content
@@ -156,6 +150,18 @@ class EditPost extends React.Component {
                 ))}
               </Content> : null
           }
+          
+          <View sytle={styles.buttonStackRow}>
+            <Button style={styles.button} iconLeft dark onPress={() => this.props.navigation.navigate('Camera')}>
+              <Icon name='md-camera' />
+              <Text>Take Photo</Text>
+            </Button>
+            <Button style={styles.button} iconLeft dark onPress={this.attachPhoto}>
+              <Icon name='md-attach' />
+              <Text>Add Existing Photo</Text>
+            </Button>
+          </View>
+          
         </View>
       </KeyboardAwareScrollView>
     </Container >

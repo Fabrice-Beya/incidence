@@ -62,8 +62,9 @@ class Post extends React.Component {
     return (
       <Container >
         <NavigationEvents onWillFocus={this.onWillFocus} />
-        <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={styles.containerStart}>
-          {/* <View style={styles.postStack}>   */}
+        <KeyboardAwareScrollView enableOnAndroid >
+          <View style={styles.containerStart}>  
+         
             <Item>
               <Input
                   style={styles.noBorder}
@@ -76,7 +77,6 @@ class Post extends React.Component {
                   onChangeText={input => this.props.updateTitle(input)} />
             </Item>
             
-           
             <DatePicker
               defaultDate={new Date(2019, 1, 1)}
               minimumDate={new Date(2018, 1, 1)}
@@ -87,19 +87,21 @@ class Post extends React.Component {
               animationType={"fade"}
               androidMode={"default"}
               style={{alignSelf:'flex-start'}}
-              placeHolderText="Select date"
-              textStyle={{ color: "Black", fontWeight: '200', textAlign:'center' }}
-              placeHolderTextStyle={{ color: "Black", textAlign:'center' }}
+              placeHolderText="Add the incidence date"
+              textStyle={{ color: "Black", fontWeight: '200', textAlign:'center', fontSize: 18   }}
+              placeHolderTextStyle={{ color: "Black", textAlign:'center', fontSize: 18 }}
               onDateChange={this.props.updateIncidenceDate}
               disabled={false}
               value={this.props.post.incidenceDate ? moment(String(this.props.post.incidenceDate)).format('ll') : null}
             />
              <Picker
+             mode='dropdown'
               selectedValue={this.props.post.catagory}
               onValueChange={(itemValue, itemIndex) =>
                 this.props.updateCatagory(itemValue)}
-              style={[styles.pickerBorder]}
-              itemStyle={styles.pickerItem}>
+                style={{width:200}}
+              itemStyle={styles.pickerItem}
+              >
               <Picker.Item label="Choose a Catagory" value="" />
               <Picker.Item label="Complaint" value="Complain" />
               <Picker.Item label="Damage" value="Damage" />
@@ -117,16 +119,7 @@ class Post extends React.Component {
               value={this.props.post.description}
               placeholder='Description'
               onChangeText={input => this.props.updateDescription(input)} />
-            <View sytle={styles.buttonStackRow}>
-              <Button style={styles.button} iconLeft dark onPress={() => this.props.navigation.navigate('Camera')}>
-                <Icon name='md-camera' />
-                <Text>Take Photo</Text>
-              </Button>
-              <Button style={styles.button} iconLeft dark onPress={this.attachPhoto}>
-                <Icon name='md-attach' />
-                <Text>Add Existing Photo</Text>
-              </Button>
-            </View>
+
             {
               postPhotos && postPhotos.length ?
 
@@ -142,7 +135,19 @@ class Post extends React.Component {
                   ))}
                 </Content> : null
             }
-            {/* </View> */}
+               
+            <View sytle={styles.buttonStackRow}>
+              <Button style={styles.button} iconLeft dark onPress={() => this.props.navigation.navigate('Camera')}>
+                <Icon name='md-camera' />
+                <Text>Take Photo</Text>
+              </Button>
+              <Button style={styles.button} iconLeft dark onPress={this.attachPhoto}>
+                <Icon name='md-attach' />
+                <Text>Add Existing Photo</Text>
+              </Button>
+            </View>
+            
+            </View>
         </KeyboardAwareScrollView>
       </Container >
 

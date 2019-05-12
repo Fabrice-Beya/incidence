@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { RefreshControl } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { addMessage } from '../actions/message'
-import { KeyboardAvoidingView } from 'react-native';
 import moment from 'moment';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 

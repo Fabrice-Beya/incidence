@@ -18,6 +18,7 @@ export default styles = StyleSheet.create({
       backgroundColor: '#fff',
       alignItems: 'center',
       justifyContent: 'flex-start',
+      padding: 10
     },
     row: {
       flexDirection: 'row'
@@ -124,13 +125,11 @@ export default styles = StyleSheet.create({
       height: 200
     },
     pickerBorder: {
-      width: 300,
-      margin: 0
+      width: 200,
     },
     pickerItem: {
-      fontSize: 16,
+      fontSize: 18,
       textAlign: 'center',
-      margin: 0
     },
     profileImage: {
       marginTop:50,

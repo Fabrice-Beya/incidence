@@ -45,9 +45,11 @@ export const HomeNavigator = createAppContainer(createStackNavigator({
           </TouchableOpacity>
         ),
         headerRight: (
+          navigation.getParam('role')=== 'keeper' ?
           <TouchableOpacity style={{paddingRight:16}} onPress={navigation.getParam('changeStatus')} >
             <Ionicons style={styles.icon} name={'md-save'} size={30}/>
-          </TouchableOpacity>
+          </TouchableOpacity> : null
+          }
         )
       })
     },

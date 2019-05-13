@@ -39,6 +39,9 @@ class Home extends React.Component {
                 this.setState({ filter })}
               style={{ width: 200 }}
               itemStyle={{ textAlign: 'center' }}>
+              {
+                this.props.user.role === 'keeper' ?
+              
               <Picker.Item label="All" value="All" />
               <Picker.Item label="Complaint" value="Complain" />
               <Picker.Item label="Damage" value="Damage" />
@@ -47,6 +50,10 @@ class Home extends React.Component {
               <Picker.Item label="Proposal" value="Proposal" />
               <Picker.Item label="General Notice" value="General Notice" />
               <Picker.Item label="Other" value="Other" />
+             : 
+              <Picker.Item label="General Notice" value="General Notice" />
+              <Picker.Item label="Proposal" value="Proposal" />
+            }
             </Picker>
         </Header>
         <View style={{ flex: 1 }}>

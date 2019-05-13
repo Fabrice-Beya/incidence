@@ -19,7 +19,8 @@ class PostDetail extends React.Component {
     this.getPostComments();
 
     this.props.navigation.setParams({ 
-      changeStatus: this.changeStatus
+      changeStatus: this.changeStatus,
+      role : this.props.user.role
     });
     
     if (this.props.post.likes.includes(this.props.user.uid)) {
@@ -57,6 +58,9 @@ class PostDetail extends React.Component {
   render() {
     return (
       <Container >
+        {
+           this.props.user.role === 'keeper' ?
+       
         <Header style={{ backgroundColor: '#ffffff', paddingHorizontal: 10 }}>
           
           <Picker
@@ -73,7 +77,8 @@ class PostDetail extends React.Component {
             <Picker.Item label="Completed" value="Completed" />
             <Picker.Item label="Closed" value="Closed" />
           </Picker>
-      </Header>
+      </Header> : null
+       }
         <NavigationEvents onWillFocus={this.onWillFocus} />
         <Content>
           <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

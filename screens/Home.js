@@ -31,7 +31,8 @@ class Home extends React.Component {
     return (
       <Container>
         <Header style={{ backgroundColor: '#ffffff', paddingHorizontal: 10 }}>
-          
+        {
+          this.props.user.role && this.props.user.role === 'keeper' ?
             <Picker
               mode='dropdown'
               selectedValue={this.state.filter}
@@ -39,9 +40,6 @@ class Home extends React.Component {
                 this.setState({ filter })}
               style={{ width: 200 }}
               itemStyle={{ textAlign: 'center' }}>
-              {
-                this.props.user.role === 'keeper' ?
-              
               <Picker.Item label="All" value="All" />
               <Picker.Item label="Complaint" value="Complain" />
               <Picker.Item label="Damage" value="Damage" />
@@ -50,11 +48,20 @@ class Home extends React.Component {
               <Picker.Item label="Proposal" value="Proposal" />
               <Picker.Item label="General Notice" value="General Notice" />
               <Picker.Item label="Other" value="Other" />
-             : 
-              <Picker.Item label="General Notice" value="General Notice" />
+              </Picker> : 
+              <Picker
+              mode='dropdown'
+              selectedValue={this.state.filter}
+              onValueChange={(filter) =>
+                this.setState({ filter })}
+              style={{ width: 200 }}
+              itemStyle={{ textAlign: 'center' }}>
               <Picker.Item label="Proposal" value="Proposal" />
+              <Picker.Item label="General Notice" value="General Notice" />
+              </Picker> 
+             
             }
-            </Picker>
+           
         </Header>
         <View style={{ flex: 1 }}>
           <List

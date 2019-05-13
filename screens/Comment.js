@@ -1,8 +1,7 @@
 import React from 'react';
-import { Content, Text, List, Item, ListItem, Input, H1, View, H2, H3, Icon, Grid, Row, Container, Left, Right, Badge, Footer, Button, Thumbnail, Body, Image } from "native-base";
+import {Text, List, ListItem, Input, View, Icon, Grid, Row, Container, Left, Thumbnail, Body } from "native-base";
 import styles from '../styles';
 import { connect } from 'react-redux';
-import { Ionicons } from '@expo/vector-icons';
 import { bindActionCreators } from 'redux';
 import { updateComment, postComment } from '../actions/post';
 import { NavigationEvents } from 'react-navigation';

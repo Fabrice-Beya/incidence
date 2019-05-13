@@ -9,11 +9,12 @@ import { updateComment, postComment } from '../actions/post';
 import { NavigationEvents } from 'react-navigation';
 import { likePost } from '../actions/feed'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import moment from 'moment'
 
 class Comment extends React.Component {
 
     state = {
-        comments: [],
+        // comments: [],
         comment: ''
     }
 
@@ -21,14 +22,18 @@ class Comment extends React.Component {
         this.props.navigation.setParams({
             showComment: this.showComment
         });
-        const { post } = this.props.navigation.state.params
-        this.setState({ comments: post.comments })
+        // const { comments } = this.props.navigation.state.params
+        // this.setState({ comments: comments })
     }
 
     postComment = () => {
-        const { post } = this.props.navigation.state.params
-        this.props.postComment(this.state.comment, post.id, post.title, post.uid)
-        this.setState({comment: '', comments: this.props.post.comments})
+        
+        this.props.postComment(this.state.comment)
+        // let comments = this.state.comments
+        // if(this.state.comment !== ''){
+        //     comments.push(this.state.comment)
+        // }
+        // this.setState({comment: '', comments: comments})
     }
 
     render() {
@@ -42,10 +47,10 @@ class Comment extends React.Component {
                 <Grid>
                <Row style={styles.listContent}>
                     {
-                        this.state.comments && this.state.comments.length > 0 ?
+                        this.props.comments && this.props.comments.length > 0 ?
                         <View style={{ flex: 1, padding: 3 }}>
                             <List
-                                dataArray={this.state.comments}
+                                dataArray={this.props.comments}
                                 renderRow={(item) =>
                                     <ListItem avatar>
                                         <Left style={{ flexDirection: 'column', alignItems: 'center' }}>
@@ -54,7 +59,7 @@ class Comment extends React.Component {
                                         </Left>
                                         <Body>
                                             <Text >{item.comment}</Text>
-                                            <Text note>3hrs ago</Text>
+                                            <Text note>{moment(item.date).format('ll')}</Text>
                                         </Body>
                                     </ListItem>
                                 } />
@@ -89,7 +94,8 @@ class Comment extends React.Component {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        post: state.post
+        post: state.post,
+        comments: state.comments
     }
 }
 

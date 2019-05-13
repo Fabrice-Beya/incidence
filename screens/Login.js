@@ -10,19 +10,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 class Login extends React.Component {
 
-  componentWillMount = () => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.props.getUser(user.uid)
-        if (this.props.user != null) {
-          this.props.navigation.navigate('Home')
-        }
-      } else {
-        this.props.signout();
-      }
-    })
-  }
-
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {

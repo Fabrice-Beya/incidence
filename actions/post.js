@@ -38,7 +38,6 @@ export const clearPost = () => {
     return { type: 'CLEAR_POST', payload: {} }
 }
 
-
 export const updatePhotos = (url) => {
     return async (dispatch, getState) => {
         try {
@@ -106,7 +105,14 @@ export const getUserPosts = (uid) => {
 export const updatePost = () => {
     return async (dispatch, getState) => {
         try {
-            const post = getState().post;
+            const { post, user } = getState();
+
+            const activities =  await db.collection('activity').where('uid', '==', post.uid).get();
+            activities.forEach(async (item) => {
+                await db.collection('activity').doc(item.id).update({
+                title : post.title,
+                });
+                })
 
             const newPost = await db.collection('posts').doc(post.id).set(post);
 
@@ -162,45 +168,48 @@ export const deletePost = () => {
     }
 }
 
-export const postComment = (text, id, title, uid) => {
+export const postComment = (text) => {
     return async (dispatch, getState) => {
         try {
             const user = getState().user;
             const post = getState().post;
+            let comments = getState().comments
+
+            let updatedComments = []
 
             const newComment = {
                 comment: text,
                 commentId: user.uid,
+                postId: post.id,
                 commenterName: user.fullname,
                 commenterPhoto: user.photo || ' ',
-                date: new Date().getDate(),
+                date: new Date().getTime(),
             }
 
-            if(post.comments)
-            {
-                post.comments.push(newComment)
+
+            if(comments){
+                // updatedComments = comments
+                comments.push(newComment)
             } else {
-                post.comments = []
-                post.comments.push(newComment)
+               
+                comments = []
+                comments.push(newComment)
             }
-           
 
-            const newPost = await db.collection('posts').doc(id).update({
-                comments: firebase.firestore.FieldValue.arrayUnion(newComment)
-            })
+            await db.collection('comments').doc().set(newComment)
 
             await db.collection('activity').doc().set({
-                postId: id,
-                title: title,
+                postId: post.id,
+                title: post.title,
                 actorId: user.uid,
                 actorPhoto: user.photo,
                 actorName: user.fullname,
-                uid: uid,
+                uid: user.uid,
                 date: new Date().getTime(),
                 type: 'COMMENT'
             })
 
-            return { type: 'UPDATE_POST', payload: post }
+            return { type: 'UPDATE_COMMENTS', payload: comments }
 
         } catch (e) {
             alert(e)

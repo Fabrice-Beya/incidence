@@ -30,25 +30,18 @@ class Notifications extends React.Component {
       activity.push(response.data())
     })
     this.setState({activity: orderBy(activity, 'date','desc')})
-    console.log(activity)
+    
   }
 
   navigatePost = (id) => {
-    console.log(id)
+   
     const post = this.props.feed.find(obj => obj.id == id);
-    console.log(post)
-    this.props.navigation.navigate('PostDetail', 
-      { post: post }
-    )
+    
+    this.props.navigation.navigate('PostDetail')
   }
 
   render() {
-  	// if (this.state.activity.length <= 0 ) return (
-    //   <View>
-    //     <NavigationEvents onWillFocus={this.onWillFocus}/>
-    //     <Spinner color='black'/>
-    //   </View>
-    // )
+  
     return (
 
       <Container>

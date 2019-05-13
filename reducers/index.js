@@ -76,6 +76,17 @@ const messages = (state = {}, action) => {
     }
   }
 
+  const comments = (state = [], action) => {
+    switch (action.type) {
+      case 'GET_COMMENTS':
+        return action.payload
+    case 'UPDATE_COMMENTS':
+        return action.payload
+      default:
+        return state
+    }
+  }
+
 const feed = (state =null, action) => {
     switch (action.type) {
         case 'GET_POSTS':
@@ -90,7 +101,8 @@ const rootReducer = combineReducers({
     post,
     feed, 
     profile,
-    messages
+    messages,
+    comments
 })
 
 export default rootReducer;

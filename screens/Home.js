@@ -5,6 +5,8 @@ import { Container, Content, View, List, ListItem, Picker, Header, Left, Body, T
 import { bindActionCreators } from 'redux';
 import styles from '../styles';
 import { getPosts, likePost, unlikePost } from '../actions/feed';
+import {  updatePostLocal} from '../actions/post';
+
 import moment from 'moment'
 
 class Home extends React.Component {
@@ -17,10 +19,10 @@ class Home extends React.Component {
     this.props.getPosts();
   }
 
-  navigatePost = (item) => {
-    this.props.navigation.navigate('PostDetail',
-      { post: item }
-    )
+  navigatePost =  (item) => {
+    this.props.updatePostLocal(item);
+    this.props.navigation.navigate('PostDetail', {post: item})
+  
   }
 
   render() {
@@ -83,7 +85,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ getPosts, likePost, unlikePost }, dispatch)
+  return bindActionCreators({ getPosts,updatePostLocal, likePost, unlikePost }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

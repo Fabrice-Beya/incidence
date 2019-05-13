@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Incidence",
+    "name": "alert",
     "description": "This project is really great.",
-    "slug": "incidence",
+    "slug": "alert",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": ["ios", "android"],

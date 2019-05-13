@@ -6,25 +6,39 @@ import { bindActionCreators } from 'redux';
 import { updateComment, postComment, updateStatus,changeStatus, likePost, unlikePost, updatePostLocal} from '../actions/post';
 import { NavigationEvents } from 'react-navigation';
 import moment from 'moment'
-
+import db from '../config/firebase';
+import {getComments} from '../actions/comments'
 
 class PostDetail extends React.Component {
 
   state = {
-    commentBoxVisible: false, 
     isLiked: false
   }
 
   onWillFocus = () => {
+    this.getPostComments();
     this.props.navigation.setParams({ 
       changeStatus: this.changeStatus
     });
-    const { uid } = this.props.user;
-    const { post } = this.props.navigation.state.params
-    this.props.updatePostLocal(post);
-    if (post.likes.includes(uid)) {
+    if (this.props.post.likes.includes(this.props.user.uid)) {
       this.setState({ isLiked: true })
     }
+  }
+  componentDidMount = () => {
+    this.getPostComments();
+  }
+
+  getPostComments = async()=> {
+    try{
+        if(this.props.post.id){
+          await this.props.getComments(this.props.post.id);
+        }
+       
+      
+    } catch(e) {
+      alert(e)
+    }
+    
   }
 
   changeStatus = () => {
@@ -42,15 +56,6 @@ class PostDetail extends React.Component {
     }
   }
 
-  addCommnet = () => {
-    this.setState({ commentBoxVisible: true })
-  }
-
-  postComment = () => {
-    const { post } = this.props.navigation.state.params
-    this.props.postComment(this.props.post.comment, post.id)
-    this.setState({ commentBoxVisible: false })
-  }
 
   render() {
     return (
@@ -106,9 +111,9 @@ class PostDetail extends React.Component {
             </View>
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-around', margin: 10 }}>
-              <Button iconLeft transparent large dark onPress={() => this.props.navigation.navigate('Comment',{ post: this.props.post })} >
+              <Button iconLeft transparent large dark onPress={() => this.props.navigation.navigate('Comment',{ comments: this.state.comments })} >
                 <Icon name='md-chatbubbles' />
-                <Text>{this.props.post.comments ? this.props.post.comments.length : null}</Text>
+                <Text>{this.props.comments ? this.props.comments.length : null}</Text>
               </Button>
               <Button iconLeft transparent large dark onPress={() => this.likePost(this.props.post)}>
                 <Icon name={this.state.isLiked ? 'md-heart' : 'md-heart-empty'}
@@ -133,12 +138,13 @@ class PostDetail extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    post: state.post
+    post: state.post,
+    comments: state.comments
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ updateComment, postComment,updateStatus, changeStatus, likePost, unlikePost, updatePostLocal }, dispatch)
+  return bindActionCreators({ updateComment,getComments, postComment,updateStatus, changeStatus, likePost, unlikePost, updatePostLocal }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail)

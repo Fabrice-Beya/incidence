@@ -175,8 +175,6 @@ export const postComment = (text) => {
             const post = getState().post;
             let comments = getState().comments
 
-            let updatedComments = []
-
             const newComment = {
                 comment: text,
                 commentId: user.uid,
@@ -188,7 +186,6 @@ export const postComment = (text) => {
 
 
             if(comments){
-                // updatedComments = comments
                 comments.push(newComment)
             } else {
                

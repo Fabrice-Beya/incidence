@@ -17,15 +17,14 @@ class PostDetail extends React.Component {
 
   onWillFocus = () => {
     this.getPostComments();
+
     this.props.navigation.setParams({ 
       changeStatus: this.changeStatus
     });
+    
     if (this.props.post.likes.includes(this.props.user.uid)) {
       this.setState({ isLiked: true })
     }
-  }
-  componentDidMount = () => {
-    this.getPostComments();
   }
 
   getPostComments = async()=> {
@@ -33,8 +32,6 @@ class PostDetail extends React.Component {
         if(this.props.post.id){
           await this.props.getComments(this.props.post.id);
         }
-       
-      
     } catch(e) {
       alert(e)
     }

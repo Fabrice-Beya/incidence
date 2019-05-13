@@ -141,12 +141,11 @@ export default styles = StyleSheet.create({
     // resizeMode: 'contain',
   },
   editProfileImage: {
-   
     marginTop: 1,
     marginBottom: 15,
-    width: width,
+    width: 300,
     height: 300,
-    // borderRadius: 100,
+    borderRadius: 150,
     resizeMode: 'contain',
   },
   squareImage: {
@@ -288,12 +287,7 @@ export default styles = StyleSheet.create({
   postStack: {
     padding: 15,
   },
-  commentBox: {
-    // width: width * .75,
-    padding: 5,
-    alignSelf: 'flex-start',
-    fontSize: 16,
-  },
+  
   left: {
     alignItems: 'flex-start',
   },
@@ -318,11 +312,23 @@ export default styles = StyleSheet.create({
   },
   bottomStick: {
     flex: 1,
-    margin: 2,
-    bottom: 0,
-    alignItems: 'center', 
-    justifyContent: 'flex-start',
+    alignItems: 'center',
+    justifyContent:'space-around',
+    // margin: 2,
+    bottom: 2,
     flexDirection: 'row'
+  },
+  commentBox: {
+    alignSelf: 'flex-start',
+    fontSize: 16,
+    borderWidth:.5,
+    borderRadius: 20,
+    borderColor: '#333333',
+    width: 300
+  },
+  commentButton: {
+    alignSelf: 'center',
+    margin:5,
   },
   listContent: {
     height: deviceHeight * .85

@@ -56,8 +56,8 @@ class Chat extends React.Component {
                             }
                         </Row>
                         <Row>
-                            <View enabled behavior='padding' style={styles.bottomStick}>
-                                <Item rounded>
+                           
+                                <View style={styles.bottomStick}>
                                     <Input
                                         style={styles.commentBox}
                                         value={this.state.message}
@@ -65,13 +65,11 @@ class Chat extends React.Component {
                                         returnKeyType='Send'
                                         onSubmitEditing={this.sendMessage}
                                         onChangeText={message => this.setState({ message })} />
-                                    <Button style={{ alignSelf: 'flex-end' }} iconRight transparent onPress={() => this.sendMessage()}>
+                                    <Button style={{ alignSelf: 'flex-end' }} transparent onPress={() => this.sendMessage()}>
                                         <Icon style={{ color: '#333333' }} active name='md-send' />
                                     </Button>
-                                </Item>
-
-                            </View >
-
+                                </View>
+                          
                         </Row>
                     </Grid>
                 </KeyboardAwareScrollView>

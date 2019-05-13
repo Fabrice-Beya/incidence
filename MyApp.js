@@ -26,7 +26,7 @@ const persistConfig = {
 export default class MyApp extends React.Component {
   renderLoading = () => {
     return (
-        <View>                
+        <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>                
             <ActivityIndicator color="#333333" size={"large"} />
         </View>        
     );    

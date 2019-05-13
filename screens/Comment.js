@@ -9,7 +9,7 @@ import { NavigationEvents } from 'react-navigation';
 import { likePost } from '../actions/feed'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import moment from 'moment'
-import { Transp } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 
 class Comment extends React.Component {
 
@@ -25,7 +25,6 @@ class Comment extends React.Component {
     }
 
     postComment = () => {
-
         this.props.postComment(this.state.comment)
         this.setState({ comment: '' })
     }
@@ -62,20 +61,19 @@ class Comment extends React.Component {
                         </Row>
                         <Row >
                             <View style={styles.bottomStick}>
-                                <Item rounded>
-                                    <Input
-                                        style={styles.commentBox}
-                                        value={this.state.comment}
-                                        placeholder='Your comment'
-                                        onSubmitEditing={this.postComment}
-                                        onChangeText={comment => this.setState({ comment })} />
-                                    <Button style={{ alignSelf: 'flex-end' }} iconRight transparent onPress={() => this.postComment()}>
-                                        <Icon style={{ color: '#333333' }} active name='md-send' />
-                                    </Button>
-                                </Item>
-
-                            </View>
-
+                                <View style={styles.commentBox}>
+                                <Input
+                                    value={this.state.comment}
+                                    placeholder='Your comment'
+                                    onSubmitEditing={this.postComment}
+                                    onChangeText={comment => this.setState({ comment })} />
+                                    </View>
+                                <View style={styles.commentButton}>
+                                    <TouchableOpacity onPress={() => this.postComment()}>
+                                        <Icon style={{ color: '#333333', alignSelf:'center'}} size='60' active name='md-send' />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>                      
                         </Row>
                     </Grid>
                 </KeyboardAwareScrollView>

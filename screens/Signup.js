@@ -1,5 +1,5 @@
 import React from 'react';
-import { Content, Text, List, Item, Picker , Input, Form, View, Icon, Separator, Container, Footer, Button, Thumbnail, Body, Image } from "native-base";
+import { Content, Text, List, Item, Picker , Input, View, Icon, Separator, Container, Footer, Button, Thumbnail, Body, Image } from "native-base";
 import {TouchableOpacity} from 'react-native';
 import styles from '../styles';
 import { connect } from 'react-redux';
@@ -37,18 +37,13 @@ class Signup extends React.Component {
     render() {
         return (
             <Container>
-                <KeyboardAwareScrollView enableOnAndroid >
-                    <View style={styles.container}>
+                <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={styles.containerAround}>
                     
-                    <TouchableOpacity style={styles.center} onPress={() => this.openPhotoLib()}>
-                    {
-                        this.props.user.photo ?
-                        <Thumbnail style={styles.profileImage} source={{ uri: this.props.user.photo }} /> :
-                        <Thumbnail style={styles.editProfileImage} source={require('../assets/blank_photo.png')} /> 
-                    }
+                <TouchableOpacity style={{alignSelf: 'center', marginBottom: 10}} onPress={() => this.openPhotoLib()}>
+                        <Thumbnail style={styles.profileImage} source={{ uri: this.props.user.photo }} /> 
+                        <Text style={{alignSelf: 'center', margin: 10}}>Upload Photo</Text>
                     </TouchableOpacity>
                    
-                    <View style={styles.inputStack}>
                         <Item>
                             <Input
                                 value={this.props.user.fullname}
@@ -70,7 +65,9 @@ class Signup extends React.Component {
                                 secureTextEntry={true}
                                 onChangeText={input => this.props.updatePassword(input)} />
                         </Item>
-                    
+                        <View style={styles.pickerStack}>
+
+                   
                         <Picker
                             selectedValue={this.props.user.residence}
                             onValueChange={(itemValue, itemIndex) =>
@@ -98,14 +95,14 @@ class Signup extends React.Component {
                             <Picker.Item label="005" value="005" />
                             <Picker.Item label="006" value="006" />
                         </Picker>
-                   
+                        </View>
                         <Button style={styles.button} iconLeft dark onPress={() => this.signup()}>
                             <Icon name='md-person-add' />
                             <Text>Sign Up</Text>
                         </Button>
 
-                    </View>
-                    </View>
+                    {/* </View> */}
+                  
                     </KeyboardAwareScrollView>
             </Container>
         );

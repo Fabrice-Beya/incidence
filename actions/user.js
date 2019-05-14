@@ -31,7 +31,7 @@ export const updatePhoto = (photo) => {
 }
 
 export const signout = () => {
-    return { type: 'SIGNOUT', payload: {} }
+    return { type: 'SIGNOUT', payload: {state:'empty'} }
 }
 
 export const login = () => {

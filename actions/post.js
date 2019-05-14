@@ -35,7 +35,7 @@ export const updateStatus = (text) => {
 }
 
 export const clearPost = () => {
-    return { type: 'CLEAR_POST', payload: {} }
+    return { type: 'CLEAR_POST', payload: {state: 'empty'} }
 }
 
 export const updatePhotos = (url) => {

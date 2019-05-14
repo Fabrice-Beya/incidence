@@ -20,6 +20,12 @@ export default styles = StyleSheet.create({
     justifyContent: 'flex-start',
     padding: 10
   },
+  containerAround: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10
+  },
   row: {
     flexDirection: 'row'
   },
@@ -132,13 +138,12 @@ export default styles = StyleSheet.create({
     textAlign: 'center',
   },
   profileImage: {
-   
-    marginTop: 1,
-    marginBottom: 15,
-    width: width,
-    height: 200,
-    // borderRadius: 100,
-    // resizeMode: 'contain',
+    width: 150, 
+    height: 150,
+    borderRadius: 75,
+    // marginTop: 10,
+    marginTop: 15,
+    backgroundColor: '#adadad'
   },
   editProfileImage: {
     marginTop: 1,
@@ -279,6 +284,12 @@ export default styles = StyleSheet.create({
     height: 100,
     resizeMode: 'contain'
   },
+  pickerStack: {
+    marginVertical: 10,
+    fontSize: 16,
+    alignSelf: 'flex-start',
+    width: 320,
+  },
   inputStack: {
     marginVertical: 15,
     fontSize: 16,
@@ -322,16 +333,16 @@ export default styles = StyleSheet.create({
     alignSelf: 'flex-start',
     fontSize: 16,
     borderWidth:.5,
-    borderRadius: 20,
+    borderRadius: 22,
     borderColor: '#333333',
-    width: 300
+    width: width*.90
   },
   commentButton: {
     alignSelf: 'center',
-    margin:5,
+    margin:2,
   },
   listContent: {
-    height: deviceHeight * .85
+    height: deviceHeight * .84
   },
   space: {
     margin: 10

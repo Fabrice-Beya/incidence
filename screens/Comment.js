@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, List, ListItem, Input, View, Icon, Grid, Row, Container, Left, Thumbnail, Body } from "native-base";
+import { Text, List, ListItem, Input, View, Icon, Button, Grid, Row, Container, Left, Thumbnail, Body } from "native-base";
 import styles from '../styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,6 +9,7 @@ import { likePost } from '../actions/feed'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import moment from 'moment'
 import { TouchableOpacity } from 'react-native'
+import { Ionicons } from '@expo/vector-icons';
 
 class Comment extends React.Component {
 
@@ -61,18 +62,23 @@ class Comment extends React.Component {
                         <Row >
                             <View style={styles.bottomStick}>
                                 <View style={styles.commentBox}>
-                                <Input
-                                    value={this.state.comment}
-                                    placeholder='Your comment'
-                                    onSubmitEditing={this.postComment}
-                                    onChangeText={comment => this.setState({ comment })} />
-                                    </View>
-                                <View style={styles.commentButton}>
-                                    <TouchableOpacity onPress={() => this.postComment()}>
-                                        <Icon style={{ color: '#333333', alignSelf:'center'}} size='60' active name='md-send' />
-                                    </TouchableOpacity>
+                                    <Input
+                                        value={this.state.comment}
+                                        placeholder='Your comment'
+                                        returnKeyType='Send'
+                                        onSubmitEditing={this.postComment}
+                                        onChangeText={comment => this.setState({ comment })} />
                                 </View>
-                            </View>                      
+                                <View style={styles.commentButton}>
+                                {/* <View>
+                                    <Button transparent onPress={() => this.postComment()}>
+                                       
+                                        <Icon size={50} name='md-send' />
+                                      
+                                    </Button>
+                                    </View> */}
+                                </View>
+                            </View>
                         </Row>
                     </Grid>
                 </KeyboardAwareScrollView>

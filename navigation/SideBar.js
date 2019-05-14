@@ -109,7 +109,6 @@ class SideBar extends Component {
           style={{ flex: 1, backgroundColor: "#fff" }}
         >
           <Image source={drawerCover} style={styles.drawerCover} />
-          {/* <Image square style={styles.drawerImage} source={drawerImage} /> */}
 
           <List
             dataArray={this.props.user.role === 'keeper' ? keeperRoutes : tenantRoutes}

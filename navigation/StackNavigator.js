@@ -1,5 +1,6 @@
 import React from 'react';
 import {createStackNavigator, createAppContainer } from 'react-navigation';
+import {View} from 'react-native'
 import HomeScreen from '../screens/Home';
 import SearchScreen from '../screens/Search';
 import PostScreen from '../screens/Post';
@@ -24,7 +25,7 @@ export const HomeNavigator = createAppContainer(createStackNavigator({
         headerTitle: <Image style={{width:115, height: 27}} source={require('../assets/logo.png')}/>,
         headerRight: (
           <TouchableOpacity onPress={() => navigation.navigate('Post')}  >
-            <Ionicons style={{marginRight: 10}} name={'md-add-circle-outline'} size={30}/>
+            <Ionicons style={{marginRight: 12}} name={'md-add-circle-outline'} size={35}/>
           </TouchableOpacity>
         ),
         headerLeft: (
@@ -210,9 +211,15 @@ export const PostNavigator = createAppContainer(createStackNavigator({
       navigationOptions: ({ navigation }) => ({
         title: 'Post',
         headerRight: (
-          <TouchableOpacity style={{marginHorizontal:10}} onPress={navigation.getParam('uploadPost')} >
-            <Ionicons style={styles.icon} name={'md-save'} size={30}/>
+          <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-around'}}>
+         
+          <TouchableOpacity style={{marginHorizontal:13}} onPress={navigation.getParam('deletePost')} >
+          <Ionicons style={styles.icon} name={'md-remove-circle'} size={35}/>
+        </TouchableOpacity>
+        <TouchableOpacity style={{marginHorizontal:10}} onPress={navigation.getParam('uploadPost')} >
+            <Ionicons style={styles.icon} name={'md-save'} size={35}/>
           </TouchableOpacity>
+        </View>
         ),
         headerLeft: (
           <TouchableOpacity style={{paddingLeft:16}} onPress={() => navigation.toggleDrawer()}  >

@@ -7,13 +7,14 @@ import { NavigationEvents } from 'react-navigation';
 import { Permissions, ImagePicker, Location } from 'expo';
 import { uploadPhoto } from '../actions/index'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { updateTitle, updateCatagory, updateIncidenceDate, updateDescription, updateLocation, updatePhotos, uploadPost, clearPost } from '../actions/post';
+import { updateTitle, updateCatagory, updateIncidenceDate, updatePostLocal, updateDescription, updateLocation, updatePhotos, uploadPost, clearPost } from '../actions/post';
 import moment from 'moment'
 class Post extends React.Component {
 
   onWillFocus = () => {
     this.props.navigation.setParams({
-      uploadPost: this._uploadPost
+      uploadPost: this.uploadPost,
+      deletePost: this.deletePost
     });
   }
 
@@ -21,15 +22,18 @@ class Post extends React.Component {
     this.props.clearPost();
   }
 
-  _uploadPost = async () => {
+  uploadPost = async () => {
     try {
-
       this.props.uploadPost();
       this.props.navigation.navigate('Home');
     } catch (e) {
       alert(e)
     }
+  }
 
+  deletePost = () => {
+    this.props.clearPost()
+    this.props.navigation.navigate('Home');
   }
 
   getLocation = async () => {
@@ -168,7 +172,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ updateTitle, updateCatagory, clearPost, updateIncidenceDate, updateDescription, updateLocation, uploadPost, updatePhotos, uploadPhoto }, dispatch)
+  return bindActionCreators({ updateTitle, updatePostLocal, updateCatagory, clearPost, updateIncidenceDate, updateDescription, updateLocation, uploadPost, updatePhotos, uploadPhoto }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post)

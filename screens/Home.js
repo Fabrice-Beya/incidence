@@ -56,6 +56,7 @@ class Home extends React.Component {
                 this.setState({ filter })}
               style={{ width: 200 }}
               itemStyle={{ textAlign: 'center' }}>
+               <Picker.Item label="All" value="All" />
               <Picker.Item label="Proposal" value="Proposal" />
               <Picker.Item label="General Notice" value="General Notice" />
               </Picker> 
@@ -68,7 +69,11 @@ class Home extends React.Component {
             refreshControl={<RefreshControl
               refreshing={false}
               onRefresh={() => this.props.getPosts()} />}
-            dataArray={this.state.filter === 'All' ? this.props.feed : this.props.feed.filter(post => post.catagory === this.state.filter)}
+            dataArray={
+              this.props.user.role && this.props.user.role === 'keeper' ?
+              this.state.filter === 'All' ? this.props.feed : this.props.feed.filter(post => post.catagory === this.state.filter):
+              this.state.filter === 'All' ? this.props.feed.filter(post => post.catagory === 'Proposal' || post.catagory === 'General Notice') : this.props.feed.filter(post => post.catagory === this.state.filter)
+            }
             renderRow={(item) =>
               <ListItem thumbnail onPress={() => this.navigatePost(item)}>
                 <Left style={{ flexDirection: 'column', alignItems: 'center' }}>

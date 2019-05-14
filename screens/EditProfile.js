@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { ImagePicker, Permissions } from 'expo';
 import { uploadPhoto } from '../actions/index'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { updateEmail, updatePhoto, updateUser, updatePassword, updateFullname, updateResidence, updateUnit, signup } from '../actions/user';
+
 
 class EditProfile extends React.Component {
 
@@ -22,6 +22,7 @@ class EditProfile extends React.Component {
             const image = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true })
             if (!image.cancelled) {
                 const url = await this.props.uploadPhoto(image);
+                console.log(url)
                 this.props.updatePhoto(url);
             }
         }
@@ -30,58 +31,55 @@ class EditProfile extends React.Component {
     render() {
         return (
             <Container>
-                <KeyboardAwareScrollView enableOnAndroid>
-                    <View style={styles.container}>
-                        <TouchableOpacity onPress={() => this.openPhotoLib()}>
-                            {
-                                this.props.user.photo ?
-                                    <Thumbnail square style={styles.profileImage} source={{ uri: this.props.user.photo }} /> :
-                                    <Thumbnail square style={styles.editProfileImage} source={require('../assets/blank_photo.png')} />
-                            }
-                        </TouchableOpacity>
-                        <View style={styles.inputStack}>
-                            <Item>
-                                <Input
-                                    value={this.props.user.fullname}
-                                    placeholder='Full Names'
-                                    onChangeText={input => this.props.updateFullname(input)} />
-                            </Item>
-                            <Picker
-                                selectedValue={this.props.user.residence}
-                                onValueChange={(itemValue, itemIndex) =>
-                                    this.props.updateResidence(itemValue)}
-                                style={styles.pickerBorder}
-                                itemStyle={styles.pickerItem}>
-                                <Picker.Item label="Choose Your Residence" value="" />
-                                <Picker.Item label="SMUTS HALL" value="SMUTS HALL" />
-                                <Picker.Item label="FULLER" value="FULLER" />
-                                <Picker.Item label="KOPANO" value="KOPANO" />
-                                <Picker.Item label="BAXTER" value="BAXTER" />
-                            </Picker>
-                            <Picker
-                                selectedValue={this.props.user.unit}
-                                onValueChange={(itemValue, itemIndex) =>
-                                    this.props.updateUnit(itemValue)}
-                                style={styles.pickerBorder}
-                                itemStyle={styles.pickerItem}>
-                                <Picker.Item label="Choose Your Unit" value="" />
-                                <Picker.Item label="001" value="002" />
-                                <Picker.Item label="002" value="002" />
-                                <Picker.Item label="003" value="003" />
-                                <Picker.Item label="004" value="004" />
-                                <Picker.Item label="005" value="005" />
-                                <Picker.Item label="006" value="006" />
-                            </Picker>
-
-
-                            <Button style={styles.button} iconLeft dark onPress={() => this.updateUser()}>
-                                <Icon name='md-person-add' />
-                                <Text>Update</Text>
-                            </Button>
+                <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={styles.container}>
+                <TouchableOpacity style={{alignSelf: 'center', marginBottom: 10}} onPress={() => this.openPhotoLib()}>
+                        <Thumbnail style={styles.profileImage} source={{ uri: this.props.user.photo }} /> 
+                        <Text style={{alignSelf: 'center', margin: 10}}>Upload Photo</Text>
+                    </TouchableOpacity>
+                  
+                        <Item>
+                            <Input
+                                value={this.props.user.fullname}
+                                placeholder='Full Names'
+                                onChangeText={input => this.props.updateFullname(input)} />
+                        </Item>
+                        <View style={styles.pickerStack}>
+                        <Picker
+                            selectedValue={this.props.user.residence}
+                            onValueChange={(itemValue, itemIndex) =>
+                                this.props.updateResidence(itemValue)}
+                            style={styles.pickerBorder}
+                            itemStyle={styles.pickerItem}>
+                            <Picker.Item label="Choose Your Residence" value="" />
+                            <Picker.Item label="SMUTS HALL" value="SMUTS HALL" />
+                            <Picker.Item label="FULLER" value="FULLER" />
+                            <Picker.Item label="KOPANO" value="KOPANO" />
+                            <Picker.Item label="BAXTER" value="BAXTER" />
+                        </Picker>
+                        <Picker
+                            selectedValue={this.props.user.unit}
+                            onValueChange={(itemValue, itemIndex) =>
+                                this.props.updateUnit(itemValue)}
+                            style={styles.pickerBorder}
+                            itemStyle={styles.pickerItem}>
+                            <Picker.Item label="Choose Your Unit" value="" />
+                            <Picker.Item label="001" value="002" />
+                            <Picker.Item label="002" value="002" />
+                            <Picker.Item label="003" value="003" />
+                            <Picker.Item label="004" value="004" />
+                            <Picker.Item label="005" value="005" />
+                            <Picker.Item label="006" value="006" />
+                        </Picker>
                         </View>
-                    </View>
+
+                        <Button style={styles.button} iconLeft dark onPress={() => this.updateUser()}>
+                            <Icon name='md-person-add' />
+                            <Text>Update</Text>
+                        </Button>
+                   
+                   
                 </KeyboardAwareScrollView>
-            </Container>
+            </Container >
         );
     }
 }

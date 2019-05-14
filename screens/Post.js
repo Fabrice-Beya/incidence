@@ -147,11 +147,7 @@ class Post extends React.Component {
             <View sytle={styles.buttonStackRow}>
               <Button style={styles.button} iconLeft dark onPress={() => this.props.navigation.navigate('Camera')}>
                 <Icon name='md-camera' />
-                <Text>Take Photo</Text>
-              </Button>
-              <Button style={styles.button} iconLeft dark onPress={this.attachPhoto}>
-                <Icon name='md-attach' />
-                <Text>Add Existing Photo</Text>
+                <Text>Add Photo</Text>
               </Button>
             </View>
             

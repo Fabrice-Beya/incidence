@@ -280,8 +280,8 @@ export default styles = StyleSheet.create({
     justifyContent: 'center'
   },
   loginPicture: {
-    width: 300,
-    height: 100,
+    width: 275,
+    height: 80,
     resizeMode: 'contain'
   },
   pickerStack: {
@@ -346,6 +346,22 @@ export default styles = StyleSheet.create({
   },
   space: {
     margin: 10
-  }
+  },
+  imageGrid: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center'
+},
+image: {
+    width: 100,
+    height: 100,
+    margin: 10,
+},
+selectedImage: {
+  width: width,
+  height: 200,
+  margin: 3,
+},
 });
 

@@ -1,0 +1,27 @@
+ renderImages =(photos)=> {
+    let images = [];
+    for (let { node: photo } of photos.edges) {
+      images.push(
+        <TouchableHighlight onPress={this.selectImage(photo.image)}>
+            <Image
+                source={photo.image}
+                resizeMode="contain"
+                style={{ height: 100, width: 100, margin:2, resizeMode: 'contain' }}
+                />
+        </TouchableHighlight>
+      );
+    }
+    return images;
+  }
+
+  
+
+  selectImage(uri) {
+    this.setState({
+      selected: uri,
+    });
+  }
+
+  logError = (e) => {
+      alert(e)
+    }   

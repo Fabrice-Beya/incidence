@@ -21,7 +21,7 @@ class CameraUpload extends React.Component {
       if (!image.cancelled) {
         const url = await this.props.dispatch(uploadPhoto(image));
         this.props.dispatch(updatePhotos(url));
-        url ? this.props.navigation.goBack() : this.props.navigation.goBack()
+        url ? this.props.navigation.navigate('Post') : this.props.navigation.navigate('Post')
       }
 
     }

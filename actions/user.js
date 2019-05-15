@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 import db from '../config/firebase';
 import orderBy from 'lodash/cloneDeep';
+import {allowNotifications, sendNotification} from './index'
 
 export const updateEmail = (email) => {
     return { type: 'UPDATE_EMAIL', payload: email }
@@ -40,6 +41,7 @@ export const login = () => {
             const { email, password } = getState().user
             const response = await firebase.auth().signInWithEmailAndPassword(email, password)
             dispatch(getUser(response.user.uid))
+            dispatch(allowNotifications())
         } catch (e) {
             alert(e)
         }
@@ -72,7 +74,7 @@ export const facebookLogin = () => {
                     }
 
                     await db.collection('users').doc(response.uid).set(newUser)
-
+                    // dispatch(allowNotifications())
                     dispatch({ type: 'SIGNUP', payload: newUser })
                 } else {
                     dispatch(getUser(response.uid))

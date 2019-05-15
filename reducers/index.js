@@ -16,6 +16,8 @@ const user = (state = {}, action) => {
             return { ...state, unit: action.payload }
         case 'UPDATE_PHOTO':
             return { ...state, photo: action.payload }
+        case 'GET_TOKEN': 
+            return { ...state, token: action.payload }
         case 'LOGIN':
             return action.payload
         case 'LOGIN':

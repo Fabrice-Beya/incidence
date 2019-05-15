@@ -1,12 +1,14 @@
 import React from 'react';
 import { Content, Text, List, Item, ListItem, Input, Form, View, Textarea, DatePicker, Picker, Icon, Separator, Container, Footer, Button, Thumbnail, Body, Image } from "native-base";
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Platform} from 'react-native';
 import styles from '../styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { ImagePicker, Permissions } from 'expo';
 import { uploadPhoto } from '../actions/index'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { updatePhoto, updateUser, updatePassword, updateFullname, updateResidence, updateUnit, signup } from '../actions/user';
+
 
 
 class EditProfile extends React.Component {
@@ -22,7 +24,6 @@ class EditProfile extends React.Component {
             const image = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true })
             if (!image.cancelled) {
                 const url = await this.props.uploadPhoto(image);
-                console.log(url)
                 this.props.updatePhoto(url);
             }
         }
@@ -31,7 +32,7 @@ class EditProfile extends React.Component {
     render() {
         return (
             <Container>
-                <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={styles.container}>
+                <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={styles.containerAround}>
                 <TouchableOpacity style={{alignSelf: 'center', marginBottom: 10}} onPress={() => this.openPhotoLib()}>
                         <Thumbnail style={styles.profileImage} source={{ uri: this.props.user.photo }} /> 
                         <Text style={{alignSelf: 'center', margin: 10}}>Upload Photo</Text>
@@ -73,7 +74,7 @@ class EditProfile extends React.Component {
                         </View>
 
                         <Button style={styles.button} iconLeft dark onPress={() => this.updateUser()}>
-                            <Icon name='md-person-add' />
+                            <Icon name={Platform.select({ios: 'ios-person-add',android: 'md-person-add',})} />
                             <Text>Update</Text>
                         </Button>
                    
@@ -91,7 +92,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ updateEmail, updateUser, updatePhoto, uploadPhoto, updatePassword, updateFullname, updateResidence, updateUnit, signup }, dispatch)
+    return bindActionCreators({ updateUser, updatePhoto, uploadPhoto, updatePassword, updateFullname, updateResidence, updateUnit, signup }, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(EditProfile)
 

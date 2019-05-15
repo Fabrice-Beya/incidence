@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "alert",
-    "description": "This project is really great.",
-    "slug": "alert",
+    "name": "incidence",
+    "description": "An incidence logging application for real estate residents.",
+    "slug": "incidence",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": ["ios", "android"],
@@ -25,7 +25,21 @@
       "bundleIdentifier": "com.fabrice.incidence"
     },
     "android": {
-      "package": "com.fabrice.incidence"
+      "package": "com.fabrice.incidence",
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_NOTIFICATION_POLICY",
+        "com.google.android.c2dm.permission.RECEIVE",
+        "READ_EXTERNAL_STORAGE",
+        "READ_INTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "WRITE_INTERNAL_STORAGE"
+      ]
+    },
+    "notification": {
+      "icon":  "./assets/icon.png",
     }
   }
 }

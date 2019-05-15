@@ -3,6 +3,7 @@ import { Content, Text, List, Item, ListItem, Input, Form, View, Icon, Separator
 import styles from '../styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {Platform} from 'react-native';
 import { updateEmail, updatePassword, login, getUser, facebookLogin, signout } from '../actions/user';
 import firebase from 'firebase';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -48,11 +49,11 @@ class Login extends React.Component {
             </View>
               <View sytle={styles.buttonStack}>
                 <Button style={styles.button} iconLeft dark onPress={() => this.props.login()}>
-                  <Icon name='md-log-in' />
+                  <Icon name={Platform.select({ios: 'ios-log-in',android: 'md-log-in',})} />
                   <Text>Login</Text>
                 </Button>
                 <Button  style={styles.button}  iconLeft dark onPress={() => this.props.navigation.navigate('Signup')}>
-                  <Icon name='md-person-add' />
+                  <Icon name={Platform.select({ios: 'ios-person-add',android: 'md-person-add',})} />
                   <Text>Sign Up</Text>
                 </Button>
                 <Button  style={styles.facebookButton}  primary onPress={() => this.props.facebookLogin()}>

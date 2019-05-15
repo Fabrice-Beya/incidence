@@ -1,6 +1,6 @@
 import React from 'react';
 import { Content, Text, List, Item, Picker , Input, View, Icon, Separator, Container, Footer, Button, Thumbnail, Body, Image } from "native-base";
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, Platform} from 'react-native';
 import styles from '../styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -28,7 +28,7 @@ class Signup extends React.Component {
         if (status === 'granted') {
             const image = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true })
             if (!image.cancelled) {
-                const url = await this.props.dispatch(uploadPhoto(image));
+                const url = await this.props.uploadPhoto(image);
                 this.props.updatePhoto(url);
             }
         }
@@ -97,7 +97,7 @@ class Signup extends React.Component {
                         </Picker>
                         </View>
                         <Button style={styles.button} iconLeft dark onPress={() => this.signup()}>
-                            <Icon name='md-person-add' />
+                            <Icon name={Platform.select({ios: 'ios-person-add',android: 'md-person-add',})} />
                             <Text>Sign Up</Text>
                         </Button>
 

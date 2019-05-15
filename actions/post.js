@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 import db from '../config/firebase';
 import cloneDeep from 'lodash/cloneDeep';
+import {allowNotifications, sendNotification} from './index'
 
 export const updateTitle = (text) => {
     return { type: 'UPDATE_TITLE', payload: text }
@@ -89,6 +90,7 @@ export const uploadPost = () => {
 export const getUserPosts = (uid) => {
     return async (dispatch, getState) => {
         try {
+           
             const posts = await db.collection('posts').where('uid', '==', uid).get();
             let resolvedPosts = []
             posts.forEach((post) => {
@@ -142,10 +144,11 @@ export const changeStatus = () => {
                 actorPhoto: user.photo,
                 actorName: user.fullname,
                 uid: post.uid,
-                date: new Date().getDate(),
+                date: new Date().getTime(),
                 status: post.status,
                 type: 'STATUS'
             })
+            dispatch(sendNotification(post.uid, 'Updated Your Incidence to ' + post.status))
 
         } catch (e) {
             alert(e)
@@ -205,7 +208,7 @@ export const postComment = (text) => {
                 date: new Date().getTime(),
                 type: 'COMMENT'
             })
-
+            dispatch(sendNotification(post.uid, 'Commented On Your Incident'))
             return { type: 'UPDATE_COMMENTS', payload: comments }
 
         } catch (e) {
@@ -235,6 +238,7 @@ export const likePost = (post) => {
                 date: new Date().getTime(),
                 type: 'LIKE'
             })
+            dispatch(sendNotification(post.uid, 'Liked Your Incident'))
             dispatch({ type: 'UPDATE_POST', payload: post })
         } catch (e) {
             alert(e)

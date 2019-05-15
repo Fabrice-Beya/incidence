@@ -1,6 +1,8 @@
 import uuid from 'uuid';
 import firebase from 'firebase'
-import { ImageManipulator } from 'expo';
+import db from '../config/firebase'
+import { Permissions, ImageManipulator, Notifications } from 'expo';
+const PUSH_ENDPOINT = 'https://exp.host/--/api/v2/push/send'
 
 export const uploadPhoto = (image) => {
     return async (dispatch) => {
@@ -21,4 +23,50 @@ export const uploadPhoto = (image) => {
         }
     }
 }
+
+
+export const allowNotifications = () => {
+    return async ( dispatch, getState ) => {
+      const { uid } = getState().user
+      try {
+          if(uid){
+        const permission = await Permissions.askAsync(Permissions.NOTIFICATIONS)
+        if (permission.status === 'granted') {
+          const token = await Notifications.getExpoPushTokenAsync()
+          dispatch({ type: 'GET_TOKEN', payload: token })
+          db.collection('users').doc(uid).update({ token: token })      
+        }
+    }
+      } catch(e) {
+        console.error(e)
+      }
+    }
+  }
+
+
+export const sendNotification = (uid, text) => {
+    return async (dispatch, getState) => {
+        const { fullname } = getState().user
+        try {
+            const user = await db.collection('users').doc(uid).get()
+            if (user.data().token) {
+                fetch(PUSH_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        to: user.data().token,
+                        title: fullname,
+                        body: text,
+                    })
+                })
+            }
+        } catch (e) {
+            console.error(e)
+        }
+    }
+}
+
 

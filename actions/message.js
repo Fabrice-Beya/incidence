@@ -1,5 +1,7 @@
 import db from '../config/firebase';
 import { orderBy } from 'lodash'
+import {allowNotifications, sendNotification} from './index'
+
 
 export const addMessage = (id, text) => {
   return (dispatch, getState) => {
@@ -14,6 +16,7 @@ export const addMessage = (id, text) => {
         date: new Date().getTime(),
       }
       db.collection('messages').doc().set(message)
+      dispatch(sendNotification(id, 'Sent you a Message'))
       dispatch(getMessages())
     } catch(e) {
       console.error(e)

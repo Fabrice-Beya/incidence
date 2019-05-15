@@ -5,8 +5,12 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import firebase from 'firebase';
 import {getProfile} from '../actions/profile'
-import { RefreshControl } from 'react-native';
+import { RefreshControl, Platform } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
+import moment from 'moment'
+import {updatePostLocal} from '../actions/post'
+import { updateEmail, updatePhoto, updateUser, updatePassword, updateFullname, updateResidence, updateUnit, signup } from '../actions/user';
+
 
 class Profile extends React.Component {
 
@@ -18,12 +22,14 @@ class Profile extends React.Component {
         await this.props.getProfile(this.props.profile.uid);
     }
 
+    navigatePost =  (item) => {
+        this.props.updatePostLocal(item);
+        this.props.navigation.navigate('PostDetail', {post: item})
+      
+      }
+
     render() {
-    //   if (this.props.profile.posts && this.props.profile.posts.length <= 0 ) return (
-    //     <View>
-    //       <Spinner color='black'/>
-    //     </View>
-    //   )
+
         return (
             <Container>
                 <NavigationEvents onWillFocus={this.onWillFocus}/>
@@ -36,7 +42,7 @@ class Profile extends React.Component {
                         <Text style={styles.gray}>{this.props.profile.unit}</Text>
                         <View sytle={styles.buttonStack}>
                             <Button style={styles.button} iconLeft dark onPress={() => this.props.navigation.navigate('Chat', this.props.profile.uid)}>
-                                <Icon name='md-person' />
+                                <Icon name={Platform.select({ios: 'ios-person',android: 'md-person',})} />
                                 <Text>Message</Text>
                             </Button>
                         </View>
@@ -52,7 +58,7 @@ class Profile extends React.Component {
                                 onRefresh={() => this.load()} />}
                             keyExtractor={(item) => JSON.stringify(item.date)}
                             renderRow={(item) =>
-                                <ListItem thumbnail onPress={() => this.props.navigation.navigate('PostDetail', { post: item })} >
+                                <ListItem thumbnail onPress={() => this.navigatePost(item)} >
                                     <Left style={{ flexDirection: 'column', alignItems: 'center' }}>
                                         <Thumbnail style={{ borderRadius: 2 }} large square source={{ uri: item.photo }} />
                                         <Text note>{item.fullname}</Text>
@@ -61,7 +67,7 @@ class Profile extends React.Component {
                                         <Text >{item.title}</Text>
                                         <Text>{item.catagory}</Text>
                                         <Text note>{item.residence} - {item.unit}</Text>
-                                        <Text note>3hrs ago</Text>
+                                        <Text note>{moment(item.incidenceDate).format('ll')}</Text>
                                     </Body>
                                 </ListItem>}
                         />

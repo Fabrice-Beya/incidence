@@ -3,6 +3,7 @@ import { Content, Text, List, Item, ListItem, Input, Form, View, Textarea, DateP
 import styles from '../styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {Platform} from 'react-native'
 import { NavigationEvents, Header } from 'react-navigation';
 import { Permissions, ImagePicker, Location } from 'expo';
 import { uploadPhoto } from '../actions/index'
@@ -152,11 +153,11 @@ class EditPost extends React.Component {
           
           <View sytle={styles.buttonStackRow}>
             <Button style={styles.button} iconLeft dark onPress={() => this.props.navigation.navigate('Camera')}>
-              <Icon name='md-camera' />
+              <Icon name={Platform.select({ios: 'ios-camera',android: 'md-camera',})} />
               <Text>Take Photo</Text>
             </Button>
             <Button style={styles.button} iconLeft dark onPress={this.attachPhoto}>
-              <Icon name='md-attach' />
+              <Icon name={Platform.select({ios: 'ios-attach',android: 'md-attach',})} />
               <Text>Add Existing Photo</Text>
             </Button>
           </View>

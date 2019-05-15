@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import styles from '../styles';
 import { NavigationEvents } from 'react-navigation';
 import { getPosts, getUserPosts, likePost, unlikePost } from '../actions/post';
+import moment from 'moment'
 
 class Posts extends React.Component {
   state = {
@@ -60,7 +61,7 @@ class Posts extends React.Component {
                   <Text >{item.title}</Text>
                   <Text>{item.catagory}</Text>
                   <Text note>{item.residence} - {item.unit}</Text>
-                  <Text note>3hrs ago</Text>
+                  <Text note>{moment(this.props.post.incidenceDate).format('ll')}</Text>
                 </Body>
               </ListItem>}
           />

@@ -8,8 +8,9 @@ import { NavigationEvents } from 'react-navigation';
 import { likePost } from '../actions/feed'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import moment from 'moment'
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, Platform } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
+import { allowNotifications, sendNotification } from '../actions/index'
 
 class Comment extends React.Component {
 
@@ -21,10 +22,10 @@ class Comment extends React.Component {
         this.props.navigation.setParams({
             showComment: this.showComment
         });
-
     }
 
     postComment = () => {
+        //  this.props.dispatch(allowNotifications())
         this.props.postComment(this.state.comment)
         this.setState({ comment: '' })
     }
@@ -59,22 +60,20 @@ class Comment extends React.Component {
                                     </View> : null
                             }
                         </Row>
-                        <Row >
+                        <Row>
                             <View style={styles.bottomStick}>
                                 <View style={styles.commentBox}>
                                     <Input
                                         value={this.state.comment}
                                         placeholder='Your comment'
-                                        returnKeyType='Send'
+                                        returnKeyType='send'
                                         onSubmitEditing={this.postComment}
                                         onChangeText={comment => this.setState({ comment })} />
                                 </View>
                                 <View style={styles.commentButton}>
-                                {/* <View>
+                                    {/* <View>
                                     <Button transparent onPress={() => this.postComment()}>
-                                       
                                         <Icon size={50} name='md-send' />
-                                      
                                     </Button>
                                     </View> */}
                                 </View>
@@ -83,8 +82,6 @@ class Comment extends React.Component {
                     </Grid>
                 </KeyboardAwareScrollView>
             </Container>
-
-
         );
     }
 }
@@ -98,7 +95,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ updateComment, postComment, likePost }, dispatch)
+    return bindActionCreators({ updateComment, allowNotifications, postComment, likePost }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Comment)

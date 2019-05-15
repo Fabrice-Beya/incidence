@@ -29,7 +29,7 @@ class Chat extends React.Component {
                 <KeyboardAwareScrollView
                     enableOnAndroid
                     scrollEnabled={false}
-                    extraScrollHeight={240} >
+                    extraScrollHeight={350} >
                     <Grid>
                         <Row style={styles.listContent}>
                             {
@@ -60,7 +60,7 @@ class Chat extends React.Component {
                                         style={styles.commentBox}
                                         value={this.state.message}
                                         placeholder='Your message'
-                                        returnKeyType='Send'
+                                        returnKeyType='send'
                                         onSubmitEditing={this.sendMessage}
                                         onChangeText={message => this.setState({ message })} />
                                     {/* <Button style={{ alignSelf: 'flex-end' }} transparent onPress={() => this.sendMessage()}>

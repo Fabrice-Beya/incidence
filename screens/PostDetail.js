@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { updateComment, postComment, updateStatus,changeStatus, likePost, unlikePost, updatePostLocal} from '../actions/post';
 import { NavigationEvents } from 'react-navigation';
 import moment from 'moment'
+import {Platform} from 'react-native';
 import db from '../config/firebase';
 import {getComments} from '../actions/comments'
 
@@ -114,16 +115,16 @@ class PostDetail extends React.Component {
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-around', margin: 10 }}>
               <Button iconLeft transparent large dark onPress={() => this.props.navigation.navigate('Comment',{ comments: this.state.comments })} >
-                <Icon name='md-chatbubbles' />
+                <Icon name={Platform.select({ios: 'ios-chatbubbles',android: 'md-chatbubbles',})} />
                 <Text>{this.props.comments ? this.props.comments.length : null}</Text>
               </Button>
               <Button iconLeft transparent large dark onPress={() => this.likePost(this.props.post)}>
-                <Icon name={this.state.isLiked ? 'md-heart' : 'md-heart-empty'}
+                <Icon name={Platform.select({ios: this.state.isLiked ? 'ios-heart' : 'ios-heart-empty',android: this.state.isLiked ? 'md-heart' : 'md-heart-empty',})}
                   color={this.state.isLiked  ? 'red' : 'black'} />
                     <Text>{this.props.post.likes ? this.props.post.likes.length : null}</Text>
               </Button>
               <Button iconLeft transparent large dark>
-                <Icon name='md-send' onPress={() => this.props.navigation.navigate('Chat', this.props.post.uid)} />
+                <Icon name={Platform.select({ios: 'ios-send',android: 'md-send',})} onPress={() => this.props.navigation.navigate('Chat', this.props.post.uid)} />
               </Button>
             </View>
 

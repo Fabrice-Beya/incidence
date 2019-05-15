@@ -3,6 +3,7 @@ import { Content, Text, List, Item, ListItem, Input, Form, View, Textarea, DateP
 import styles from '../styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {ActivityIndicator, Platform} from 'react-native'
 import { NavigationEvents } from 'react-navigation';
 import { Permissions, ImagePicker, Location } from 'expo';
 import { uploadPhoto } from '../actions/index'
@@ -10,6 +11,10 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { updateTitle, updateCatagory, updateIncidenceDate, updatePostLocal, updateDescription, updateLocation, updatePhotos, uploadPost, clearPost } from '../actions/post';
 import moment from 'moment'
 class Post extends React.Component {
+
+  state = {
+    isBusy: false
+  }
 
   onWillFocus = () => {
     this.props.navigation.setParams({
@@ -20,6 +25,7 @@ class Post extends React.Component {
 
   componentDidMount = () => {
     this.props.clearPost();
+    this.getLocation();
   }
 
   uploadPost = async () => {
@@ -137,17 +143,29 @@ class Post extends React.Component {
                   showsHorizontalScrollIndicator={false}>
                   {postPhotos.map((image, index) => (
                     <Content>
-                      <Thumbnail square style={styles.incidencePicture} source={{ uri: image }} />
-                      <Text style={{ textAlign: 'center' }} note >{index + 1} of {postPhotos.length}</Text>
+                        <Thumbnail square style={styles.incidencePicture} source={{ uri: image }} />
+                        <Text style={{ textAlign: 'center' }} note >{index + 1} of {postPhotos.length}</Text>
+                      
                     </Content>
                   ))}
                 </Content> : null
             }
+            {/* {
+              this.state.isBusy ?
+            <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>                
+            <ActivityIndicator color="#333333" size={"large"} />
+            </View> : null
+            } */}
+            
                
             <View sytle={styles.buttonStackRow}>
-              <Button style={styles.button} iconLeft dark onPress={() => this.props.navigation.navigate('Camera')}>
-                <Icon name='md-camera' />
+            <Button style={styles.button} iconLeft dark onPress={() => this.attachPhoto()}>
+                <Icon name={Platform.select({ios: 'ios-photos',android: 'md-photos',})} />
                 <Text>Add Photo</Text>
+              </Button>
+              <Button style={styles.button} iconLeft dark onPress={() => this.props.navigation.navigate('Camera')}>
+                <Icon name={Platform.select({ios: 'ios-camera',android: 'md-camera',})} />
+                <Text>Take Photo</Text>
               </Button>
             </View>
             

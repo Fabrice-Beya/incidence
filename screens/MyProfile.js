@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import firebase from 'firebase';
 import { NavigationEvents } from 'react-navigation';
-import { RefreshControl } from 'react-native';
+import { RefreshControl, Platform } from 'react-native';
+import moment from 'moment'
 
 
 class MyProfile extends React.Component {
@@ -36,7 +37,7 @@ class MyProfile extends React.Component {
                         <Text style={styles.gray}>{this.props.user.unit}</Text>
                         <View sytle={styles.buttonStack}>
                             <Button style={styles.button} iconLeft dark onPress={() => this.props.navigation.navigate('EditProfile')}>
-                                <Icon name='md-person' />
+                                <Icon name={Platform.select({ios: 'ios-person',android: 'md-person',})} />
                                 <Text>Edit Profile</Text>
                             </Button>
                         </View>
@@ -61,7 +62,7 @@ class MyProfile extends React.Component {
                                         <Text >{item.title}</Text>
                                         <Text>{item.catagory}</Text>
                                         <Text note>{item.residence} - {item.unit}</Text>
-                                        <Text note>3hrs ago</Text>
+                                        <Text note>{moment(item.incidenceDate).format('ll')}</Text>
                                     </Body>
                                 </ListItem>}
                         />

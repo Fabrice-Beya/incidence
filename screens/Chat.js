@@ -1,14 +1,28 @@
 import React from 'react';
-import { Content, Text, List, Item, ListItem, Input, View, Grid, Row, Container, Button } from "native-base";
-import styles from '../styles';
+import { View, Text, TextInput, FlatList, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
+import { Grid, Row } from "native-base"; import styles from '../styles';
 import { connect } from 'react-redux';
 import { RefreshControl } from 'react-native';
 import { bindActionCreators } from 'redux';
-import { addMessage } from '../actions/message'
+import { addMessage, getMessages } from '../actions/message'
+import { Notifications} from 'expo';
 import moment from 'moment';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class Chat extends React.Component {
+
+    state = {
+        notification: {},
+      }
+
+    componentDidMount = () => {
+        this._notificationSubscription = Notifications.addListener(this._handleNotification);
+    }
+
+    _handleNotification = (notification) => {
+        this.setState({notification: notification});
+        this.props.getMessages();
+      };
 
     state = {
         message: ''
@@ -23,56 +37,52 @@ class Chat extends React.Component {
     render() {
         const { params } = this.props.navigation.state
         const { uid } = this.props.user
-        console.log(this.props.messages)
+        if (!this.props.messages) return <ActivityIndicator style={styles.container}/>
         return (
-            <Container >
-                <KeyboardAwareScrollView
-                    enableOnAndroid
-                    scrollEnabled={false}
-                    extraScrollHeight={350} >
-                    <Grid>
-                        <Row style={styles.listContent}>
-                            {
-                                this.props.messages && this.props.messages.length > 0 ?
-                                    <View style={{ flex: 1, padding: 3 }}>
-                                        <List
-                                            dataArray={this.props.messages.filter(message => message.members.indexOf(params) >= 0 && message.members.indexOf(this.props.user.uid) >= 0)}
-                                            refreshControl={<RefreshControl
-                                                refreshing={false}
-                                                keyExtractor={(item) => JSON.stringify(item.date)}
-                                                onRefresh={() => this.props.getMessages()} />}
+            <KeyboardAwareScrollView
+                enableOnAndroid
+                scrollEnabled={false}
+                extraScrollHeight={350} >
+                <Grid>
+                    <Row style={styles.listContent}>
+                        {
+                            this.props.messages && this.props.messages.length > 0 ?
+                                <View style={{ flex: 1, padding: 3 }}>
+                                    <FlatList
+                                        inverted
+                                        keyExtractor={(item) => JSON.stringify(item.date)}
+                                        data={this.props.messages.filter(message => message.members.indexOf(params) >= 0 && message.members.indexOf(this.props.user.uid) >= 0)}
+                                        renderItem={({ item }) => (
+                                            <View style={[styles.row, styles.space]}>
+                                                {item.uid !== uid ? <Image style={styles.roundImage} source={{ uri: item.photo }} /> : null}
+                                                <View style={[styles.container, item.uid === uid ? styles.right : styles.left]}>
+                                                    <Text style={styles.bold}>{item.fullname}</Text>
+                                                    <Text style={styles.gray}>{item.message}</Text>
+                                                    <Text style={[styles.gray, styles.small]}>{moment(item.date).format('ll')}</Text>
+                                                </View>
+                                                {item.uid === uid ? <Image style={styles.roundImage} source={{ uri: item.photo }} /> : null}
+                                            </View>
+                                        )} />
+                                </View> : null
+                        }
+                    </Row>
+                    <Row style={{ borderColor: '#d3d3d3', borderTopWidth: 1}}>
+                        <View style={{ flex: 1, flexDirection: 'row' }}>
+                            <TextInput
+                                style={{ padding: 10, width: '85%' }}
+                                value={this.state.message}
+                                placeholder='Your message'
+                                returnKeyType='send'
+                                onSubmitEditing={this.sendMessage}
+                                onChangeText={message => this.setState({ message })} />
 
-                                            renderRow={(item) =>
-                                                <ListItem thumbnail>
-                                                    <View style={[styles.container, styles.spaceAroud, item.uid === uid ? styles.msgRight : styles.msgLeft]}>
-                                                        <Text >{item.message}</Text>
-                                                        <Text note style={{ fontSize: 8 }}>{moment(item.date).format('ll')}</Text>
-                                                    </View>
-                                                </ListItem>}
-                                        />
-                                    </View> : null
-                            }
-                        </Row>
-                        <Row>
-                           
-                                <View style={styles.bottomStick}>
-                                    <Input
-                                        style={styles.commentBox}
-                                        value={this.state.message}
-                                        placeholder='Your message'
-                                        returnKeyType='send'
-                                        onSubmitEditing={this.sendMessage}
-                                        onChangeText={message => this.setState({ message })} />
-                                    {/* <Button style={{ alignSelf: 'flex-end' }} transparent onPress={() => this.sendMessage()}>
-                                        <Icon style={{ color: '#333333' }} active name='md-send' />
-                                    </Button> */}
-                                </View>
-                          
-                        </Row>
-                    </Grid>
-                </KeyboardAwareScrollView>
-            </Container>
-
+                            {/* <TouchableOpacity onPress={() => this.postComment()}>
+                                <Ionicons size={43} name={Platform.select({ ios: 'ios-send', android: 'md-send', })} />
+                            </TouchableOpacity> */}
+                        </View>
+                    </Row>
+                </Grid>
+            </KeyboardAwareScrollView>
         );
     }
 }
@@ -85,7 +95,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ addMessage }, dispatch)
+    return bindActionCreators({ addMessage, getMessages }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat)

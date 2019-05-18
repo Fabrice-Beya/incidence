@@ -44,7 +44,7 @@ export const allowNotifications = () => {
   }
 
 
-export const sendNotification = (uid, text) => {
+export const sendNotification = (uid, text, data) => {
     return async (dispatch, getState) => {
         const { fullname } = getState().user
         try {
@@ -58,8 +58,10 @@ export const sendNotification = (uid, text) => {
                     },
                     body: JSON.stringify({
                         to: user.data().token,
+                        sound: "default",
                         title: fullname,
                         body: text,
+                        data: data
                     })
                 })
             }

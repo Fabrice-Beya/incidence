@@ -9,6 +9,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import { AsyncStorage, ActivityIndicator, View } from 'react-native'
+import { Notifications} from 'expo';
 console.disableYellowBox = true;
 
 const middleware = applyMiddleware(thunkMiddleware, logger)
@@ -24,6 +25,20 @@ const persistConfig = {
  const persistor = persistStore(store);
  
 export default class MyApp extends React.Component {
+
+  state = {
+    notification: {},
+  };
+
+  componentDidMount = () => {
+    this._notificationSubscription = Notifications.addListener(this._handleNotification);
+  }
+
+  _handleNotification = (notification) => {
+    this.setState({notification: notification});
+    // alert(notification.data.id)
+  };
+
   renderLoading = () => {
     return (
         <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>                

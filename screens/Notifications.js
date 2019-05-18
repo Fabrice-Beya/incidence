@@ -1,88 +1,95 @@
 import React from 'react';
 import styles from '../styles'
 import { connect } from 'react-redux'
-import {RefreshControl} from 'react-native';
-import { NavigationEvents } from 'react-navigation';
-import { Content, Text, List, Item, ListItem, Input, Form,Left, View, Textarea, Spinner, Picker, Icon, Separator, Container, Footer, Button, Thumbnail, Body, Image } from "native-base";
+import { bindActionCreators } from 'redux';
+import { Text, View, FlatList, ActivityIndicator, Image, TouchableOpacity } from 'react-native';
 import db from '../config/firebase';
 import orderBy from 'lodash/orderBy'
 import moment from 'moment'
+import {updatePostLocal} from '../actions/post'
 
 class Notifications extends React.Component {
-	state = {
+  state = {
     refreshing: false,
-		activity: []
-	}
+    activity: []
+  }
 
-  onWillFocus = () => {
+  componentDidMount = () => {
     this.getActivity()
   }
 
-  handleRefresh = async () => {
-    this.setState({refreshing: true});
-    await this.getActivity();
-  }
-
   getActivity = async () => {
-  	let activity = []
+    let activity = []
     const query = await db.collection('activity').where('uid', '==', this.props.user.uid).get()
     query.forEach((response) => {
       activity.push(response.data())
     })
-    this.setState({activity: orderBy(activity, 'date','desc')})
-    
+    this.setState({ activity: orderBy(activity, 'date', 'desc') })
   }
 
   navigatePost = (id) => {
-   
-    const post = this.props.feed.find(obj => obj.id == id);
-    
-    this.props.navigation.navigate('PostDetail')
+    // const post = this.props.feed.find(obj => obj.id == id);
+    // this.props.updatePostLocal(post);
+    // this.props.navigation.navigate('PostDetail', { post: post })
   }
 
+  renderList = (item) => {
+    switch (item.type) {
+      case 'LIKE':
+        return (
+          <TouchableOpacity onPress={() => this.navigatePost(item.postId)}>
+            <View style={[styles.row, styles.space]}>
+              <Image style={styles.roundImage} source={{ uri: item.actorPhoto }} />
+              <View style={[styles.container, styles.left]}>
+                <Text style={styles.bold}>{item.actorName}</Text>
+                <Text style={styles.gray}>Liked Your Photo</Text>
+                <Text style={[styles.gray, styles.small]}>{moment(item.date).format('ll')}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        )
+      case 'COMMENT':
+        return (
+          <TouchableOpacity onPress={() => this.navigatePost(item)}>
+            <View style={[styles.row, styles.space]}>
+              <Image style={styles.roundImage} source={{ uri: item.actorPhoto }} />
+              <View style={[styles.container, styles.left]}>
+                <Text style={styles.bold}>{item.actorName}</Text>
+                <Text style={styles.gray}>Commented On Your Photo</Text>
+                <Text style={[styles.gray, styles.small]}>{moment(item.date).format('ll')}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        )
+      case 'STATUS':
+        return (
+          <TouchableOpacity onPress={() => this.navigatePost(item)}>
+            <View style={[styles.row, styles.space]}>
+              <Image style={styles.roundImage} source={{ uri: item.actorPhoto }} />
+              <View style={[styles.container, styles.left]}>
+                <Text style={styles.bold}>{item.actorName}</Text>
+                <Text style={styles.gray}>Has updated your incidence status to: {item.status}</Text>
+                <Text style={[styles.gray, styles.small]}>{moment(item.date).format('ll')}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        )
+      default: null
+    }
+  }
+
+
   render() {
-  
+    if (this.state.activity.length <= 0) return <ActivityIndicator style={styles.container} />
     return (
-
-      <Container>
-        <NavigationEvents onWillFocus={this.onWillFocus}/>
-          <List
-            dataArray={this.state.activity}
-            refreshControl={<RefreshControl enabled={true}
-            refreshing={false}
-            onRefresh={() =>  this.getActivity()} />}
-            renderRow={(item) =>
-              <ListItem thumbnail  onPress={() => this.navigatePost(item.postId)} >
-                <Left style={{flexDirection: 'column', alignItems: 'center'}}>
-                    <Thumbnail style={{borderRadius: 2}} large square source={{ uri: item.actorPhoto }} />
-                    <Text note>{item.actorName}</Text>
-                </Left>
-                <Body>
-                  {
-                    item.type === 'LIKE' ?
-                      <Text>Liked your post</Text>  
-                   : null
-                  }
-                  {
-                   item.type === 'COMMENT' ?
-                   <Text>Commented on your post</Text>  
-                  : null
-                  }
-
-                  {
-                   item.type === 'STATUS' ?
-                   <Text>Your incidence status has been updated to: {item.status}</Text>  
-                  : null
-                  }
-                 
-                  <Text>{item.title}</Text>     
-                  <Text note>{moment(item.date).format('ll')}</Text>
-                </Body>
-              </ListItem>}
-            />
-         
-       
-      </Container>
+      <View style={styles.container}>
+        <FlatList
+          onRefresh={() => this.getActivity()}
+          refreshing={false}
+          data={this.state.activity}
+          keyExtractor={(item) => JSON.stringify(item.date)}
+          renderItem={({ item }) => this.renderList(item)} />
+      </View>
     )
   }
 }
@@ -95,4 +102,9 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Notifications)
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({updatePostLocal }, dispatch)
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications)

@@ -8,6 +8,7 @@ import {
   Left,
 } from "native-base";
 import firebase from 'firebase';
+import {signout} from '../actions/user'
 
 const drawerCover = require("../assets/logo_blk.png");
 const drawerImage = require("../assets/logo.png");
@@ -165,6 +166,7 @@ class SideBar extends Component {
   navigate = async (item) => {
     if(item.name == "Logout"){
       await firebase.auth().signOut();
+      this.props.signout();
       this.props.navigation.navigate('Auth');
     } else {
       this.props.navigation.navigate(item.route)
@@ -211,7 +213,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ }, dispatch)
+  return bindActionCreators({signout }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideBar)

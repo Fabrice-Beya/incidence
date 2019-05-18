@@ -1,6 +1,5 @@
 import DrawerNavigator from './DrawerNavigator';
 import AuthNavigator from './AuthNavigator';
-
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';  
 
 

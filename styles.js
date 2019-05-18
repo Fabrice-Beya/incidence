@@ -32,10 +32,39 @@ export default styles = StyleSheet.create({
   },
   center: {
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'center'
+  },
+  start: {
+    alignItems: 'center',
+    justifyContent: 'flex-start'
   },
   justCenter: {
     alignItems: 'center'
+  },
+  space: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  left: {
+    alignItems: 'flex-start',
+  },
+  right: {
+    alignItems: 'flex-end',
+  },
+  row: {
+    flexDirection: 'row'
+  },
+  bold: {
+    fontWeight: 'bold',
+  },
+  white: {
+    color: '#fff',
+  },
+  gray: {
+    color: '#adadad',
+  },
+  small: {
+    fontSize: 10,
   },
   vSEnd: {
     alignContent: 'flex-start'
@@ -52,47 +81,82 @@ export default styles = StyleSheet.create({
   iconsGap: {
     marginHorizontal: 7
   },
+  textTitle: {
+    fontSize: 20,
+    fontWeight: '200',
+    margin: 5
+  },
+  input: {
+    width: width*.90,
+    margin: 15,
+    padding: 15,
+    alignSelf: 'center',
+    borderColor: '#d3d3d3',
+    borderWidth: 1,
+    borderRadius: 50,
+    fontSize: 16,
+  },
   button: {
+    flexDirection: 'row',
     justifyContent: 'center',
-    backgroundColor: '#333333',
-    margin: 10,
+    marginTop: 20,
     paddingVertical: 10,
     alignItems: 'center',
+    borderColor: '#d3d3d3',
+    borderWidth: 1,
     borderRadius: 5,
-    width: 300,
-    alignSelf: 'center'
+    width: 250,
+    backgroundColor: '#333333',
   },
   smallButton: {
-    justifyContent: 'center',
-    backgroundColor: '#333333',
-    margin: 10,
+    marginTop: 20,
     paddingVertical: 10,
     alignItems: 'center',
+    borderColor: '#d3d3d3',
+    borderWidth: 1,
     borderRadius: 5,
-    width: 200,
-    alignSelf: 'center'
+    width: 250,
+    backgroundColor: '#333333',
   },
   buttonText: {
-    color: 'white'
+    color: 'white',
+    marginHorizontal: 10
   },
   facebookButton: {
+    flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: '#3b5998',
-    margin: 10,
+    marginTop: 20,
     paddingVertical: 10,
     alignItems: 'center',
+    borderColor: '#3b5998',
+    borderWidth: 1,
     borderRadius: 5,
-    width: 300,
-    alignSelf: 'center'
+    width: 250
   },
   border: {
     width: '85%',
     margin: 10,
     padding: 15,
     fontSize: 16,
-    borderColor: '#333333',
+    borderColor: '#d3d3d3',
     borderBottomWidth: 1,
     textAlign: 'center'
+  },
+  borderHeader: {
+    width: '100%',
+    fontSize: 16,
+    borderColor: '#d3d3d3',
+    borderBottomWidth: 1,
+    textAlign: 'center'
+  },
+  borderSearch: {
+    width: '100%',
+    fontSize: 18,
+    borderColor: '#d3d3d3',
+    borderBottomWidth: 1,
+    textAlign: 'center',
+    padding: 8
   },
   buttonStack: {
     marginTop: 20
@@ -115,7 +179,8 @@ export default styles = StyleSheet.create({
   },
   noBorder: {
     fontSize: 18,
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: 18
   },
   textArea: {
     width: 350,
@@ -167,6 +232,13 @@ export default styles = StyleSheet.create({
     height: 250,
     width: width,
   },
+  roundImageBig: {
+    height: 150,
+    width: 150,
+    borderRadius: 75,
+    margin: 10,
+    backgroundColor: '#adadad'
+  },
   roundImage: {
     height: 40,
     width: 40,
@@ -174,6 +246,14 @@ export default styles = StyleSheet.create({
     margin: 10,
     backgroundColor: '#adadad'
   },
+  squareImage: {
+    height: 80,
+    width: 80,
+    borderRadius: 4,
+    margin: 10,
+    backgroundColor: '#adadad'
+  },
+  
   textPadding: {
     padding: 5
   },
@@ -200,8 +280,9 @@ export default styles = StyleSheet.create({
     flex: 1
   },
   separator: {
-    height: 1,
-    backgroundColor: "#333333"
+    height: 5,
+    backgroundColor: "#333333",
+    width: 350
   },
   root: {
     backgroundColor: "#ffffff",
@@ -268,7 +349,9 @@ export default styles = StyleSheet.create({
   },
   incidenceSubDesc: {
     textAlign: 'center',
-    margin: 10
+    margin: 10,
+    fontSize: 16,
+    fontWeight: '200'
   },
   separator: {
     color: '#333333',
@@ -322,10 +405,13 @@ export default styles = StyleSheet.create({
   bottomStick: {
     flex: 1,
     alignItems: 'center',
-    justifyContent:'space-around',
+    justifyContent:'space-between',
     // margin: 2,
-    bottom: 2,
+    // bottom: 2,
     flexDirection: 'row'
+  },
+  commentInput: {
+    padding: 5
   },
   commentBox: {
     alignSelf: 'flex-start',
@@ -333,10 +419,10 @@ export default styles = StyleSheet.create({
     borderWidth:.5,
     borderRadius: 22,
     borderColor: '#333333',
-    width: width*.90
+    width: width*.85
   },
   commentButton: {
-    alignSelf: 'center',
+    // alignSelf: 'center',
     margin:2,
   },
   listContent: {

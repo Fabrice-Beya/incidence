@@ -1,17 +1,14 @@
 import React from 'react';
-import { Content, Text, List, Item, Picker , Input, View, Icon, Separator, Container, Footer, Button, Thumbnail, Body, Image } from "native-base";
-import {TouchableOpacity, Platform} from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, Image, Picker } from 'react-native';
 import styles from '../styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Camera, ImagePicker, Permissions } from 'expo';
 import firebase from 'firebase';
-import {KeyboardAvoidingView} from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import { uploadPhoto } from '../actions/index'
 import { updateEmail, updatePhoto, updateUser, updatePassword, updateFullname, updateResidence, updateUnit, signup } from '../actions/user';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
 
 class Signup extends React.Component {
 
@@ -36,75 +33,59 @@ class Signup extends React.Component {
 
     render() {
         return (
-            <Container>
-                <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={styles.containerAround}>
-                    
-                <TouchableOpacity style={{alignSelf: 'center', marginBottom: 10}} onPress={() => this.openPhotoLib()}>
-                        <Thumbnail style={styles.profileImage} source={{ uri: this.props.user.photo }} /> 
-                        <Text style={{alignSelf: 'center', margin: 10}}>Upload Photo</Text>
-                    </TouchableOpacity>
-                   
-                        <Item>
-                            <Input
-                                value={this.props.user.fullname}
-                                placeholder='Full Names'
-                                returnKeyType="next"
-                                onChangeText={input => this.props.updateFullname(input)} />
-                        </Item>
-                        <Item>
-                            <Input
-                                value={this.props.user.email}
-                                placeholder='Email'
-                                returnKeyType="next"
-                                onChangeText={input => this.props.updateEmail(input)} />
-                        </Item>
-                        <Item>
-                            <Input
-                                value={this.props.user.password}
-                                placeholder='Password'
-                                secureTextEntry={true}
-                                onChangeText={input => this.props.updatePassword(input)} />
-                        </Item>
-                        <View style={styles.pickerStack}>
-
-                   
-                        <Picker
-                            selectedValue={this.props.user.residence}
-                            onValueChange={(itemValue, itemIndex) =>
-                                this.props.updateResidence(itemValue)}
-                            style={styles.pickerBorder}
-                            itemStyle={styles.pickerItem}>
-                            <Picker.Item label="Choose Your Residence" value="" />
-                            <Picker.Item label="SMUTS HALL" value="SMUTS HALL" />
-                            <Picker.Item label="FULLER" value="FULLER" />
-                            <Picker.Item label="KOPANO" value="KOPANO" />
-                            <Picker.Item label="BAXTER" value="BAXTER" />
-                        </Picker>
-
-                        <Picker
-                            selectedValue={this.props.user.unit}
-                            onValueChange={(itemValue, itemIndex) =>
-                                this.props.updateUnit(itemValue)}
-                            style={styles.pickerBorder}
-                            itemStyle={styles.pickerItem}>
-                            <Picker.Item label="Choose Your Unit" value="" />
-                            <Picker.Item label="001" value="002" />
-                            <Picker.Item label="002" value="002" />
-                            <Picker.Item label="003" value="003" />
-                            <Picker.Item label="004" value="004" />
-                            <Picker.Item label="005" value="005" />
-                            <Picker.Item label="006" value="006" />
-                        </Picker>
-                        </View>
-                        <Button style={styles.button} iconLeft dark onPress={() => this.signup()}>
-                            <Icon name={Platform.select({ios: 'ios-person-add',android: 'md-person-add',})} />
-                            <Text>Sign Up</Text>
-                        </Button>
-
-                    {/* </View> */}
-                  
-                    </KeyboardAwareScrollView>
-            </Container>
+            <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={[styles.container, styles.center]}>
+                <TouchableOpacity style={styles.center} onPress={()=> this.openPhotoLib()} >
+                    <Image style={styles.roundImageBig} source={{ uri: this.props.user.photo }} />
+                    <Text>Upload Photo</Text>
+                </TouchableOpacity>
+                <TextInput
+                    style={styles.border}
+                    value={this.props.user.fullname}
+                    onChangeText={input => this.props.updateFullname(input)}
+                    returnKeyType="next"
+                    placeholder='Full Names' />
+                <TextInput
+                    style={styles.border}
+                    value={this.props.user.email}
+                    onChangeText={input => this.props.updateEmail(input)}
+                    returnKeyType="next"
+                    placeholder='Email' />
+                <TextInput
+                    style={styles.border}
+                    value={this.props.user.password}
+                    onChangeText={input => this.props.updatePassword(input)}
+                    placeholder='Password'
+                    secureTextEntry={true} />
+                <Picker
+                    selectedValue={this.props.user.residence}
+                    onValueChange={(itemValue, itemIndex) =>
+                        this.props.updateResidence(itemValue)}
+                    style={styles.pickerBorder}
+                    itemStyle={styles.pickerItem}>
+                    <Picker.Item label="Choose Your Residence" value="" />
+                    <Picker.Item label="SMUTS HALL" value="SMUTS HALL" />
+                    <Picker.Item label="FULLER" value="FULLER" />
+                    <Picker.Item label="KOPANO" value="KOPANO" />
+                    <Picker.Item label="BAXTER" value="BAXTER" />
+                </Picker>
+                <Picker
+                    selectedValue={this.props.user.unit}
+                    onValueChange={(itemValue, itemIndex) =>
+                        this.props.updateUnit(itemValue)}
+                    style={styles.pickerBorder}
+                    itemStyle={styles.pickerItem}>
+                    <Picker.Item label="Choose Your Unit" value="" />
+                    <Picker.Item label="001" value="002" />
+                    <Picker.Item label="002" value="002" />
+                    <Picker.Item label="003" value="003" />
+                    <Picker.Item label="004" value="004" />
+                    <Picker.Item label="005" value="005" />
+                    <Picker.Item label="006" value="006" />
+                </Picker>
+                <TouchableOpacity style={styles.button} onPress={() => this.signup()}>
+                    <Text style={styles.buttonText}>Signup</Text>
+                </TouchableOpacity>
+            </KeyboardAwareScrollView>
         );
     }
 }

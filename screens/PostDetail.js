@@ -1,14 +1,14 @@
 import React from 'react';
-import { Content, Text, Header ,H1, Picker, View, H3, Icon, Separator, Container, Button, Thumbnail } from "native-base";
+import { Text, View, ScrollView, TouchableOpacity, Image, Picker, Platform } from 'react-native';
 import styles from '../styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateComment, postComment, updateStatus,changeStatus, likePost, unlikePost, updatePostLocal} from '../actions/post';
-import { NavigationEvents } from 'react-navigation';
+import { updateComment, postComment, updateStatus, changeStatus, likePost, unlikePost, updatePostLocal } from '../actions/post';
 import moment from 'moment'
-import {Platform} from 'react-native';
-import db from '../config/firebase';
-import {getComments} from '../actions/comments'
+import { Ionicons } from '@expo/vector-icons';
+import { getComments } from '../actions/comments'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
 
 class PostDetail extends React.Component {
 
@@ -16,32 +16,31 @@ class PostDetail extends React.Component {
     isLiked: false
   }
 
-  onWillFocus = () => {
+  componentWillMount = () => {
     this.getPostComments();
-
-    this.props.navigation.setParams({ 
+    this.props.navigation.setParams({
       changeStatus: this.changeStatus,
-      role : this.props.user.role
+      role: this.props.user.role
     });
-    
     if (this.props.post.likes.includes(this.props.user.uid)) {
       this.setState({ isLiked: true })
     }
   }
 
-  getPostComments = async()=> {
-    try{
-        if(this.props.post.id){
-          await this.props.getComments(this.props.post.id);
-        }
-    } catch(e) {
+  getPostComments = async () => {
+    try {
+      if (this.props.post.id) {
+        await this.props.getComments(this.props.post.id);
+      }
+    } catch (e) {
       alert(e)
     }
-    
+
   }
 
   changeStatus = () => {
     this.props.changeStatus();
+    this.props.navigation.goBack();
   }
 
   likePost = (post) => {
@@ -58,81 +57,71 @@ class PostDetail extends React.Component {
 
   render() {
     return (
-      <Container >
+      <ScrollView style={{ flex: 1 }}>
         {
-           this.props.user.role === 'keeper' ?
-       
-        <Header style={{ backgroundColor: '#ffffff', paddingHorizontal: 10 }}>
-          
-          <Picker
-            mode='dropdown'
-            selectedValue={this.props.post.status}
-            onValueChange={(itemValue, itemIndex) =>
-              this.props.updateStatus(itemValue)}
-            style={{ width: 200 }}
-            itemStyle={{ textAlign: 'center' }}>
-            <Picker.Item label="Status" value="All" />
-            <Picker.Item label="Open" value="Open" />
-            <Picker.Item label="Additional Info needed" value="Additional Info needed" />
-            <Picker.Item label="In Progress" value="In Progress" />
-            <Picker.Item label="Completed" value="Completed" />
-            <Picker.Item label="Closed" value="Closed" />
-          </Picker>
-      </Header> : null
-       }
-        <NavigationEvents onWillFocus={this.onWillFocus} />
-        <Content>
-          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <H1 style={{margin:5}} >{this.props.post.title}</H1>
-            <Thumbnail source={{ uri: this.props.post.photo }} />
-            <Text >{this.props.post.fullname}</Text>
-            <Text note>{moment(this.props.post.incidenceDate).format('ll')}</Text>
+          this.props.user.role === 'keeper' ?
+            <View style={[styles.borderHeader, { marginBottom: 5 }]}>
+              <Picker
+                mode='dropdown'
+                selectedValue={this.props.post.status}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.props.updateStatus(itemValue)}
+                style={{ width: '100%' }}
+                itemStyle={{ textAlign: 'center' }}>
+                <Picker.Item label="Status" value="All" />
+                <Picker.Item label="Open" value="Open" />
+                <Picker.Item label="Additional Info needed" value="Additional Info needed" />
+                <Picker.Item label="In Progress" value="In Progress" />
+                <Picker.Item label="Completed" value="Completed" />
+                <Picker.Item label="Closed" value="Closed" />
+              </Picker>
+            </View> : null
+        }
+        <View style={{ flex: 1, justifyContent: 'flex-start' }}>
+
+          <View style={{ alignItems: 'center' }}>
+            <Text style={styles.textTitle} >{this.props.post.title}</Text>
+            <Image style={[styles.roundImage, { margin: 5 }]} source={{ uri: this.props.post.photo }} />
+            <Text style={styles.bold} >{this.props.post.fullname}</Text>
+            <Text>{moment(this.props.post.incidenceDate).format('ll')}</Text>
             <Text >Status: {this.props.post.status}</Text>
+
+            {
+              this.props.post.postPhotos && this.props.post.postPhotos.length ?
+                <ScrollView
+                  horizontal
+                  pagingEnabled
+                  showsHorizontalScrollIndicator={false}>
+                  {this.props.post.postPhotos.map((image, index) => (
+                    <View>
+                      <Image square style={styles.incidencePicture} source={{ uri: image }} />
+                      <Text style={{ textAlign: 'center' }} note >{index + 1} of {this.props.post.postPhotos.length}</Text>
+                    </View>
+                  ))}
+                </ScrollView> : null
+            }
+            <Text style={styles.incidenceSubDesc}>{this.props.post.catagory} at {this.props.post.residence} - {this.props.post.unit}</Text>
+            <View style={{ width: '100%', marginRight: 15, marginLeft: 15, height: 0.5, backgroundColor: '#d3d3d3', alignItems: 'center' }} />
+            <Text style={styles.incidenceDescription}>{this.props.post.description}</Text>
           </View>
 
-          {
-            this.props.post.postPhotos && this.props.post.postPhotos.length ?
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', margin: 10 }}>
+            <TouchableOpacity style={{ alignItems: 'center' }} iconLeft transparent large dark onPress={() => this.props.navigation.navigate('Comment', { comments: this.state.comments })} >
+              <Ionicons size={35} name={Platform.select({ ios: 'ios-chatbubbles', android: 'md-chatbubbles', })} />
+              <Text>{this.props.comments ? this.props.comments.length : null}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{ alignItems: 'center' }} iconLeft transparent large dark onPress={() => this.likePost(this.props.post)}>
+              <Ionicons size={35} name={Platform.select({ ios: this.state.isLiked ? 'ios-heart' : 'ios-heart-empty', android: this.state.isLiked ? 'md-heart' : 'md-heart-empty', })}
+                color={this.state.isLiked ? 'red' : 'black'} />
+              <Text>{this.props.post.likes ? this.props.post.likes.length : null}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity iconLeft transparent large dark>
+              <Ionicons size={35} name={Platform.select({ ios: 'ios-send', android: 'md-send', })} onPress={() => this.props.navigation.navigate('Chat', this.props.post.uid)} />
+            </TouchableOpacity>
+          </View>
+        </View>
 
-              <Content
-                horizontal
-                pagingEnabled
-                showsHorizontalScrollIndicator={false}>
-                {this.props.post.postPhotos.map((image, index) => (
-                  <Content>
-                    <Thumbnail square style={styles.incidencePicture} source={{ uri: image }} />
-                    <Text style={{ textAlign: 'center' }} note >{index + 1} of {this.props.post.postPhotos.length}</Text>
-                  </Content>
-                ))}
-              </Content> : null
-          }
-
-          <Content >
-            <View style={{ flex: 1, justifyContent: 'center' }}>
-              <H3 style={styles.incidenceSubDesc}>{this.props.post.catagory} at {this.props.post.residence} - {this.props.post.unit}</H3>
-              <Separator color='#333333' style={styles.separator} />
-              <Text style={styles.incidenceDescription}>{this.props.post.description}</Text>
-            </View>
-
-            <View style={{ flexDirection: 'row', justifyContent: 'space-around', margin: 10 }}>
-              <Button iconLeft transparent large dark onPress={() => this.props.navigation.navigate('Comment',{ comments: this.state.comments })} >
-                <Icon name={Platform.select({ios: 'ios-chatbubbles',android: 'md-chatbubbles',})} />
-                <Text>{this.props.comments ? this.props.comments.length : null}</Text>
-              </Button>
-              <Button iconLeft transparent large dark onPress={() => this.likePost(this.props.post)}>
-                <Icon name={Platform.select({ios: this.state.isLiked ? 'ios-heart' : 'ios-heart-empty',android: this.state.isLiked ? 'md-heart' : 'md-heart-empty',})}
-                  color={this.state.isLiked  ? 'red' : 'black'} />
-                    <Text>{this.props.post.likes ? this.props.post.likes.length : null}</Text>
-              </Button>
-              <Button iconLeft transparent large dark>
-                <Icon name={Platform.select({ios: 'ios-send',android: 'md-send',})} onPress={() => this.props.navigation.navigate('Chat', this.props.post.uid)} />
-              </Button>
-            </View>
-
-
-          </Content>
-      
-        </Content>
-      </Container>
+      </ScrollView >
 
     );
   }
@@ -147,7 +136,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ updateComment,getComments, postComment,updateStatus, changeStatus, likePost, unlikePost, updatePostLocal }, dispatch)
+  return bindActionCreators({ updateComment, getComments, postComment, updateStatus, changeStatus, likePost, unlikePost, updatePostLocal }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostDetail)

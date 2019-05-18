@@ -1,75 +1,69 @@
 import React from 'react';
-import { Content, Text, View, Icon, Container, List, ListItem, Left, Separator, Spinner, Body, Button, Thumbnail } from "native-base";
+import { Text, View, TextInput, Separator, TouchableOpacity, Image, FlatList, Platform, RefreshControl } from 'react-native';
 import styles from '../styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import firebase from 'firebase';
-import { NavigationEvents } from 'react-navigation';
-import { RefreshControl, Platform } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import moment from 'moment'
+import {getUser} from '../actions/user';
 
 
 class MyProfile extends React.Component {
 
-    onWillFocus = () => {
-        // this.load();
-      }
+    getPosts = async () => {
+        await this.props.getUser(this.props.user.uid);
+    }
 
-    load = () => {
-        this.props.getUser(this.props.user.uid);
+    componentDidMount = () => {
+        this.getPosts();
     }
 
     render() {
-        // if (this.props.user.posts && this.props.user.posts.length <= 0 ) return (
-        //     <View>
-        //       <Spinner color='black'/>
-        //     </View>
-        //   )
         return (
-            <Container>
-                <NavigationEvents onWillFocus={this.onWillFocus}/>
-                <Content>
-                    <View style={styles.container}>
-                        <Thumbnail square style={styles.incidencePicture} source={{ uri: this.props.user.photo }} />
-                        <Text style={{ fontSize: 35 }}>{this.props.user.fullname}</Text>
-                        <Text>{this.props.user.email}</Text>
-                        <Text style={styles.gray}>{this.props.user.residence}</Text>
-                        <Text style={styles.gray}>{this.props.user.unit}</Text>
-                        <View sytle={styles.buttonStack}>
-                            <Button style={styles.button} iconLeft dark onPress={() => this.props.navigation.navigate('EditProfile')}>
-                                <Icon name={Platform.select({ios: 'ios-person',android: 'md-person',})} />
-                                <Text>Edit Profile</Text>
-                            </Button>
-                        </View>
-
-                    </View>
-                    <View style={{ flex: 1, marginTop: 15 }}>
-                    <Separator color='#333333' style={styles.separator} />
-                    
-                        <List
-                            dataArray={this.props.user.posts}
-                            refreshControl={<RefreshControl enabled={true}
-                                refreshing={false}
-                                onRefresh={() => this.load()} />}
-                            keyExtractor={(item) => JSON.stringify(item.date)}
-                            renderRow={(item) =>
-                                <ListItem thumbnail onPress={() => this.props.navigation.navigate('EditPost', { post: item })} >
-                                    <Left style={{ flexDirection: 'column', alignItems: 'center' }}>
-                                        <Thumbnail style={{ borderRadius: 2 }} large square source={{ uri: item.photo }} />
-                                        <Text note>{item.fullname}</Text>
-                                    </Left>
-                                    <Body>
-                                        <Text >{item.title}</Text>
-                                        <Text>{item.catagory}</Text>
-                                        <Text note>{item.residence} - {item.unit}</Text>
-                                        <Text note>{moment(item.incidenceDate).format('ll')}</Text>
-                                    </Body>
-                                </ListItem>}
-                        />
-                    </View> 
-
-                </Content>
-            </Container>
+            <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={[styles.container, styles.center]}>
+                <Image style={styles.incidencePicture} source={{ uri: this.props.user.photo }} />
+                <Text style={{ fontSize: 35 }}>{this.props.user.fullname}</Text>
+                <Text>{this.props.user.email}</Text>
+                <Text style={styles.gray}>{this.props.user.residence}</Text>
+                <Text style={styles.gray}>{this.props.user.unit}</Text>
+                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('EditProfile')}>
+                    <Text style={styles.buttonText}>Edit Profile</Text>
+                </TouchableOpacity>
+                <View style={{ flex: 1, marginTop: 15 }}>
+                {/* <View style={[styles.borderHeader, styles.center]}>
+                        <Text styles={[styles.center, styles.bold, {fontSize: 18, textAlign: 'center', margin: 8}]}>My Incidences</Text>
+                    </View> */}
+                    <FlatList
+                        onRefresh={() => this.getPosts()}
+                        refreshing={false}
+                        keyExtractor={(item) => item.id}
+                        ItemSeparatorComponent={this.renderSeparator}
+                        data={
+                           this.props.user.posts
+                        }
+                        style={{ flex: 1 }}
+                        renderItem={({ item }) => {
+                            return (
+                                <View>
+                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('EditPost', {post: item})}>
+                                        <View style={[styles.row, styles.space]}>
+                                            <View style={[styles.row, styles.center]}>
+                                                <Image style={styles.squareImage} source={{ uri: item.photo }} />
+                                                <View style={{ justifyContent: 'flex-start' }}>
+                                                    <Text style={styles.bold}>{item.title}</Text>
+                                                    <Text >{item.residence} - {item.unit}</Text>
+                                                    <Text >{item.catagory}</Text>
+                                                    <Text style={[styles.gray, styles.small]}>{moment(item.loggedDate).format('ll')}</Text>
+                                                </View>
+                                            </View>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            )
+                        }}
+                    />
+                </View>
+            </KeyboardAwareScrollView>
         );
     }
 }
@@ -81,7 +75,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({}, dispatch)
+    return bindActionCreators({getUser}, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MyProfile)
 

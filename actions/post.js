@@ -61,11 +61,12 @@ export const uploadPost = () => {
     return async (dispatch, getState) => {
         try {
             const { post, user } = getState();
+            
             const upload = {
                 title: post.title,
                 catagory: post.catagory || 'Other',
                 loggedDate: new Date().getTime() || '',
-                incidenceDate: String(post.incidenceDate).substring(0, String(post.incidenceDate).indexOf('G')) || new Date().getTime(),
+                incidenceDate: new Date().getTime() || '',
                 location: post.location || {},
                 description: post.description || ' ',
                 postPhotos: post.postPhotos || [],
@@ -80,6 +81,17 @@ export const uploadPost = () => {
             const ref = await db.collection('posts').doc();
             upload.id = ref.id;
             ref.set(upload);
+
+            let _user = user;
+
+            if(_user.posts && _user.posts.length>0){
+                _user.posts.push(upload)
+            } else {
+                _user.posts = []
+                _user.posts.push(upload)
+            }
+
+            dispatch({ type: 'LOGIN', payload: _user })
         } catch (e) {
             alert(e)
         }
@@ -148,7 +160,7 @@ export const changeStatus = () => {
                 status: post.status,
                 type: 'STATUS'
             })
-            dispatch(sendNotification(post.uid, 'Updated Your Incidence to ' + post.status))
+            dispatch(sendNotification(post.uid, 'Updated Your Incidence to ' + post.status), {Route: 'Status'})
 
         } catch (e) {
             alert(e)
@@ -208,7 +220,7 @@ export const postComment = (text) => {
                 date: new Date().getTime(),
                 type: 'COMMENT'
             })
-            dispatch(sendNotification(post.uid, 'Commented On Your Incident'))
+            dispatch(sendNotification(post.uid, 'Commented On Your Incident', {Route: 'Comment'}))
             return { type: 'UPDATE_COMMENTS', payload: comments }
 
         } catch (e) {
@@ -238,7 +250,7 @@ export const likePost = (post) => {
                 date: new Date().getTime(),
                 type: 'LIKE'
             })
-            dispatch(sendNotification(post.uid, 'Liked Your Incident'))
+            dispatch(sendNotification(post.uid, 'Liked Your Incident', {Route: 'Like'}))
             dispatch({ type: 'UPDATE_POST', payload: post })
         } catch (e) {
             alert(e)

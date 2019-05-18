@@ -1,15 +1,22 @@
 import React from 'react';
-import { Content, Text, List, Item, ListItem, Input, Form, View, Icon, Separator, Container, Footer, Button, Thumbnail, Body, Image } from "native-base";
+import { Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import styles from '../styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 import { updateEmail, updatePassword, login, getUser, facebookLogin, signout } from '../actions/user';
 import firebase from 'firebase';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Ionicons } from '@expo/vector-icons';
 
 
 class Login extends React.Component {
+
+  componentWillMount = () => {
+    if (this.props.user.uid) {
+      this.props.navigation.navigate('Home')
+    }
+  }
 
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -18,51 +25,43 @@ class Login extends React.Component {
         if (this.props.user != null) {
           this.props.navigation.navigate('Home')
         }
-      } else {
-        this.props.signout();
       }
     })
   }
 
   render() {
     return (
-      <Container >
-        <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={styles.container}>
-          <Thumbnail square style={styles.loginPicture} source={require('../assets/logo.png')} />
-            <View style={styles.inputStack}>
-              <Item >
-                <Icon active name='md-mail' />
-                <Input
-                  value={this.props.user.email}
-                  placeholder='Email'
-                  returnKeyType="next"
-                  onChangeText={input => this.props.updateEmail(input)} />
-              </Item>
-              <Item >
-                <Icon active name='md-lock' />
-                <Input
-                  value={this.props.user.password}
-                  placeholder='Password'
-                  secureTextEntry={true}
-                  onChangeText={input => this.props.updatePassword(input)} />
-              </Item>
-            </View>
-              <View sytle={styles.buttonStack}>
-                <Button style={styles.button} iconLeft dark onPress={() => this.props.login()}>
-                  <Icon name={Platform.select({ios: 'ios-log-in',android: 'md-log-in',})} />
-                  <Text>Login</Text>
-                </Button>
-                <Button  style={styles.button}  iconLeft dark onPress={() => this.props.navigation.navigate('Signup')}>
-                  <Icon name={Platform.select({ios: 'ios-person-add',android: 'md-person-add',})} />
-                  <Text>Sign Up</Text>
-                </Button>
-                <Button  style={styles.facebookButton}  primary onPress={() => this.props.facebookLogin()}>
-                  <Icon name='logo-facebook' />
-                  <Text>Login with Facebook</Text>
-                </Button>
-              </View>
-        </KeyboardAwareScrollView>
-      </Container>
+      <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={[styles.container, styles.center]}>
+        <Image style={{ width: 300, height: 100 }} source={require('../assets/logo.png')} />
+        <TextInput
+          style={styles.border}
+          value={this.props.user.email}
+          onChangeText={input => this.props.updateEmail(input)}
+          returnKeyType="next"
+          placeholder='Email' />
+        <TextInput
+          style={styles.border}
+          value={this.props.user.password}
+          onChangeText={input => this.props.updatePassword(input)}
+          placeholder='Password'
+          secureTextEntry={true} />
+        <TouchableOpacity style={styles.button} onPress={() => this.props.login()}>
+          <Ionicons color='white' size={30} name={Platform.select({ios: 'ios-log-in',android: 'md-log-in',})} />
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Signup')}>
+          <Ionicons color='white' size={30} name={Platform.select({ios: 'ios-person-add',android: 'md-person-add',})} />
+          <Text style={styles.buttonText}>Signup</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.facebookButton} onPress={() => this.props.facebookLogin()}>
+          <Ionicons color='white' size={30} name='logo-facebook' />
+          <Text style={styles.buttonText}>Facebook Login</Text>
+        </TouchableOpacity>
+        <Text styles={{ alignSelf: 'flex-end' }}>Forgot your password?</Text>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Signup')}>
+          <Text style={{ color: 'blue' }}>Reset Password</Text>
+        </TouchableOpacity>
+      </KeyboardAwareScrollView>
     );
   }
 }

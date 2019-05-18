@@ -31,6 +31,7 @@ class Post extends React.Component {
   uploadPost = async () => {
     try {
       this.props.uploadPost();
+      this.props.clearPost();
       this.props.navigation.navigate('Home');
     } catch (e) {
       alert(e)

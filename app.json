@@ -39,7 +39,7 @@
       ]
     },
     "notification": {
-      "icon":  "./assets/icon.png",
+      "icon":  "./assets/icon_black.png",
       "color": "#ffffff",
       "androidMode": "default"
     }

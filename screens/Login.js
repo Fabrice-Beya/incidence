@@ -32,7 +32,7 @@ class Login extends React.Component {
   render() {
     return (
       <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={[styles.container, styles.center]}>
-        <Image style={{ width: 300, height: 100 }} source={require('../assets/logo.png')} />
+        <Image style={{ width: 310, height: 100, resizeMode:'contain' }} source={require('../assets/logo.png')} />
         <TextInput
           style={styles.border}
           value={this.props.user.email}
@@ -57,7 +57,7 @@ class Login extends React.Component {
           <Ionicons color='white' size={30} name='logo-facebook' />
           <Text style={styles.buttonText}>Facebook Login</Text>
         </TouchableOpacity>
-        <Text styles={{ alignSelf: 'flex-end' }}>Forgot your password?</Text>
+        <Text styles={{ alignSelf: 'flex-end', marginTop: 8 }}>Forgot your password?</Text>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('Signup')}>
           <Text style={{ color: 'blue' }}>Reset Password</Text>
         </TouchableOpacity>

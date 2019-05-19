@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TextInput, TouchableOpacity, Image, Picker } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, Image, Picker, Platform } from 'react-native';
 import styles from '../styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -34,7 +34,7 @@ class Signup extends React.Component {
     render() {
         return (
             <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={[styles.container, styles.center]}>
-                <TouchableOpacity style={styles.center} onPress={()=> this.openPhotoLib()} >
+                <TouchableOpacity style={styles.center} onPress={() => this.openPhotoLib()} >
                     <Image style={styles.roundImageBig} source={{ uri: this.props.user.photo }} />
                     <Text>Upload Photo</Text>
                 </TouchableOpacity>
@@ -83,6 +83,7 @@ class Signup extends React.Component {
                     <Picker.Item label="006" value="006" />
                 </Picker>
                 <TouchableOpacity style={styles.button} onPress={() => this.signup()}>
+                    <Ionicons color='white' size={30} name={Platform.select({ ios: 'ios-person-add', android: 'md-person-add', })} />
                     <Text style={styles.buttonText}>Signup</Text>
                 </TouchableOpacity>
             </KeyboardAwareScrollView>

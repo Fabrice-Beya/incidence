@@ -26,7 +26,7 @@ class CameraUpload extends React.Component {
       
       const { status } = await Permissions.askAsync(Permissions.CAMERA);
       if (status === 'granted') {
-        const image = await this.camera.takePictureAsync();
+        const image = await this.camera.takePictureAsync({skipProcessing : true});
         // this.setState({ isBusy: true })
         if (!image.cancelled) {
           const url = await this.props.uploadPhoto(image);

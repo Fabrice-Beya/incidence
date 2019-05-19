@@ -51,7 +51,7 @@ class Profile extends React.Component {
                         renderItem={({ item }) => {
                             return (
                                 <View>
-                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('EditPost', { post: item })}>
+                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('PostDetail', { post: item })}>
                                         <View style={[styles.row, styles.space]}>
                                             <View style={[styles.row, styles.center]}>
                                                 <Image style={styles.squareImage} source={{ uri: item.photo }} />

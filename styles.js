@@ -105,11 +105,11 @@ export default styles = StyleSheet.create({
     borderColor: '#d3d3d3',
     borderWidth: 1,
     borderRadius: 5,
-    width: 250,
+    width: 280,
     backgroundColor: '#333333',
   },
   smallButton: {
-    marginTop: 20,
+    margin: 20,
     paddingVertical: 10,
     alignItems: 'center',
     borderColor: '#d3d3d3',
@@ -126,13 +126,13 @@ export default styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: '#3b5998',
-    marginTop: 20,
+    margin: 20,
     paddingVertical: 10,
     alignItems: 'center',
     borderColor: '#3b5998',
     borderWidth: 1,
     borderRadius: 5,
-    width: 250
+    width: 280
   },
   border: {
     width: '85%',
@@ -195,6 +195,7 @@ export default styles = StyleSheet.create({
   },
   pickerBorder: {
     width: 250,
+    margin: 15
   },
   pickerItem: {
     fontSize: 18,
@@ -236,7 +237,7 @@ export default styles = StyleSheet.create({
     height: 150,
     width: 150,
     borderRadius: 75,
-    margin: 10,
+    margin: 15,
     backgroundColor: '#adadad'
   },
   roundImage: {

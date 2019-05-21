@@ -28,16 +28,17 @@ class Profile extends React.Component {
     render() {
 
         return (
-            <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={[styles.container, styles.center]}>
-                <Image style={styles.incidencePicture} source={{ uri: this.props.profile.photo }} />
-                <Text style={{ fontSize: 35 }}>{this.props.profile.fullname}</Text>
-                <Text>{this.props.profile.email}</Text>
-                <Text style={styles.gray}>{this.props.profile.residence}</Text>
-                <Text style={styles.gray}>{this.props.profile.unit}</Text>
-                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Chat', this.props.profile.uid)}>
-                    <Text style={styles.buttonText}>Edit Profile</Text>
-                </TouchableOpacity>
-                <View style={{ flex: 1, marginTop: 15 }}>
+            <KeyboardAwareScrollView enableOnAndroid >
+                <View style={[styles.container, styles.center]}>
+                    <Image style={styles.incidencePicture} source={{ uri: this.props.profile.photo }} />
+                    <Text style={{ fontSize: 35 }}>{this.props.profile.fullname}</Text>
+                    <Text>{this.props.profile.email}</Text>
+                    <Text style={styles.gray}>{this.props.profile.residence}</Text>
+                    <Text style={styles.gray}>{this.props.profile.unit}</Text>
+                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Chat', this.props.profile.uid)}>
+                        <Text style={styles.buttonText}>Message</Text>
+                    </TouchableOpacity>
+                    {/* <View style={{ flex: 1, marginTop: 15 }}> */}
                     <FlatList
                         onRefresh={() => this.getPosts()}
                         refreshing={false}

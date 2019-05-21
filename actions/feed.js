@@ -13,7 +13,7 @@ export const getPosts = () => {
                 resolvedPosts.push(post.data())
             })
             await dispatch(allowNotifications())
-            dispatch({type: 'GET_POSTS', payload: orderBy(resolvedPosts, 'date', 'desc')})
+            dispatch({type: 'GET_POSTS', payload: orderBy(resolvedPosts, 'loggedDate', 'desc')})
         } catch (e) {
             alert(e)
         }

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import moment from 'moment'
-import {getUser} from '../actions/user';
+import { getUser } from '../actions/user';
 
 
 class MyProfile extends React.Component {
@@ -20,17 +20,18 @@ class MyProfile extends React.Component {
 
     render() {
         return (
-            <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={[styles.container, styles.center]}>
-                <Image style={styles.incidencePicture} source={{ uri: this.props.user.photo }} />
-                <Text style={{ fontSize: 35 }}>{this.props.user.fullname}</Text>
-                <Text>{this.props.user.email}</Text>
-                <Text style={styles.gray}>{this.props.user.residence}</Text>
-                <Text style={styles.gray}>{this.props.user.unit}</Text>
-                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('EditProfile')}>
-                    <Text style={styles.buttonText}>Edit Profile</Text>
-                </TouchableOpacity>
-                <View style={{ flex: 1, marginTop: 15 }}>
-                {/* <View style={[styles.borderHeader, styles.center]}>
+            <KeyboardAwareScrollView enableOnAndroid >
+                <View style={[styles.container, styles.center]}>
+                    <Image style={styles.incidencePicture} source={{ uri: this.props.user.photo }} />
+                    <Text style={{ fontSize: 35 }}>{this.props.user.fullname}</Text>
+                    <Text>{this.props.user.email}</Text>
+                    <Text style={styles.gray}>{this.props.user.residence}</Text>
+                    <Text style={styles.gray}>{this.props.user.unit}</Text>
+                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('EditProfile')}>
+                        <Text style={styles.buttonText}>Edit Profile</Text>
+                    </TouchableOpacity>
+                    {/* <View style={{ marginTop: 15 }}> */}
+                    {/* <View style={[styles.borderHeader, styles.center]}>
                         <Text styles={[styles.center, styles.bold, {fontSize: 18, textAlign: 'center', margin: 8}]}>My Incidences</Text>
                     </View> */}
                     <FlatList
@@ -39,13 +40,13 @@ class MyProfile extends React.Component {
                         keyExtractor={(item) => item.id}
                         ItemSeparatorComponent={this.renderSeparator}
                         data={
-                           this.props.user.posts
+                            this.props.user.posts
                         }
                         style={{ flex: 1 }}
                         renderItem={({ item }) => {
                             return (
                                 <View>
-                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('EditPost', {post: item})}>
+                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('EditPost', { post: item })}>
                                         <View style={[styles.row, styles.space]}>
                                             <View style={[styles.row, styles.center]}>
                                                 <Image style={styles.squareImage} source={{ uri: item.photo }} />
@@ -75,7 +76,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({getUser}, dispatch)
+    return bindActionCreators({ getUser }, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MyProfile)
 

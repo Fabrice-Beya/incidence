@@ -90,6 +90,7 @@ export const uploadPost = () => {
                 _user.posts = []
                 _user.posts.push(upload)
             }
+            dispatch(sendNotification(post.uid, 'A new incidence has been loggeg by ' + user.fullname), {Route: 'Profile'})
 
             dispatch({ type: 'LOGIN', payload: _user })
         } catch (e) {

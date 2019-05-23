@@ -7,26 +7,53 @@ import { bindActionCreators } from 'redux';
 import { Camera, Permissions } from 'expo';
 import { uploadPhoto } from '../actions/index'
 import { updatePhotos } from '../actions/post';
+import Toolbar from '../components/toolbar.js';
+import Gallery from '../components/gallery';
 
 class CameraUpload extends React.Component {
+  camera = null;
 
   state = {
-    isBusy: false,
-    hasCameraPermission: false,
-    type: Camera.Constants.Type.back,
+    captures: [],
+    flashMode: Camera.Constants.FlashMode.off,
+    capturing: null,
+    cameraType: Camera.Constants.Type.back,
+    hasCameraPermission: null,
   }
 
+  setFlashMode = (flashMode) => this.setState({ flashMode });
+  setCameraType = (cameraType) => this.setState({ cameraType });
+  handleCaptureIn = () => this.setState({ capturing: true });
+
+  handleCaptureOut = () => {
+    if (this.state.capturing)
+      this.camera.stopRecording();
+  };
+
+  handleShortCapture = async () => {
+    const photoData = await this.camera.takePictureAsync();
+    this.setState({ capturing: false, captures: [photoData, ...this.state.captures] })
+  };
+
+  handleLongCapture = async () => {
+    const videoData = await this.camera.recordAsync();
+    this.setState({ capturing: false, captures: [videoData, ...this.state.captures] });
+  };
+
   componentDidMount = async () => {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    this.setState({ hasCameraPermission: status === 'granted' });
+    const camera = await Permissions.askAsync(Permissions.CAMERA);
+    const audio = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
+    const hasCameraPermission = (camera.status === 'granted' && audio.status === 'granted');
+
+    this.setState({ hasCameraPermission });
   }
 
   snapPhoto = async () => {
     try {
-      
+
       const { status } = await Permissions.askAsync(Permissions.CAMERA);
       if (status === 'granted') {
-        const image = await this.camera.takePictureAsync({skipProcessing : true});
+        const image = await this.camera.takePictureAsync({ skipProcessing: true });
         // this.setState({ isBusy: true })
         if (!image.cancelled) {
           const url = await this.props.uploadPhoto(image);
@@ -42,23 +69,36 @@ class CameraUpload extends React.Component {
   }
 
   render() {
-    if (this.state.isBusy) return <ActivityIndicator style={styles.container} />
-    if (this.state.hasCameraPermission === null) {
+    const { hasCameraPermission, flashMode, cameraType, capturing, captures } = this.state;
+    if (hasCameraPermission === null) {
       return <View />;
-    } else if (this.state.hasCameraPermission === false) {
+    } else if (hasCameraPermission === false) {
       return <Text style={styles.container}>No access to camera</Text>;
     } else {
       return (
-        <View style={{ flex: 1 }}>
-          <Camera style={{ flex: 1 }} ref={ref => { this.camera = ref }} type={Camera.Constants.Type.back}>
-            <SafeAreaView style={{ flex: 1 }}>
-              <TouchableOpacity style={{ padding: 30 }} onPress={() => this.props.navigation.goBack()}>
-                <Ionicons name={Platform.select({ ios: 'ios-arrow-back', android: 'md-arrow-back', })} size={50} color={'white'} />
-              </TouchableOpacity>
-            </SafeAreaView>
-            <TouchableOpacity style={styles.cameraButton} onPress={() => this.snapPhoto()} />
-          </Camera>
-        </View>
+        <React.Fragment>
+          <View>
+            <Camera
+              style={styles.preview}
+              ref={camera => this.camera = camera}
+              type={cameraType}
+              flashMode={flashMode} >
+
+            </Camera>
+          </View>
+          {captures.length > 0 && <Gallery captures={captures} />}
+          <Toolbar
+            capturing={capturing}
+            flashMode={flashMode}
+            cameraType={cameraType}
+            setFlashMode={this.setFlashMode}
+            setCameraType={this.setCameraType}
+            onCaptureIn={this.handleCaptureIn}
+            onCaptureOut={this.handleCaptureOut}
+            onLongCapture={this.handleLongCapture}
+            onShortCapture={this.handleShortCapture} />
+        </React.Fragment>
+
       );
     }
   }

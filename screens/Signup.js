@@ -25,7 +25,7 @@ class Signup extends React.Component {
         if (status === 'granted') {
             const image = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true })
             if (!image.cancelled) {
-                const url = await this.props.uploadPhoto(image);
+                const url = await this.props.uploadPhoto(image.uri);
                 this.props.updatePhoto(url);
             }
         }

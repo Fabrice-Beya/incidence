@@ -8,6 +8,7 @@ import NotificationsScreen from '../screens/Notifications';
 import MyProfileScreen from '../screens/MyProfile';
 import ProfileScreen from '../screens/Profile';
 import CameraScreen from '../screens/Camera';
+import MediaViewScreen from '../screens/MediaView';
 import ChatScreen from '../screens/Chat';
 import MessagesScreen from '../screens/Messages';
 import { Image, TouchableOpacity } from 'react-native';
@@ -228,6 +229,12 @@ export const PostNavigator = createAppContainer(createStackNavigator({
   },
   Camera: {
     screen: CameraScreen,
+    navigationOptions: {
+      header: null
+    }
+  },
+  MediaView: {
+    screen: MediaViewScreen,
     navigationOptions: {
       header: null
     }

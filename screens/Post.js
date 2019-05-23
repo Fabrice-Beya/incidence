@@ -65,7 +65,7 @@ class Post extends React.Component {
     if (status === 'granted') {
       const image = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true })
       if (!image.cancelled) {
-        const url = await this.props.uploadPhoto(image);
+        const url = await this.props.uploadPhoto(image.uri);
         this.props.updatePhotos(url);
       }
     }
@@ -74,66 +74,65 @@ class Post extends React.Component {
   render() {
     const postPhotos = this.props.post.postPhotos
     return (
-      <KeyboardAwareScrollView >
-        <View style={styles.containerStart}>
-        <TextInput
-          style={styles.noBorder}
-          value={this.props.post.title}
-          placeholder='Title'
-          autoCapitalize="words"
-          autoCorrect={true}
-          keyboardType="default"
-          returnKeyType="next"
-          onChangeText={input => this.props.updateTitle(input)} />
-        <Picker
-          mode='dropdown'
-          selectedValue={this.props.post.catagory}
-          onValueChange={(itemValue, itemIndex) =>
-            this.props.updateCatagory(itemValue)}
-          style={{ width: 250, marginVertical: 10 }}
-          itemStyle={styles.pickerItem}>
-          <Picker.Item label="Choose a Catagory" value="" />
-          <Picker.Item label="Complaint" value="Complain" />
-          <Picker.Item label="Damage" value="Damage" />
-          <Picker.Item label="Inquiry" value="Inquiry" />
-          <Picker.Item label="Theft" value="Theft" />
-          <Picker.Item label="Proposal" value="Proposal" />
-          <Picker.Item label="General Notice" value="General Notice" />
-          <Picker.Item label="Other" value="Other" />
-        </Picker>
+      <KeyboardAwareScrollView enableOnAndroid >
+        <View style={[styles.container, styles.start]}>
+          <TextInput
+            style={styles.noBorder}
+            value={this.props.post.title}
+            placeholder='Title'
+            autoCapitalize="words"
+            autoCorrect={true}
+            keyboardType="default"
+            returnKeyType="next"
+            onChangeText={input => this.props.updateTitle(input)} />
+          <Picker
+            mode='dropdown'
+            selectedValue={this.props.post.catagory}
+            onValueChange={(itemValue, itemIndex) =>
+              this.props.updateCatagory(itemValue)}
+            style={{ width: 250, marginVertical: 10 }}
+            itemStyle={styles.pickerItem}>
+            <Picker.Item label="Choose a Catagory" value="" />
+            <Picker.Item label="Complaint" value="Complain" />
+            <Picker.Item label="Damage" value="Damage" />
+            <Picker.Item label="Inquiry" value="Inquiry" />
+            <Picker.Item label="Theft" value="Theft" />
+            <Picker.Item label="Proposal" value="Proposal" />
+            <Picker.Item label="General Notice" value="General Notice" />
+            <Picker.Item label="Other" value="Other" />
+          </Picker>
 
-        <Text style={{ marginVertical: 10 }}>Please describe your incidence below:</Text>
-        <Textarea
-          style={styles.textArea}
-          rowspan={10}
-          value={this.props.post.description}
-          placeholder='Description'
-          onChangeText={input => this.props.updateDescription(input)} />
+          <Text style={{ marginVertical: 10 }}>Please describe your incidence below:</Text>
+          <Textarea
+            style={styles.textArea}
+            rowspan={10}
+            value={this.props.post.description}
+            placeholder='Description'
+            onChangeText={input => this.props.updateDescription(input)} />
 
-        {
-          this.props.post.postPhotos && this.props.post.postPhotos.length ?
-            <ScrollView
-              horizontal
-              pagingEnabled
-              contentContainerStyle={{flex:1}}
-              showsHorizontalScrollIndicator={false}>
-              {this.props.post.postPhotos.map((image, index) => (
-                <View>
-                  <Image style={styles.incidencePicture} source={{ uri: image }} />
-                  <Text style={{ textAlign: 'center' }} >{index + 1} of {this.props.post.postPhotos.length}</Text>
-                </View>
-              ))}
-            </ScrollView> : null
-        }
+          {
+            this.props.post.postPhotos && this.props.post.postPhotos.length ?
+              <ScrollView
+                horizontal={true}
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}>
+                {this.props.post.postPhotos.map((image, index) => (
+                  <View>
+                    <Image style={styles.incidencePicture} source={{ uri: image }} />
+                    <Text style={{ textAlign: 'center' }} >{index + 1} of {this.props.post.postPhotos.length}</Text>
+                  </View>
+                ))}
+              </ScrollView> : null
+          }
 
-        <TouchableOpacity style={styles.button} onPress={() => this.attachPhoto()}>
-          <Ionicons color='white' size={30} name={Platform.select({ ios: 'ios-photos', android: 'md-photos', })} />
-          <Text style={styles.buttonText}>Attach Photo</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Camera')}>
-          <Ionicons color='white' size={30} name={Platform.select({ ios: 'ios-camera', android: 'md-camera', })} />
-          <Text style={styles.buttonText}>Take Photo</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => this.attachPhoto()}>
+            <Ionicons color='white' size={30} name={Platform.select({ ios: 'ios-photos', android: 'md-photos', })} />
+            <Text style={styles.buttonText}>Attach Photo</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Camera')}>
+            <Ionicons color='white' size={30} name={Platform.select({ ios: 'ios-camera', android: 'md-camera', })} />
+            <Text style={styles.buttonText}>Take Photo</Text>
+          </TouchableOpacity>
         </View>
       </KeyboardAwareScrollView>
     );

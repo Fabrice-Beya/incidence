@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import db from '../config/firebase';
 import cloneDeep from 'lodash/cloneDeep';
-import {allowNotifications, sendNotification} from './index'
+import {allowNotifications, sendNotification, notifyAll} from './index'
 
 export const updateTitle = (text) => {
     return { type: 'UPDATE_TITLE', payload: text }
@@ -90,8 +90,9 @@ export const uploadPost = () => {
                 _user.posts = []
                 _user.posts.push(upload)
             }
-            dispatch(sendNotification(post.uid, 'A new incidence has been loggeg by ' + user.fullname), {Route: 'Profile'})
 
+
+            dispatch(notifyAll('A new incidence has been loggeg by ' + user.fullname));
             dispatch({ type: 'LOGIN', payload: _user })
         } catch (e) {
             alert(e)

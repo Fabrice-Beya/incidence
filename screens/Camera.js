@@ -86,7 +86,7 @@ class CameraUpload extends React.Component {
 
             </Camera>
           </View>
-          {captures.length > 0 && <Gallery captures={captures} />}
+          {captures.length > 0 && <Gallery captures={captures} navigation={this.props.navigation}/>}
           <Toolbar
             capturing={capturing}
             flashMode={flashMode}

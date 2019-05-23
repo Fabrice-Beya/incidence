@@ -46,7 +46,7 @@ class EditPost extends React.Component {
     if (status === 'granted') {
       const image = await ImagePicker.launchImageLibraryAsync({ allowsEditing: true })
       if (!image.cancelled) {
-        const url = await this.props.uploadPhoto(image);
+        const url = await this.props.uploadPhoto(image.uri);
         this.props.updatePhotos(url);
       }
     }
@@ -57,7 +57,7 @@ class EditPost extends React.Component {
     const postPhotos = this.props.post.postPhotos
     return (
       <KeyboardAwareScrollView enableOnAndroid >
-        <View style={styles.containerStart}>
+        <View style={[styles.container, styles.start]}>
           <TextInput
             style={styles.noBorder}
             value={this.props.post.title}

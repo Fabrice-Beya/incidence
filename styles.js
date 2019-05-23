@@ -16,7 +16,6 @@ export default styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    padding: 10
   },
   containerAround: {
     flex: 1,
@@ -107,6 +106,9 @@ export default styles = StyleSheet.create({
     borderRadius: 5,
     width: 280,
     backgroundColor: '#333333',
+  },
+  buttonCamera: {
+    marginBottom: 20,
   },
   smallButton: {
     margin: 20,
@@ -484,7 +486,7 @@ captureBtnInternal: {
   height: 76,
   borderWidth: 2,
   borderRadius: 76,
-  backgroundColor: "red",
+  backgroundColor: "white",
   borderColor: "transparent",
 },
 galleryContainer: { 

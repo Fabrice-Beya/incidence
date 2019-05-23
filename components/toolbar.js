@@ -31,7 +31,7 @@ export default ({
                     <TouchableWithoutFeedback
                         onPressIn={onCaptureIn}
                         onPressOut={onCaptureOut}
-                        onLongPress={onLongCapture}
+                        // onLongPress={onLongCapture}
                         onPress={onShortCapture}>
                         <View style={[styles.captureBtn, capturing && styles.captureBtnActive]}>
                             {capturing && <View style={styles.captureBtnInternal} />}

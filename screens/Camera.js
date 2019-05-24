@@ -42,30 +42,10 @@ class CameraUpload extends React.Component {
 
   componentDidMount = async () => {
     const camera = await Permissions.askAsync(Permissions.CAMERA);
-    const audio = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
-    const hasCameraPermission = (camera.status === 'granted' && audio.status === 'granted');
+    // const audio = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
+    const hasCameraPermission = (camera.status === 'granted');
 
     this.setState({ hasCameraPermission });
-  }
-
-  snapPhoto = async () => {
-    try {
-
-      const { status } = await Permissions.askAsync(Permissions.CAMERA);
-      if (status === 'granted') {
-        const image = await this.camera.takePictureAsync({ skipProcessing: true });
-        // this.setState({ isBusy: true })
-        if (!image.cancelled) {
-          const url = await this.props.uploadPhoto(image);
-          this.props.updatePhotos(url);
-          // this.setState({ isBusy: false })
-          url ? this.props.navigation.goBack() : this.props.navigation.goBack()
-        }
-      }
-    } catch (e) {
-      alert(e)
-    }
-
   }
 
   render() {

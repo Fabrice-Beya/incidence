@@ -61,7 +61,10 @@ export const sendNotification = (uid, text, data) => {
                         sound: "default",
                         title: fullname,
                         body: text,
-                        data: data
+                        data: data,
+                        android: {
+                            channelId: 'incidence-channel',
+                        },
                     })
                 })
             }
@@ -77,15 +80,18 @@ export const notifyAll = (message) => {
             const users = await db.collection('users').get();
             let data = []
             users.forEach((user) => {
-                if(user.data().token){
+                if (user.data().token) {
                     data.push({
                         to: user.data().token,
                         sound: "default",
                         title: user.fullname,
-                        body: message
+                        body: message,
+                        android: {
+                            channelId: 'incidence-channel',
+                        },
                     })
                 }
-               
+
             })
             fetch(PUSH_ENDPOINT, {
                 method: 'POST',

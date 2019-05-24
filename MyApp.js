@@ -8,7 +8,7 @@ import logger from 'redux-logger';
 import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
-import { AsyncStorage, ActivityIndicator, View } from 'react-native'
+import { AsyncStorage, ActivityIndicator, View, Platform } from 'react-native'
 import { Notifications} from 'expo';
 console.disableYellowBox = true;
 
@@ -32,6 +32,10 @@ export default class MyApp extends React.Component {
 
   componentDidMount = () => {
     this._notificationSubscription = Notifications.addListener(this._handleNotification);
+    Notifications.createChannelAndroidAsync('incidence-channel', {
+      name: 'Incidence Notifs',
+      sound: true,
+    });
   }
 
   _handleNotification = (notification) => {

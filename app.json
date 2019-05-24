@@ -12,7 +12,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",
-      "backgroundColor": "#333333"
+      "backgroundColor": "##1C1B1B"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -39,8 +39,8 @@
       ]
     },
     "notification": {
-      "icon":  "./assets/icon.png",
-      "androidMode": "default"
+      "icon":  "./assets/icon_black.png",
+      "color": "#808080"
     }
   }
 }

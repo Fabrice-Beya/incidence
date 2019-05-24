@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, TextInput, TouchableOpacity, Image, ScrollView, Picker, ActivityIndicator, Platform } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, Image, ScrollView, Picker, ActivityIndicator, Platform, navigation } from 'react-native';
+import { NavigationEvents, Header } from 'react-navigation';
 import { Textarea } from 'native-base';
 import styles from '../styles';
 import { connect } from 'react-redux';
@@ -27,6 +28,10 @@ class Post extends React.Component {
   componentDidMount = () => {
     this.props.clearPost();
     this.getLocation();
+  }
+
+  onWillFocus = () => {
+    this.props.clearPost();
   }
 
   uploadPost = async () => {
@@ -75,6 +80,7 @@ class Post extends React.Component {
     const postPhotos = this.props.post.postPhotos
     return (
       <KeyboardAwareScrollView enableOnAndroid >
+        <NavigationEvents onWillFocus={this.onWillFocus} />
         <View style={[styles.container, styles.start]}>
           <TextInput
             style={styles.noBorder}

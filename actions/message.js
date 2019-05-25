@@ -16,7 +16,7 @@ export const addMessage = (id, text) => {
         date: new Date().getTime(),
       }
       db.collection('messages').doc().set(message)
-      dispatch(sendNotification(id, 'Sent you a Message', {Route: 'Message'}))
+      dispatch(sendNotification(id, 'Sent you a Message', {Route: 'Message',  SenderId: uid, RecieverId: id}))
       dispatch(getMessages())
     } catch(e) {
       console.error(e)

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, TextInput, TouchableOpacity, Image, ScrollView, Picker, ActivityIndicator, Platform, navigation } from 'react-native';
-import { NavigationEvents, Header } from 'react-navigation';
+import { NavigationEvents } from 'react-navigation';
 import { Textarea } from 'native-base';
 import styles from '../styles';
 import { connect } from 'react-redux';
@@ -26,7 +26,7 @@ class Post extends React.Component {
   }
 
   componentDidMount = () => {
-    this.props.clearPost();
+    // this.props.clearPost();
     this.getLocation();
   }
 

@@ -162,7 +162,7 @@ export const changeStatus = () => {
                 status: post.status,
                 type: 'STATUS'
             })
-            dispatch(sendNotification(post.uid, 'Updated Your Incidence to ' + post.status), {Route: 'Status'})
+            dispatch(sendNotification(post.uid, 'Updated Your Incidence to ' + post.status), {Route: 'Status',  PostId: post.id})
 
         } catch (e) {
             alert(e)
@@ -222,7 +222,7 @@ export const postComment = (text) => {
                 date: new Date().getTime(),
                 type: 'COMMENT'
             })
-            dispatch(sendNotification(post.uid, 'Commented On Your Incident', {Route: 'Comment'}))
+            dispatch(sendNotification(post.uid, 'Commented On Your Incident', {Route: 'Comment',  PostId: post.id}))
             return { type: 'UPDATE_COMMENTS', payload: comments }
 
         } catch (e) {
@@ -252,7 +252,7 @@ export const likePost = (post) => {
                 date: new Date().getTime(),
                 type: 'LIKE'
             })
-            dispatch(sendNotification(post.uid, 'Liked Your Incident', {Route: 'Like'}))
+            dispatch(sendNotification(post.uid, 'Liked Your Incident', {Route: 'Like', PostId: post.id}))
             dispatch({ type: 'UPDATE_POST', payload: post })
         } catch (e) {
             alert(e)

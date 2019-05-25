@@ -6,12 +6,37 @@ import styles from '../styles';
 import { getPosts, likePost, unlikePost } from '../actions/feed';
 import { updatePostLocal } from '../actions/post';
 import moment from 'moment'
+import { Notifications} from 'expo';
+import { getMessages } from '../actions/message'
+import { groupBy, values } from 'lodash'
 
 class Home extends React.Component {
 
   state = {
     filter: 'All'
   }
+
+  componentDidMount = () => {
+    this._notificationSubscription = Notifications.addListener(this._handleNotification);
+    Notifications.createChannelAndroidAsync('incidence-channel', {
+      name: 'Incidence Notifs',
+      sound: true,
+    });
+  }
+
+  _handleNotification = (notification) => {
+    this.setState({notification: notification});
+    if(notification.data.PostId){
+      const post = this.props.feed.find(obj => obj.id == notification.data.PostId);
+      this.props.updatePostLocal(post);
+      this.props.navigation.navigate('PostDetail', { post: post })
+    }
+    if(notification.data.RecieverId === this.props.user.uid){
+      this.props.getMessages();
+      alert(notification.data.SenderId)
+      this.props.navigation.navigate('Chat', notification.data.SenderId)
+    }
+  };
 
   componentWillMount = () => {
     this.props.getPosts();
@@ -20,7 +45,6 @@ class Home extends React.Component {
   navigatePost = (item) => {
     this.props.updatePostLocal(item);
     this.props.navigation.navigate('PostDetail', { post: item })
-
   }
 
   renderSeparator = ({ leadingItem }) => (
@@ -118,12 +142,13 @@ class Home extends React.Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    feed: state.feed
+    feed: state.feed,
+    messages: state.messages
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ getPosts, updatePostLocal, likePost, unlikePost }, dispatch)
+  return bindActionCreators({ getPosts, getMessages, updatePostLocal, likePost, unlikePost }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

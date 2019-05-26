@@ -30,10 +30,7 @@ class MyProfile extends React.Component {
                     <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('EditProfile')}>
                         <Text style={styles.buttonText}>Edit Profile</Text>
                     </TouchableOpacity>
-                    {/* <View style={{ marginTop: 15 }}> */}
-                    {/* <View style={[styles.borderHeader, styles.center]}>
-                        <Text styles={[styles.center, styles.bold, {fontSize: 18, textAlign: 'center', margin: 8}]}>My Incidences</Text>
-                    </View> */}
+                
                     <FlatList
                         onRefresh={() => this.getPosts()}
                         refreshing={false}
@@ -42,7 +39,7 @@ class MyProfile extends React.Component {
                         data={
                             this.props.user.posts
                         }
-                        style={{ flex: 1 }}
+                        
                         renderItem={({ item }) => {
                             return (
                                 <View>

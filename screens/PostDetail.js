@@ -1,6 +1,7 @@
 import React from 'react';
-import { Text, View, ScrollView, TouchableOpacity, Image, Picker, Platform } from 'react-native';
+import { Text, View, ScrollView, TouchableOpacity, Image, Platform } from 'react-native';
 import styles from '../styles';
+import { Picker } from 'native-base';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateComment, postComment, updateStatus, changeStatus, likePost, unlikePost, updatePostLocal } from '../actions/post';
@@ -62,11 +63,13 @@ class PostDetail extends React.Component {
           this.props.user.role === 'keeper' ?
             <View style={[styles.borderHeader, { marginBottom: 5 }]}>
               <Picker
-                mode='dropdown'
+                iosIcon={<Ionicons name="ios-arrow-down" />}
+                placeholder="Choose your Unit"
+                placeholderStyle={{ textAlign: 'center' }}
                 selectedValue={this.props.post.status}
                 onValueChange={(itemValue, itemIndex) =>
                   this.props.updateStatus(itemValue)}
-                style={{ width: '100%' }}
+                style={{ width: '80%' }}
                 itemStyle={{ textAlign: 'center' }}>
                 <Picker.Item label="Status" value="All" />
                 <Picker.Item label="Open" value="Open" />

@@ -6,9 +6,9 @@ import { Textarea } from 'native-base';
 import styles from '../styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Ionicons } from '@expo/vector-icons';
 import { Permissions, ImagePicker, Location } from 'expo';
 import { uploadPhoto } from '../actions/index'
+import { Ionicons } from '@expo/vector-icons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { updateTitle, updateCatagory, updateIncidenceDate, updatePostLocal, updateDescription, updateLocation, updatePhotos, uploadPost, clearPost } from '../actions/post';
 import moment from 'moment'
@@ -99,7 +99,7 @@ class Post extends React.Component {
             placeholderStyle={{ textAlign: 'center' }}
             onValueChange={(itemValue, itemIndex) =>
               this.props.updateCatagory(itemValue)}
-            style={{ width: '100%', height: 50 }}
+            style={{ width: '80%', height: 50 }}
             itemStyle={{ textAlign: 'center' }}>
             <Picker.Item label="Choose a Catagory" value="Other" />
             <Picker.Item label="Complaint" value="Complain" />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, FlatList, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, FlatList, TouchableOpacity, Image, ActivityIndicator, Platform} from 'react-native';
 import { Grid, Row } from "native-base"; import styles from '../styles';
 import { connect } from 'react-redux';
 import { RefreshControl } from 'react-native';
@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { addMessage, getMessages } from '../actions/message'
 import { Notifications} from 'expo';
 import moment from 'moment';
+import { Ionicons } from '@expo/vector-icons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class Chat extends React.Component {
@@ -41,8 +42,8 @@ class Chat extends React.Component {
         return (
             <KeyboardAwareScrollView
                 enableOnAndroid
-                scrollEnabled={false}
-                extraScrollHeight={350} >
+                keyboardShouldPersistTaps="handled"
+                extraScrollHeight={Platform.select({ android: 350, ios: 10} )}>
                 <Grid>
                     <Row style={styles.listContent}>
                         {
@@ -76,9 +77,9 @@ class Chat extends React.Component {
                                 onSubmitEditing={this.sendMessage}
                                 onChangeText={message => this.setState({ message })} />
 
-                            {/* <TouchableOpacity onPress={() => this.postComment()}>
+                            <TouchableOpacity onPress={() => this.sendMessage()}>
                                 <Ionicons size={43} name={Platform.select({ ios: 'ios-send', android: 'md-send', })} />
-                            </TouchableOpacity> */}
+                            </TouchableOpacity>
                         </View>
                     </Row>
                 </Grid>

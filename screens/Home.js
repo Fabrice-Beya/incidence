@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {Picker} from 'native-base';
+import { Picker } from 'native-base';
 import { Text, View, Image, FlatList, TouchableOpacity, RefreshControl, ActivityIndicator } from 'react-native';
 import { bindActionCreators } from 'redux';
 import styles from '../styles';
 import { getPosts, likePost, unlikePost } from '../actions/feed';
 import { updatePostLocal } from '../actions/post';
 import moment from 'moment'
-import { Notifications} from 'expo';
+import { Notifications } from 'expo';
 import { getMessages } from '../actions/message'
 import { Ionicons } from '@expo/vector-icons';
 
@@ -26,16 +26,19 @@ class Home extends React.Component {
   }
 
   _handleNotification = (notification) => {
-    this.setState({notification: notification});
-    if(notification.data.PostId){
+    this.setState({ notification: notification });
+    if (notification.data.PostId) {
       const post = this.props.feed.find(obj => obj.id == notification.data.PostId);
       this.props.updatePostLocal(post);
       this.props.navigation.navigate('PostDetail', { post: post })
     }
-    if(notification.data.RecieverId === this.props.user.uid){
+    if (notification.data.RecieverId === this.props.user.uid) {
       this.props.getMessages();
-      alert(notification.data.SenderId)
-      this.props.navigation.navigate('Chat', notification.data.SenderId)
+      const { state } = this.props.navigation
+      if(notification.data.SenderId && state.routeName !== 'Chat')
+      {
+        this.props.navigation.navigate('Chat', notification.data.SenderId)
+      }
     }
   };
 
@@ -87,7 +90,7 @@ class Home extends React.Component {
                 <Picker.Item label="Other" value="Other" />
               </Picker> :
               <Picker
-               
+
                 selectedValue={this.state.filter}
                 onValueChange={(filter) => this.setState({ filter })}
                 style={{ width: '100%', height: 50 }}

@@ -4,6 +4,7 @@ import { Text, View, TextInput, TouchableOpacity, Image, Platform } from 'react-
 import styles from '../styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Ionicons } from '@expo/vector-icons';
 import { ImagePicker, Permissions } from 'expo';
 import { uploadPhoto } from '../actions/index'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -49,7 +50,7 @@ class EditProfile extends React.Component {
                     placeholderStyle={{ textAlign: 'center' }}
                     onValueChange={(itemValue, itemIndex) =>
                         this.props.updateResidence(itemValue)}
-                    sstyle={{ width: 150, height: 50 }}
+                    style={{ width: '80%', height: 50 }}
                     itemStyle={{ textAlign: 'center' }}>
                     <Picker.Item label="Choose Your Residence" value="" />
                     <Picker.Item label="SMUTS HALL" value="SMUTS HALL" />
@@ -64,7 +65,7 @@ class EditProfile extends React.Component {
                     placeholderStyle={{ textAlign: 'center' }}
                     onValueChange={(itemValue, itemIndex) =>
                         this.props.updateUnit(itemValue)}
-                    style={{ width: '100%', height: 50 }}
+                    style={{ width: '80%', height: 50 }}
                     itemStyle={{ textAlign: 'center' }}>
                     <Picker.Item label="Choose Your Unit" value="" />
                     <Picker.Item label="001" value="002" />

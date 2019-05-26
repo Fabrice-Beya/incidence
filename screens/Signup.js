@@ -63,7 +63,7 @@ class Signup extends React.Component {
                     placeholder="Choose your Residence"
                     placeholderStyle={{ textAlign: 'center' }}
                     onValueChange={(itemValue) => this.props.updateResidence(itemValue)}
-                    style={{ width: '100%', height: 50 }}
+                    style={{ width: '80%', height: 50 }}
                     itemStyle={{ textAlign: 'center' }}>
                     <Picker.Item label="Choose Your Residence" value="" />
                     <Picker.Item label="SMUTS HALL" value="SMUTS HALL" />
@@ -77,7 +77,7 @@ class Signup extends React.Component {
                     placeholderStyle={{ textAlign: 'center' }}
                     selectedValue={this.props.user.unit}
                     onValueChange={(itemValue) => this.props.updateUnit(itemValue)}
-                    style={{ width: '100%', height: 50 }}
+                    style={{ width: '80%', height: 50 }}
                     itemStyle={{ textAlign: 'center' }}>
                     <Picker.Item label="Choose Your Unit" value="" />
                     <Picker.Item label="001" value="002" />

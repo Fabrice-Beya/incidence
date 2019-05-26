@@ -47,7 +47,7 @@ class Profile extends React.Component {
                         data={
                             this.props.profile.posts
                         }
-                        style={{ flex: 1 }}
+                        
                         renderItem={({ item }) => {
                             return (
                                 <View>

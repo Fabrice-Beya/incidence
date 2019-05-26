@@ -43,8 +43,8 @@ class Comment extends React.Component {
         return (
             <KeyboardAwareScrollView
                 enableOnAndroid
-                scrollEnabled={false}
-                extraScrollHeight={350} >
+                keyboardShouldPersistTaps="handled"
+                extraScrollHeight={Platform.select({ android: 350, ios: 20} )}>
                 <Grid>
                     <Row style={styles.listContent}>
                         {
@@ -83,9 +83,9 @@ class Comment extends React.Component {
                                 onSubmitEditing={this.postComment}
                                 onChangeText={comment => this.setState({ comment })} />
 
-                            {/* <TouchableOpacity onPress={() => this.postComment()}>
+                            <TouchableOpacity onPress={() => this.postComment()}>
                                 <Ionicons size={43} name={Platform.select({ ios: 'ios-send', android: 'md-send', })} />
-                            </TouchableOpacity> */}
+                            </TouchableOpacity>
                         </View>
                     </Row>
                 </Grid>

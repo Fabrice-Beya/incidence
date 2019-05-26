@@ -74,9 +74,8 @@ class EditPost extends React.Component {
             selectedValue={this.props.post.catagory}
             placeholder="Choose a Catagory"
             placeholderStyle={{ textAlign: 'center' }}
-            onValueChange={(itemValue, itemIndex) =>
-              this.props.updateCatagory(itemValue)}
-            style={{ width: '100%', height: 50 }}
+            onValueChange={(itemValue) => this.props.updateCatagory(itemValue)}
+            style={{ width: '80%', height: 50 }}
             itemStyle={{ textAlign: 'center' }}>
             <Picker.Item label="Catagory" value="" />
             <Picker.Item label="Complaint" value="Complain" />

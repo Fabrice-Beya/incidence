@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, TextInput, TouchableOpacity, Image, ScrollView, Picker, ActivityIndicator, Platform, navigation } from 'react-native';
+import { Picker } from 'native-base';
+import { Text, View, TextInput, TouchableOpacity, Image, ScrollView, ActivityIndicator, Platform, navigation } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import { Textarea } from 'native-base';
 import styles from '../styles';
@@ -92,13 +93,15 @@ class Post extends React.Component {
             returnKeyType="next"
             onChangeText={input => this.props.updateTitle(input)} />
           <Picker
-            mode='dropdown'
+            iosIcon={<Ionicons name="ios-arrow-down" />}
             selectedValue={this.props.post.catagory}
+            placeholder="Choose a Catagory"
+            placeholderStyle={{ textAlign: 'center' }}
             onValueChange={(itemValue, itemIndex) =>
               this.props.updateCatagory(itemValue)}
-            style={{ width: 250, marginVertical: 10 }}
-            itemStyle={styles.pickerItem}>
-            <Picker.Item label="Choose a Catagory" value="" />
+            style={{ width: '100%', height: 50 }}
+            itemStyle={{ textAlign: 'center' }}>
+            <Picker.Item label="Choose a Catagory" value="Other" />
             <Picker.Item label="Complaint" value="Complain" />
             <Picker.Item label="Damage" value="Damage" />
             <Picker.Item label="Inquiry" value="Inquiry" />

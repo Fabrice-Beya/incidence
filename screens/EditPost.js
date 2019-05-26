@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, TextInput, TouchableOpacity, Image, ScrollView, Picker, ActivityIndicator, Platform } from 'react-native';
+import { Picker } from 'native-base';
+import { Text, View, TextInput, TouchableOpacity, Image, ScrollView, ActivityIndicator, Platform } from 'react-native';
 import { Textarea } from "native-base";
 import styles from '../styles';
 import { connect } from 'react-redux';
@@ -69,11 +70,14 @@ class EditPost extends React.Component {
             onChangeText={input => this.props.updateTitle(input)} />
 
           <Picker
+            iosIcon={<Ionicons name="ios-arrow-down" />}
             selectedValue={this.props.post.catagory}
+            placeholder="Choose a Catagory"
+            placeholderStyle={{ textAlign: 'center' }}
             onValueChange={(itemValue, itemIndex) =>
               this.props.updateCatagory(itemValue)}
-            style={[styles.pickerBorder]}
-            itemStyle={styles.pickerItem}>
+            style={{ width: '100%', height: 50 }}
+            itemStyle={{ textAlign: 'center' }}>
             <Picker.Item label="Catagory" value="" />
             <Picker.Item label="Complaint" value="Complain" />
             <Picker.Item label="Damage" value="Damage" />
@@ -117,7 +121,7 @@ class EditPost extends React.Component {
             <Ionicons color='white' size={30} name={Platform.select({ ios: 'ios-camera', android: 'md-camera', })} />
             <Text style={styles.buttonText}>Take Photo</Text>
           </TouchableOpacity>
-          </View>
+        </View>
       </KeyboardAwareScrollView>
     );
   }

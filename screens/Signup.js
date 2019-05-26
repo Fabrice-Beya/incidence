@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, TextInput, TouchableOpacity, Image, Picker, Platform } from 'react-native';
+import { Picker } from 'native-base';
+import { Text, View, TextInput, TouchableOpacity, Image, Platform } from 'react-native';
 import styles from '../styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -57,11 +58,13 @@ class Signup extends React.Component {
                     placeholder='Password'
                     secureTextEntry={true} />
                 <Picker
+                    iosIcon={<Ionicons name="ios-arrow-down" />}
                     selectedValue={this.props.user.residence}
-                    onValueChange={(itemValue, itemIndex) =>
-                        this.props.updateResidence(itemValue)}
-                    style={styles.pickerBorder}
-                    itemStyle={styles.pickerItem}>
+                    placeholder="Choose your Residence"
+                    placeholderStyle={{ textAlign: 'center' }}
+                    onValueChange={(itemValue) => this.props.updateResidence(itemValue)}
+                    style={{ width: '100%', height: 50 }}
+                    itemStyle={{ textAlign: 'center' }}>
                     <Picker.Item label="Choose Your Residence" value="" />
                     <Picker.Item label="SMUTS HALL" value="SMUTS HALL" />
                     <Picker.Item label="FULLER" value="FULLER" />
@@ -69,11 +72,13 @@ class Signup extends React.Component {
                     <Picker.Item label="BAXTER" value="BAXTER" />
                 </Picker>
                 <Picker
+                    iosIcon={<Ionicons name="ios-arrow-down" />}
+                    placeholder="Choose your Unit"
+                    placeholderStyle={{ textAlign: 'center' }}
                     selectedValue={this.props.user.unit}
-                    onValueChange={(itemValue, itemIndex) =>
-                        this.props.updateUnit(itemValue)}
-                    style={styles.pickerBorder}
-                    itemStyle={styles.pickerItem}>
+                    onValueChange={(itemValue) => this.props.updateUnit(itemValue)}
+                    style={{ width: '100%', height: 50 }}
+                    itemStyle={{ textAlign: 'center' }}>
                     <Picker.Item label="Choose Your Unit" value="" />
                     <Picker.Item label="001" value="002" />
                     <Picker.Item label="002" value="002" />

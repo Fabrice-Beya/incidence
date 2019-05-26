@@ -1,21 +1,20 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\fbeya\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add native-base --save
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.16.0/libexec/bin/yarn.js add global expo-cli
 
 PATH: 
-  C:\Program Files\Common Files\Microsoft Shared\Microsoft Online Services;C:\Program Files (x86)\Common Files\Microsoft Shared\Microsoft Online Services;C:\Program Files\Microsoft VS Code\bin;C:\windows\System32;C:\Users\fbeya\.windows-build-tools\python27\;C:\Program Files\nodejs\node_modules\npm\node_modules\npm-lifecycle\node-gyp-bin;C:\Users\fbeya\AppData\Roaming\npm\node_modules\windows-build-tools\node_modules\.bin;C:\Users\fbeya\AppData\Roaming\npm\node_modules\.bin;C:\Program Files (x86)\IBM\RationalSDLC\common;C:\Program Files\Microsoft MPI\Bin\;C:\ProgramData\Oracle\Java\javapath;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\SafeNet\Authentication\SAC\x64;C:\Program Files\SafeNet\Authentication\SAC\x32;C:\Pack\ControlBuild\mingw\bin;C:\Program Files (x86)\IVI Foundation\IVI\bin;C:\Program Files\IVI Foundation\IVI\bin;C:\Program Files\IVI Foundation\VISA\Win64\Bin\;C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin\;C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Bin;C:\Program Files\dotnet\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Git\cmd;C:\Program Files\TortoiseGit\bin;C:\cygwin\bin;c:\U-TEST\software\RTC\bin;c:\U-TEST\software\VS\bin;C:\Program Files (x86)\IBM\RationalSDLC\ClearCase\bin;C:\Program Files (x86)\IBM\gsk8\lib;C:\Program Files (x86)\IBM\gsk8\bin;C:\Program Files (x86)\IBM\RationalSDLC\ClearCase\RemoteClient\cteapis;C:\Program Files\MongoDB\Server\4.0\bin;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\nodejs\;C:\Users\fbeya\AppData\Local\GitHubDesktop\bin;C:\Users\fbeya\AppData\Roaming\npm;C:\Pack\ControlBuild\mingw\bin;C:\Users\fbeya\AppData\Local\Android\Sdk\platform-tools
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 Yarn version: 
-  1.10.1
+  1.16.0
 
 Node version: 
-  10.11.0
+  10.15.3
 
 Platform: 
-  win32 x64
+  darwin x64
 
 Trace: 
-  Error: connect ETIMEDOUT 104.16.18.35:443
-      at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1113:14)
+  Error: EACCES: permission denied, scandir '/Users/fabricebeya/.config/yarn/link'
 
 npm manifest: 
   {
@@ -32,10 +31,12 @@ npm manifest:
       "expo": "^31.0.2",
       "firebase": "^5.10.0",
       "lodash": "^4.17.11",
+      "moment": "^2.24.0",
       "native-base": "^2.12.1",
       "react": "16.5.0",
       "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
       "react-native-dialog": "^5.6.0",
+      "react-native-easy-grid": "^0.2.1",
       "react-native-keyboard-aware-scroll-view": "^0.8.0",
       "react-native-modal-datetime-picker": "^7.4.0",
       "react-native-vector-icons": "^6.4.2",
@@ -43,6 +44,7 @@ npm manifest:
       "react-redux": "6.0.0",
       "redux": "^4.0.1",
       "redux-logger": "^3.0.6",
+      "redux-persist": "^5.10.0",
       "redux-thunk": "^2.3.0",
       "uuid": "^3.3.2"
     },
@@ -4384,6 +4386,11 @@ Lockfile:
     dependencies:
       minimist "0.0.8"
   
+  moment@^2.24.0:
+    version "2.24.0"
+    resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+    integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+  
   morgan@^1.9.0:
     version "1.9.1"
     resolved "https://registry.yarnpkg.com/morgan/-/morgan-1.9.1.tgz#0a8d16734a1d9afbc824b99df87e738e58e2da59"
@@ -5140,7 +5147,7 @@ Lockfile:
       prop-types "^15.5.8"
       tween-functions "^1.0.1"
   
-  react-native-easy-grid@0.2.1:
+  react-native-easy-grid@0.2.1, react-native-easy-grid@^0.2.1:
     version "0.2.1"
     resolved "https://registry.yarnpkg.com/react-native-easy-grid/-/react-native-easy-grid-0.2.1.tgz#23e386db0e4d0d46d7da30f7b628e28cd354d5ad"
     integrity sha512-u90U4lf5L/PUmq7HoczFKgyElmBCpb3gu21TOWL7pq4gSH2Hz0EGm1Bgu0SQacO9v6jfQbS7JfE+xtMg6MHluQ==
@@ -5442,6 +5449,11 @@ Lockfile:
     integrity sha1-91VZZvMJjzyIYExEnPC69XeCdL8=
     dependencies:
       deep-diff "^0.3.5"
+  
+  redux-persist@^5.10.0:
+    version "5.10.0"
+    resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.10.0.tgz#5d8d802c5571e55924efc1c3a9b23575283be62b"
+    integrity sha512-sSJAzNq7zka3qVHKce1hbvqf0Vf5DuTVm7dr4GtsqQVOexnrvbV47RWFiPxQ8fscnyiuWyD2O92DOxPl0tGCRg==
   
   redux-thunk@^2.3.0:
     version "2.3.0"

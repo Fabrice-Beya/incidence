@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, TextInput, TouchableOpacity, Image, Picker, Platform } from 'react-native';
+import { Picker } from 'native-base';
+import { Text, View, TextInput, TouchableOpacity, Image, Platform } from 'react-native';
 import styles from '../styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -42,11 +43,14 @@ class EditProfile extends React.Component {
                     returnKeyType="next"
                     placeholder='Full Names' />
                 <Picker
+                    iosIcon={<Ionicons name="ios-arrow-down" />}
                     selectedValue={this.props.user.residence}
+                    placeholder="Choose your Residence"
+                    placeholderStyle={{ textAlign: 'center' }}
                     onValueChange={(itemValue, itemIndex) =>
                         this.props.updateResidence(itemValue)}
-                    style={styles.pickerBorder}
-                    itemStyle={styles.pickerItem}>
+                    sstyle={{ width: 150, height: 50 }}
+                    itemStyle={{ textAlign: 'center' }}>
                     <Picker.Item label="Choose Your Residence" value="" />
                     <Picker.Item label="SMUTS HALL" value="SMUTS HALL" />
                     <Picker.Item label="FULLER" value="FULLER" />
@@ -54,11 +58,14 @@ class EditProfile extends React.Component {
                     <Picker.Item label="BAXTER" value="BAXTER" />
                 </Picker>
                 <Picker
+                    iosIcon={<Ionicons name="ios-arrow-down" />}
                     selectedValue={this.props.user.unit}
+                    placeholder="Choose your Unit"
+                    placeholderStyle={{ textAlign: 'center' }}
                     onValueChange={(itemValue, itemIndex) =>
                         this.props.updateUnit(itemValue)}
-                    style={styles.pickerBorder}
-                    itemStyle={styles.pickerItem}>
+                    style={{ width: '100%', height: 50 }}
+                    itemStyle={{ textAlign: 'center' }}>
                     <Picker.Item label="Choose Your Unit" value="" />
                     <Picker.Item label="001" value="002" />
                     <Picker.Item label="002" value="002" />

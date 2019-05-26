@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Text, View, Picker, Image, FlatList, TouchableOpacity, RefreshControl, ActivityIndicator } from 'react-native';
+import {Picker} from 'native-base';
+import { Text, View, Image, FlatList, TouchableOpacity, RefreshControl, ActivityIndicator } from 'react-native';
 import { bindActionCreators } from 'redux';
 import styles from '../styles';
 import { getPosts, likePost, unlikePost } from '../actions/feed';
@@ -8,7 +9,7 @@ import { updatePostLocal } from '../actions/post';
 import moment from 'moment'
 import { Notifications} from 'expo';
 import { getMessages } from '../actions/message'
-import { groupBy, values } from 'lodash'
+import { Ionicons } from '@expo/vector-icons';
 
 class Home extends React.Component {
 
@@ -71,11 +72,10 @@ class Home extends React.Component {
           {
             this.props.user.role && this.props.user.role === 'keeper' ?
               <Picker
-                mode='dropdown'
+                iosIcon={<Ionicons name="ios-arrow-down" />}
                 selectedValue={this.state.filter}
-                onValueChange={(filter) =>
-                  this.setState({ filter })}
-                style={{ width: '100%' }}
+                onValueChange={(filter) => this.setState({ filter })}
+                style={{ width: '100%', height: 50 }}
                 itemStyle={{ textAlign: 'center' }}>
                 <Picker.Item label="See All" value="All" />
                 <Picker.Item label="Complaint" value="Complain" />
@@ -87,11 +87,10 @@ class Home extends React.Component {
                 <Picker.Item label="Other" value="Other" />
               </Picker> :
               <Picker
-                mode='dropdown'
+               
                 selectedValue={this.state.filter}
-                onValueChange={(filter) =>
-                  this.setState({ filter })}
-                style={{ width: '100%' }}
+                onValueChange={(filter) => this.setState({ filter })}
+                style={{ width: '100%', height: 50 }}
                 itemStyle={{ textAlign: 'center' }}>
                 <Picker.Item label="See All" value="All" />
                 <Picker.Item label="Proposal" value="Proposal" />

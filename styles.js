@@ -2,11 +2,16 @@ import { StyleSheet, Dimensions } from 'react-native';
 const { width } = Dimensions.get('window');
 const React = require("react-native");
 const { Platform } = React;
+import { Constants } from 'expo';
 
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 
 export default styles = StyleSheet.create({
+  statusBar: {
+    backgroundColor: "#C2185B",
+    height: Constants.statusBarHeight,
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -99,7 +104,7 @@ export default styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 20,
-    paddingVertical: 10,
+    paddingVertical: 5,
     alignItems: 'center',
     borderColor: '#d3d3d3',
     borderWidth: 1,
@@ -129,7 +134,7 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#3b5998',
     margin: 20,
-    paddingVertical: 10,
+    paddingVertical: 5,
     alignItems: 'center',
     borderColor: '#3b5998',
     borderWidth: 1,

@@ -93,7 +93,7 @@ class Post extends React.Component {
             returnKeyType="next"
             onChangeText={input => this.props.updateTitle(input)} />
           <Picker
-            iosIcon={<Ionicons name="ios-arrow-down" />}
+            // iosIcon={<Ionicons name="ios-arrow-down" />}
             selectedValue={this.props.post.catagory}
             placeholder="Choose a Catagory"
             placeholderStyle={{ textAlign: 'center' }}
@@ -135,11 +135,11 @@ class Post extends React.Component {
           }
 
           <TouchableOpacity style={styles.button} onPress={() => this.attachPhoto()}>
-            <Ionicons color='white' size={30} name={Platform.select({ ios: 'ios-photos', android: 'md-photos', })} />
+            <Ionicons color='white' size={25} name={Platform.select({ ios: 'ios-photos', android: 'md-photos', })} />
             <Text style={styles.buttonText}>Attach Photo</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Camera')}>
-            <Ionicons color='white' size={30} name={Platform.select({ ios: 'ios-camera', android: 'md-camera', })} />
+            <Ionicons color='white' size={25} name={Platform.select({ ios: 'ios-camera', android: 'md-camera', })} />
             <Text style={styles.buttonText}>Take Photo</Text>
           </TouchableOpacity>
         </View>

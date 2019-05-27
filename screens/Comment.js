@@ -44,7 +44,7 @@ class Comment extends React.Component {
             <KeyboardAwareScrollView
                 enableOnAndroid
                 keyboardShouldPersistTaps="handled"
-                extraScrollHeight={Platform.select({ android: 350, ios: 20} )}>
+                extraScrollHeight={Platform.select({ android: 350, ios: 3} )}>
                 <Grid>
                     <Row style={styles.listContent}>
                         {

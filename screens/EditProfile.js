@@ -32,7 +32,8 @@ class EditProfile extends React.Component {
 
     render() {
         return (
-            <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={[styles.container, styles.center]}>
+            <KeyboardAwareScrollView enableOnAndroid >
+                <View style={[styles.container, styles.start]}>
                 <TouchableOpacity style={styles.center} onPress={this.openPhotoLib} >
                     <Image style={styles.roundImageBig} source={{ uri: this.props.user.photo }} />
                     <Text>Upload Photo</Text>
@@ -78,6 +79,7 @@ class EditProfile extends React.Component {
                 <TouchableOpacity style={styles.button} onPress={() => this.updateUser()}>
                     <Text style={styles.buttonText}>Update</Text>
                 </TouchableOpacity>
+                </View>
             </KeyboardAwareScrollView>
         );
     }

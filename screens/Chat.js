@@ -1,29 +1,34 @@
 import React from 'react';
-import { View, Text, TextInput, FlatList, TouchableOpacity, Image, ActivityIndicator, Platform} from 'react-native';
+import { View, Text, TextInput, FlatList, TouchableOpacity, Image, ActivityIndicator, Platform } from 'react-native';
 import { Grid, Row } from "native-base"; import styles from '../styles';
 import { connect } from 'react-redux';
-import { RefreshControl } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import { bindActionCreators } from 'redux';
 import { addMessage, getMessages } from '../actions/message'
-import { Notifications} from 'expo';
+import { Notifications } from 'expo';
 import moment from 'moment';
 import { Ionicons } from '@expo/vector-icons';
+import { updateScreen } from '../actions/screen';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class Chat extends React.Component {
 
     state = {
         notification: {},
-      }
+    }
 
     componentDidMount = () => {
         this._notificationSubscription = Notifications.addListener(this._handleNotification);
     }
 
     _handleNotification = (notification) => {
-        this.setState({notification: notification});
+        this.setState({ notification: notification });
         this.props.getMessages();
-      };
+    };
+
+    onWillFocus = () => {
+        this.props.updateScreen('Chat');
+      }
 
     state = {
         message: ''
@@ -38,12 +43,13 @@ class Chat extends React.Component {
     render() {
         const { params } = this.props.navigation.state
         const { uid } = this.props.user
-        if (!this.props.messages) return <ActivityIndicator style={styles.container}/>
+        if (!this.props.messages) return <ActivityIndicator style={styles.container} />
         return (
             <KeyboardAwareScrollView
                 enableOnAndroid
                 keyboardShouldPersistTaps="handled"
-                extraScrollHeight={Platform.select({ android: 350, ios: 10} )}>
+                extraScrollHeight={Platform.select({ android: 350, ios: 3 })}>
+                <NavigationEvents onWillFocus={this.onWillFocus} />
                 <Grid>
                     <Row style={styles.listContent}>
                         {
@@ -67,7 +73,7 @@ class Chat extends React.Component {
                                 </View> : null
                         }
                     </Row>
-                    <Row style={{ borderColor: '#d3d3d3', borderTopWidth: 1}}>
+                    <Row style={{ borderColor: '#d3d3d3', borderTopWidth: 1 }}>
                         <View style={{ flex: 1, flexDirection: 'row' }}>
                             <TextInput
                                 style={{ padding: 10, width: '85%' }}
@@ -91,12 +97,13 @@ class Chat extends React.Component {
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        messages: state.messages
+        messages: state.messages,
+        screen: state.screen
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ addMessage, getMessages }, dispatch)
+    return bindActionCreators({ addMessage, updateScreen, getMessages }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat)

@@ -7,9 +7,12 @@ import styles from '../styles';
 import { getPosts, likePost, unlikePost } from '../actions/feed';
 import { updatePostLocal } from '../actions/post';
 import moment from 'moment'
+import { NavigationEvents } from 'react-navigation';
 import { Notifications } from 'expo';
 import { getMessages } from '../actions/message'
+import { updateScreen } from '../actions/screen';
 import { Ionicons } from '@expo/vector-icons';
+
 
 class Home extends React.Component {
 
@@ -27,16 +30,15 @@ class Home extends React.Component {
 
   _handleNotification = (notification) => {
     this.setState({ notification: notification });
-    if (notification.data.PostId) {
+    if (notification.data.PostId && notification.origin === 'selected') {
       const post = this.props.feed.find(obj => obj.id == notification.data.PostId);
       this.props.updatePostLocal(post);
       this.props.navigation.navigate('PostDetail', { post: post })
     }
     if (notification.data.RecieverId === this.props.user.uid) {
       this.props.getMessages();
-      const { state } = this.props.navigation
-      if(notification.data.SenderId && state.routeName !== 'Chat')
-      {
+
+      if (notification.data.SenderId && this.props.screen !== 'Chat' && notification.origin === 'selected') {
         this.props.navigation.navigate('Chat', notification.data.SenderId)
       }
     }
@@ -44,6 +46,10 @@ class Home extends React.Component {
 
   componentWillMount = () => {
     this.props.getPosts();
+  }
+
+  onWillFocus = () => {
+    this.props.updateScreen('Home');
   }
 
   navigatePost = (item) => {
@@ -71,6 +77,7 @@ class Home extends React.Component {
     if (this.props.feed === null) return <ActivityIndicator color='black' />;
     return (
       <View style={{ flex: 1 }}>
+        <NavigationEvents onWillFocus={this.onWillFocus} />
         <View style={styles.borderHeader}>
           {
             this.props.user.role && this.props.user.role === 'keeper' ?
@@ -145,12 +152,13 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     feed: state.feed,
-    messages: state.messages
+    messages: state.messages,
+    screen: state.screen
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ getPosts, getMessages, updatePostLocal, likePost, unlikePost }, dispatch)
+  return bindActionCreators({ getPosts, updateScreen, getMessages, updatePostLocal, likePost, unlikePost }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

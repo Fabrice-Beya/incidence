@@ -69,7 +69,7 @@ class PostDetail extends React.Component {
                 selectedValue={this.props.post.status}
                 onValueChange={(itemValue, itemIndex) =>
                   this.props.updateStatus(itemValue)}
-                style={{ width: '80%' }}
+                style={{ width: '100%' }}
                 itemStyle={{ textAlign: 'center' }}>
                 <Picker.Item label="Status" value="All" />
                 <Picker.Item label="Open" value="Open" />

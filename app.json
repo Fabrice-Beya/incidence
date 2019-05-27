@@ -17,6 +17,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
+    "facebookAppId": "517691692096650",
     "assetBundlePatterns": [
       "**/*"
     ],

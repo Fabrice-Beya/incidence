@@ -40,6 +40,15 @@ const profile = (state = {}, action) => {
     }
 }
 
+const screen = (state = {}, action) => {
+    switch (action.type) {
+        case 'UPDATE_SCREEN':
+            return action.payload;
+        default:
+            return state
+    }
+}
+
 const post = (state ={}, action) => {
     switch (action.type) {
         case 'UPDATE_TITLE':
@@ -104,7 +113,8 @@ const rootReducer = combineReducers({
     feed, 
     profile,
     messages,
-    comments
+    comments,
+    screen
 })
 
 export default rootReducer;

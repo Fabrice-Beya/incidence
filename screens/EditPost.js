@@ -70,7 +70,7 @@ class EditPost extends React.Component {
             onChangeText={input => this.props.updateTitle(input)} />
 
           <Picker
-            iosIcon={<Ionicons name="ios-arrow-down" />}
+            // iosIcon={<Ionicons name="ios-arrow-down" />}
             selectedValue={this.props.post.catagory}
             placeholder="Choose a Catagory"
             placeholderStyle={{ textAlign: 'center' }}

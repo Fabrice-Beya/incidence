@@ -12,17 +12,12 @@ import { updateScreen } from '../actions/screen';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 class Chat extends React.Component {
-
-    state = {
-        notification: {},
-    }
-
+    
     componentDidMount = () => {
         this._notificationSubscription = Notifications.addListener(this._handleNotification);
     }
 
     _handleNotification = (notification) => {
-        this.setState({ notification: notification });
         this.props.getMessages();
     };
 

@@ -28,7 +28,7 @@ class MediaView extends React.Component {
             if (this.state.Item) {
                 const url = await this.props.uploadPhoto(this.state.Item);
                 this.props.updatePhotos(url);
-                url ? this.props.navigation.navigate('Post') : this.props.navigation.goBack()
+                url ? this.props.navigation.navigate('Post', {photo: url}) : this.props.navigation.goBack()
                 this.setState({isBusy: false})
             }
         } catch (e) {

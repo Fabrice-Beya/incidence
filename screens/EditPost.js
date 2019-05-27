@@ -57,7 +57,7 @@ class EditPost extends React.Component {
   render() {
     const postPhotos = this.props.post.postPhotos
     return (
-      <KeyboardAwareScrollView enableOnAndroid >
+      <KeyboardAwareScrollView enableOnAndroid keyboardShouldPersistTaps="handled">
         <View style={[styles.container, styles.start]}>
           <TextInput
             style={styles.noBorder}

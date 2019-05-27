@@ -32,7 +32,10 @@ class Post extends React.Component {
   }
 
   onWillFocus = () => {
-    this.props.clearPost();
+    const { params } = this.props.navigation.state
+    if(!params.photo){
+      this.props.clearPost();
+    }
   }
 
   uploadPost = async () => {

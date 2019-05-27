@@ -44,13 +44,14 @@ class Comment extends React.Component {
             <KeyboardAwareScrollView
                 enableOnAndroid
                 keyboardShouldPersistTaps="handled"
-                extraScrollHeight={Platform.select({ android: 350, ios: 3} )}>
+                extraScrollHeight={Platform.select({ android: 350, ios: 3 })}>
                 <Grid>
                     <Row style={styles.listContent}>
                         {
                             this.props.comments && this.props.comments.length > 0 ?
                                 <View style={{ flex: 1, padding: 3 }}>
                                     <FlatList
+                                        inverted
                                         onRefresh={() => this.props.getPostComments()}
                                         refreshing={false}
                                         keyExtractor={(item) => item.postId}

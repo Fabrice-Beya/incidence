@@ -31,7 +31,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <KeyboardAwareScrollView enableOnAndroid contentContainerStyle={[styles.container, styles.center]}>
+      <KeyboardAwareScrollView keyboardShouldPersistTaps="handled" enableOnAndroid contentContainerStyle={[styles.container, styles.center]}>
         <Image style={{ width: 310, height: 100, resizeMode:'contain' }} source={require('../assets/logo.png')} />
         <TextInput
           style={styles.border}

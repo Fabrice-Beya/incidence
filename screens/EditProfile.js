@@ -32,7 +32,7 @@ class EditProfile extends React.Component {
 
     render() {
         return (
-            <KeyboardAwareScrollView enableOnAndroid >
+            <KeyboardAwareScrollView enableOnAndroid keyboardShouldPersistTaps="handled">
                 <View style={[styles.container, styles.start]}>
                 <TouchableOpacity style={styles.center} onPress={this.openPhotoLib} >
                     <Image style={styles.roundImageBig} source={{ uri: this.props.user.photo }} />

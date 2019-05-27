@@ -33,7 +33,9 @@ class Post extends React.Component {
 
   onWillFocus = () => {
     const { params } = this.props.navigation.state
-    if(!params.photo){
+    if(params){
+      // this.props.clearPost();
+    } else{
       this.props.clearPost();
     }
   }

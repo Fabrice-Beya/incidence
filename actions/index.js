@@ -58,12 +58,14 @@ export const sendNotification = (uid, text, data) => {
                     },
                     body: JSON.stringify({
                         to: user.data().token,
-                        sound: "default",
+                        sound: 'default',
                         title: fullname,
                         body: text,
                         data: data,
                         android: {
-                            channelId: 'incidence-channel',
+                            channelId: "incidence-notifs",
+                            sound: true,
+                            vibrate: true,
                         },
                     })
                 })

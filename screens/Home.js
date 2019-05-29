@@ -12,6 +12,8 @@ import { Notifications } from 'expo';
 import { getMessages } from '../actions/message'
 import { updateScreen } from '../actions/screen';
 import { Ionicons } from '@expo/vector-icons';
+import { clearPost } from '../actions/post';
+
 
 
 class Home extends React.Component {
@@ -30,12 +32,12 @@ class Home extends React.Component {
 
   _handleNotification = (notification) => {
     this.setState({ notification: notification });
-    if (notification.data.PostId && notification.origin === 'selected') {
+    if (notification.data && notification.data.PostId && notification.origin === 'selected') {
       const post = this.props.feed.find(obj => obj.id == notification.data.PostId);
       this.props.updatePostLocal(post);
       this.props.navigation.navigate('PostDetail', { post: post })
     }
-    if (notification.data.RecieverId === this.props.user.uid) {
+    if (notification.data && notification.data.RecieverId === this.props.user.uid) {
       this.props.getMessages();
 
       if (notification.data.SenderId && this.props.screen !== 'Chat' && notification.origin === 'selected') {
@@ -50,6 +52,7 @@ class Home extends React.Component {
 
   onWillFocus = () => {
     this.props.updateScreen('Home');
+    this.props.clearPost();
   }
 
   navigatePost = (item) => {
@@ -153,12 +156,13 @@ const mapStateToProps = (state) => {
     user: state.user,
     feed: state.feed,
     messages: state.messages,
-    screen: state.screen
+    screen: state.screen,
+    post: state.post
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ getPosts, updateScreen, getMessages, updatePostLocal, likePost, unlikePost }, dispatch)
+  return bindActionCreators({ getPosts,clearPost, updateScreen, getMessages, updatePostLocal, likePost, unlikePost }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

@@ -24,7 +24,7 @@ export const HomeNavigator = createAppContainer(createStackNavigator({
     navigationOptions: ({ navigation }) => ({
       headerTitle: <Image style={{ width: 115, height: 27 }} source={require('../assets/logo.png')} />,
       headerRight: (
-        <TouchableOpacity onPress={() => navigation.navigate('Post')}  >
+        <TouchableOpacity onPress={() => navigation.navigate('Post', {isCamera: false})}  >
           <Ionicons style={{ marginRight: 12 }} name={Platform.select({ ios: 'ios-add', android: 'md-add', })} size={35} />
         </TouchableOpacity>
       ),

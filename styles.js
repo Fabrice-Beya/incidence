@@ -104,12 +104,12 @@ export default styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginTop: 20,
-    paddingVertical: 5,
+    paddingVertical: 8,
     alignItems: 'center',
     borderColor: '#d3d3d3',
     borderWidth: 1,
     borderRadius: 5,
-    width: 280,
+    width: 260,
     backgroundColor: '#333333',
   },
   buttonCamera: {
@@ -121,7 +121,7 @@ export default styles = StyleSheet.create({
     alignItems: 'center',
     borderColor: '#d3d3d3',
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: 8,
     width: 250,
     backgroundColor: '#333333',
   },
@@ -134,12 +134,12 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#3b5998',
     margin: 20,
-    paddingVertical: 5,
+    paddingVertical: 8,
     alignItems: 'center',
     borderColor: '#3b5998',
     borderWidth: 1,
     borderRadius: 5,
-    width: 280
+    width: 260
   },
   border: {
     width: '85%',

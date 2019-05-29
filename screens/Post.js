@@ -32,9 +32,9 @@ class Post extends React.Component {
   }
 
   onWillFocus = () => {
-    const { params } = this.props.navigation.state
-    if(params){
+    if(this.props.navigation.state.params && this.props.navigation.state.params.isCamera){
       // this.props.clearPost();
+      
     } else{
       this.props.clearPost();
     }

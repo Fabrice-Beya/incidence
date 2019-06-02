@@ -9,14 +9,14 @@ const user = (state = {}, action) => {
         case 'UPDATE_fullname':
             return { ...state, fullname: action.payload }
         case 'UPDATE_LOCATION':
-            return {...state, location: action.payload}
+            return { ...state, location: action.payload }
         case 'UPDATE_RESIDENCE':
             return { ...state, residence: action.payload }
         case 'UPDATE_UNIT':
             return { ...state, unit: action.payload }
         case 'UPDATE_PHOTO':
             return { ...state, photo: action.payload }
-        case 'GET_TOKEN': 
+        case 'GET_TOKEN':
             return { ...state, token: action.payload }
         case 'LOGIN':
             return action.payload
@@ -49,56 +49,58 @@ const screen = (state = {}, action) => {
     }
 }
 
-const post = (state ={}, action) => {
+const post = (state = {}, action) => {
     switch (action.type) {
         case 'UPDATE_TITLE':
-            return {...state, title: action.payload}
+            return { ...state, title: action.payload }
         case 'UPDATE_CATAGORY':
-            return {...state, catagory: action.payload}
+            return { ...state, catagory: action.payload }
         case 'UPDATE_LOGGED_DATE':
-            return {...state, loggedDate: action.payload}
+            return { ...state, loggedDate: action.payload }
         case 'UPDATE_INCIDENCE_DATE':
-            return {...state, incidenceDate: action.payload}
+            return { ...state, incidenceDate: action.payload }
         case 'UPDATE_DESCRIPTION':
-            return {...state, description: action.payload}
+            return { ...state, description: action.payload }
         case 'UPDATE_PHOTOS':
-            return {...state, postPhotos: action.payload}
+            return { ...state, postPhotos: action.payload }
         case 'UPDATE_LOCATION':
-            return {...state, location: action.payload}
+            return { ...state, location: action.payload }
         case 'UPDATE_POST':
-            return  action.payload;
+            return action.payload;
         case 'CLEAR_POST':
-            return  action.payload;
+            return action.payload;
         case 'UPDATE_COMMENT':
-            return {...state, comment: action.payload}
+            return { ...state, comment: action.payload }
         case 'UPDATE_STATUS':
-            return {...state, status: action.payload}
+            return { ...state, status: action.payload }
+        case 'UPDATE_PRIVACY':
+            return { ...state, isPrivate: action.payload }
         default:
             return state
     }
-}  
+}
 
 const messages = (state = {}, action) => {
     switch (action.type) {
-      case 'GET_MESSAGES':
-        return action.payload
-      default:
-        return state
+        case 'GET_MESSAGES':
+            return action.payload
+        default:
+            return state
     }
-  }
+}
 
-  const comments = (state = [], action) => {
+const comments = (state = [], action) => {
     switch (action.type) {
-      case 'GET_COMMENTS':
-        return action.payload
-    case 'UPDATE_COMMENTS':
-        return action.payload
-      default:
-        return state
+        case 'GET_COMMENTS':
+            return action.payload
+        case 'UPDATE_COMMENTS':
+            return action.payload
+        default:
+            return state
     }
-  }
+}
 
-const feed = (state =null, action) => {
+const feed = (state = null, action) => {
     switch (action.type) {
         case 'GET_POSTS':
             return action.payload;
@@ -110,7 +112,7 @@ const feed = (state =null, action) => {
 const rootReducer = combineReducers({
     user,
     post,
-    feed, 
+    feed,
     profile,
     messages,
     comments,

@@ -35,6 +35,26 @@ export const updateStatus = (text) => {
     return { type: 'UPDATE_STATUS', payload: text }
 }
 
+export const updatePrivacy = () => {
+    return async (dispatch, getState) => {
+        try {
+            const post = getState().post;
+            let value = false
+            if(post.isPrivate){
+                value = !isPrivate
+            } else {
+                value = true
+            }
+
+            return { type: 'UPDATE_PRIVACY', payload: value }
+
+        } catch (e) {
+            alert(e)
+        }
+
+    }
+}
+
 export const clearPost = () => {
     return { type: 'CLEAR_POST', payload: {state: 'empty'} }
 }
@@ -76,7 +96,8 @@ export const uploadPost = () => {
                 unit: user.unit,
                 photo: user.photo || ' ',
                 likes: [],
-                status: 'Open'
+                status: 'Open',
+                isPrivate: post.isPrivate
             }
             const ref = await db.collection('posts').doc();
             upload.id = ref.id;
@@ -220,7 +241,8 @@ export const postComment = (text) => {
                 actorName: user.fullname,
                 uid: user.uid,
                 date: new Date().getTime(),
-                type: 'COMMENT'
+                type: 'COMMENT',
+                
             })
             dispatch(sendNotification(post.uid, 'Commented On Your Incident', {Route: 'Comment',  PostId: post.id}))
             return { type: 'UPDATE_COMMENTS', payload: comments }

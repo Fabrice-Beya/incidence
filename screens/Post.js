@@ -1,6 +1,7 @@
 import React from 'react';
 import { Picker } from 'native-base';
-import { Text, View, TextInput, TouchableOpacity, Image, ScrollView, ActivityIndicator, Platform, navigation } from 'react-native';
+import { Text, View,Switch, TextInput, TouchableOpacity, Image, ScrollView, ActivityIndicator, Platform, navigation } from 'react-native';
+import { CheckBox } from 'native-base';
 import { NavigationEvents } from 'react-navigation';
 import { Textarea } from 'native-base';
 import styles from '../styles';
@@ -10,8 +11,9 @@ import { Permissions, ImagePicker, Location } from 'expo';
 import { uploadPhoto } from '../actions/index'
 import { Ionicons } from '@expo/vector-icons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { updateTitle, updateCatagory, updateIncidenceDate, updatePostLocal, updateDescription, updateLocation, updatePhotos, uploadPost, clearPost } from '../actions/post';
+import { updateTitle, updateCatagory, updatePrivacy, updateIncidenceDate, updatePostLocal, updateDescription, updateLocation, updatePhotos, uploadPost, clearPost } from '../actions/post';
 import moment from 'moment'
+
 
 class Post extends React.Component {
 
@@ -102,10 +104,10 @@ class Post extends React.Component {
             selectedValue={this.props.post.catagory}
             placeholder="Choose a Catagory"
             placeholderStyle={{ textAlign: 'center' }}
-            onValueChange={(itemValue, itemIndex) =>
+            onValueChange={(itemValue) =>
               this.props.updateCatagory(itemValue)}
-            style={{ width: '80%', height: 50 }}
-            itemStyle={{ textAlign: 'center' }}>
+            style={{ width: '80%', textAlign: 'center', height: 50 }}
+            itemStyle={{ textAlign: 'center', textAlign:"center" }}>
             <Picker.Item label="Choose a Catagory" value="Other" />
             <Picker.Item label="Complaint" value="Complain" />
             <Picker.Item label="Damage" value="Damage" />
@@ -115,6 +117,10 @@ class Post extends React.Component {
             <Picker.Item label="General Notice" value="General Notice" />
             <Picker.Item label="Other" value="Other" />
           </Picker>
+          <Text>Keep this private?</Text>
+         <Switch
+            value = {this.props.post.isPrivate}
+            onValueChange={() => this.props.updatePrivacy()}/>
 
           <Text style={{ marginVertical: 10 }}>Please describe your incidence below:</Text>
           <Textarea
@@ -161,7 +167,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ updateTitle, updatePostLocal, updateCatagory, clearPost, updateIncidenceDate, updateDescription, updateLocation, uploadPost, updatePhotos, uploadPhoto }, dispatch)
+  return bindActionCreators({ updateTitle,updatePrivacy, updatePostLocal, updateCatagory, clearPost, updateIncidenceDate, updateDescription, updateLocation, uploadPost, updatePhotos, uploadPhoto }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post)

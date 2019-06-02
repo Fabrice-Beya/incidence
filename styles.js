@@ -195,10 +195,10 @@ export default styles = StyleSheet.create({
     marginVertical: 15,
     padding: 5,
     textAlign: 'left',
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: '#333333',
-    height: 200
+    // borderWidth: 1,
+    // borderRadius: 5,
+    // borderColor: '#333333',
+    height: 250
   },
   pickerBorder: {
     width: 250,
